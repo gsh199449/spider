@@ -11,7 +11,7 @@
 <html>
 <head>
     <title>爬虫模板测试系统</title>
-    <%@include file="/pages/commons/header.jsp" %>
+    <%@include file="../../commons/header.jsp" %>
     <script>
         function jsonStringify(data, space) {
             var seen = [];
