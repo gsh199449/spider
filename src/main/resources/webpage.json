@@ -1,0 +1,124 @@
+{
+  "webpage": {
+    "dynamic_templates": [
+      {
+        "strings": {
+          "match_mapping_type": "text",
+          "mapping": {
+            "type": "text",
+            "analyzer": "index_ansj",
+            "search_analyzer": "query_ansj",
+            "include_in_all": true,
+            "fields": {
+              "raw": {
+                "type": "keyword"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "properties": {
+      "content": {
+        "type": "text",
+        "analyzer": "index_ansj",
+        "search_analyzer": "query_ansj",
+        "include_in_all": true,
+        "store": true
+      },
+      "title": {
+        "type": "text",
+        "analyzer": "index_ansj",
+        "search_analyzer": "query_ansj",
+        "include_in_all": true,
+        "store": true
+      },
+      "dateStr": {
+        "type": "keyword"
+      },
+      "url": {
+        "type": "keyword"
+      },
+      "source": {
+        "type": "text",
+        "analyzer": "index_ansj",
+        "search_analyzer": "query_ansj",
+        "include_in_all": true,
+        "fields": {
+          "raw": {
+            "type": "keyword"
+          }
+        }
+      },
+      "id": {
+        "type": "keyword"
+      },
+      "spiderInfo": {
+        "type": "keyword"
+      },
+      "gatherTime": {
+        "type": "date"
+      },
+      "domain": {
+        "type": "keyword"
+      },
+      "spiderUUID": {
+        "type": "keyword"
+      },
+      "keywords": {
+        "type": "keyword"
+      },
+      "summary": {
+        "type": "text",
+        "analyzer": "index_ansj",
+        "search_analyzer": "query_ansj",
+        "include_in_all": true,
+        "store": true
+      },
+      "namedEntity": {
+        "properties": {
+          "nr": {
+            "type": "keyword"
+          },
+          "ns": {
+            "type": "keyword"
+          },
+          "nt": {
+            "type": "keyword"
+          }
+        }
+      },
+      "publishTime": {
+        "type": "date"
+      },
+      "category": {
+        "type": "text",
+        "analyzer": "index_ansj",
+        "search_analyzer": "query_ansj",
+        "include_in_all": true,
+        "fields": {
+          "raw": {
+            "type": "keyword"
+          }
+        }
+      },
+      "rawHTML": {
+        "type": "binary",
+        "include_in_all": false
+      },
+      "dynamic_fields": {
+        "dynamic": true,
+        "properties": {}
+      },
+      "attachmentList": {
+        "type": "keyword"
+      },
+      "imageList": {
+        "type": "keyword"
+      },
+      "processTime": {
+        "type": "long"
+      }
+    }
+  }
+}

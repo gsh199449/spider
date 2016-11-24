@@ -1,0 +1,108 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="spider:war exploded">
+    <output-path>$PROJECT_DIR$/target/spider</output-path>
+    <root id="root">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="spider" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="Maven: commons-httpclient:commons-httpclient:3.0.1" />
+          <element id="library" level="project" name="Maven: commons-logging:commons-logging:1.0.3" />
+          <element id="library" level="project" name="Maven: commons-codec:commons-codec:1.2" />
+          <element id="library" level="project" name="Maven: com.google.code.gson:gson:2.2.4" />
+          <element id="library" level="project" name="Maven: org.apache.logging.log4j:log4j-api:2.6.2" />
+          <element id="library" level="project" name="Maven: org.apache.logging.log4j:log4j-core:2.6.2" />
+          <element id="library" level="project" name="Maven: org.apache.logging.log4j:log4j-web:2.6.2" />
+          <element id="library" level="project" name="Maven: org.apache.logging.log4j:log4j-jcl:2.6.2" />
+          <element id="library" level="project" name="Maven: org.apache.logging.log4j:log4j-slf4j-impl:2.6.2" />
+          <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.7.21" />
+          <element id="library" level="project" name="Maven: commons-io:commons-io:2.1" />
+          <element id="library" level="project" name="Maven: org.jsoup:jsoup:1.8.3" />
+          <element id="library" level="project" name="Maven: org.apache.commons:commons-lang3:3.4" />
+          <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpclient:4.5.2" />
+          <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpcore:4.4.4" />
+          <element id="library" level="project" name="Maven: com.google.guava:guava:18.0" />
+          <element id="library" level="project" name="Maven: org.elasticsearch.client:transport:5.0.1" />
+          <element id="library" level="project" name="Maven: org.elasticsearch:elasticsearch:5.0.1" />
+          <element id="library" level="project" name="Maven: org.apache.lucene:lucene-core:6.2.1" />
+          <element id="library" level="project" name="Maven: org.apache.lucene:lucene-analyzers-common:6.2.1" />
+          <element id="library" level="project" name="Maven: org.apache.lucene:lucene-backward-codecs:6.2.1" />
+          <element id="library" level="project" name="Maven: org.apache.lucene:lucene-grouping:6.2.1" />
+          <element id="library" level="project" name="Maven: org.apache.lucene:lucene-highlighter:6.2.1" />
+          <element id="library" level="project" name="Maven: org.apache.lucene:lucene-join:6.2.1" />
+          <element id="library" level="project" name="Maven: org.apache.lucene:lucene-memory:6.2.1" />
+          <element id="library" level="project" name="Maven: org.apache.lucene:lucene-misc:6.2.1" />
+          <element id="library" level="project" name="Maven: org.apache.lucene:lucene-queries:6.2.1" />
+          <element id="library" level="project" name="Maven: org.apache.lucene:lucene-queryparser:6.2.1" />
+          <element id="library" level="project" name="Maven: org.apache.lucene:lucene-sandbox:6.2.1" />
+          <element id="library" level="project" name="Maven: org.apache.lucene:lucene-spatial:6.2.1" />
+          <element id="library" level="project" name="Maven: org.apache.lucene:lucene-spatial-extras:6.2.1" />
+          <element id="library" level="project" name="Maven: org.apache.lucene:lucene-spatial3d:6.2.1" />
+          <element id="library" level="project" name="Maven: org.apache.lucene:lucene-suggest:6.2.1" />
+          <element id="library" level="project" name="Maven: org.elasticsearch:securesm:1.1" />
+          <element id="library" level="project" name="Maven: net.sf.jopt-simple:jopt-simple:5.0.2" />
+          <element id="library" level="project" name="Maven: com.carrotsearch:hppc:0.7.1" />
+          <element id="library" level="project" name="Maven: joda-time:joda-time:2.9.5" />
+          <element id="library" level="project" name="Maven: org.yaml:snakeyaml:1.15" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.dataformat:jackson-dataformat-smile:2.8.1" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.8.1" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.dataformat:jackson-dataformat-cbor:2.8.1" />
+          <element id="library" level="project" name="Maven: com.tdunning:t-digest:3.0" />
+          <element id="library" level="project" name="Maven: org.hdrhistogram:HdrHistogram:2.1.6" />
+          <element id="library" level="project" name="Maven: net.java.dev.jna:jna:4.2.2" />
+          <element id="library" level="project" name="Maven: org.elasticsearch.plugin:transport-netty3-client:5.0.1" />
+          <element id="library" level="project" name="Maven: io.netty:netty:3.10.6.Final" />
+          <element id="library" level="project" name="Maven: org.elasticsearch.plugin:transport-netty4-client:5.0.1" />
+          <element id="library" level="project" name="Maven: io.netty:netty-buffer:4.1.5.Final" />
+          <element id="library" level="project" name="Maven: io.netty:netty-codec:4.1.5.Final" />
+          <element id="library" level="project" name="Maven: io.netty:netty-codec-http:4.1.5.Final" />
+          <element id="library" level="project" name="Maven: io.netty:netty-common:4.1.5.Final" />
+          <element id="library" level="project" name="Maven: io.netty:netty-handler:4.1.5.Final" />
+          <element id="library" level="project" name="Maven: io.netty:netty-resolver:4.1.5.Final" />
+          <element id="library" level="project" name="Maven: io.netty:netty-transport:4.1.5.Final" />
+          <element id="library" level="project" name="Maven: org.elasticsearch.plugin:reindex-client:5.0.1" />
+          <element id="library" level="project" name="Maven: org.elasticsearch.client:rest:5.0.1" />
+          <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpasyncclient:4.1.2" />
+          <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpcore-nio:4.4.5" />
+          <element id="library" level="project" name="Maven: org.elasticsearch.plugin:lang-mustache-client:5.0.1" />
+          <element id="library" level="project" name="Maven: com.github.spullara.mustache.java:compiler:0.9.3" />
+          <element id="library" level="project" name="Maven: org.elasticsearch.plugin:percolator-client:5.0.1" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-context:4.1.9.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-expression:4.1.9.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-web:4.1.9.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-beans:4.1.9.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-core:4.1.9.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-aop:4.1.9.RELEASE" />
+          <element id="library" level="project" name="Maven: aopalliance:aopalliance:1.0" />
+          <element id="library" level="project" name="Maven: jstl:jstl:1.2" />
+          <element id="library" level="project" name="Maven: taglibs:standard:1.1.2" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-webmvc:4.1.9.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-test:4.1.9.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-context-support:4.1.9.RELEASE" />
+          <element id="library" level="project" name="Maven: org.aspectj:aspectjrt:1.8.8" />
+          <element id="library" level="project" name="Maven: org.aspectj:aspectjweaver:1.8.8" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-core:2.6.1" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.6.1" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.6.1" />
+          <element id="library" level="project" name="Maven: us.codecraft:webmagic-core:0.5.3" />
+          <element id="library" level="project" name="Maven: us.codecraft:xsoup:0.3.1" />
+          <element id="library" level="project" name="Maven: org.assertj:assertj-core:1.5.0" />
+          <element id="library" level="project" name="Maven: commons-collections:commons-collections:3.2.1" />
+          <element id="library" level="project" name="Maven: com.jayway.jsonpath:json-path:0.8.1" />
+          <element id="library" level="project" name="Maven: net.minidev:json-smart:1.1.1" />
+          <element id="library" level="project" name="Maven: commons-lang:commons-lang:2.6" />
+          <element id="library" level="project" name="Maven: com.alibaba:fastjson:1.1.37" />
+          <element id="library" level="project" name="Maven: us.codecraft:webmagic-extension:0.5.3" />
+          <element id="library" level="project" name="Maven: com.hankcs:hanlp:portable-1.2.9" />
+          <element id="library" level="project" name="Maven: redis.clients:jedis:2.9.0" />
+          <element id="library" level="project" name="Maven: org.apache.commons:commons-pool2:2.4.2" />
+        </element>
+      </element>
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/target/spider/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="javaee-facet-resources" facet="spider/web/Web" />
+    </root>
+  </artifact>
+</component>

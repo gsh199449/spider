@@ -1,0 +1,53 @@
+<beans xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+      http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+      http://www.springframework.org/schema/context
+      http://www.springframework.org/schema/context/spring-context.xsd
+      http://www.springframework.org/schema/mvc
+      http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+      http://www.springframework.org/schema/aop
+      http://www.springframework.org/schema/aop/spring-aop-3.2.xsd">
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
+    <mvc:annotation-driven>
+        <mvc:message-converters>
+            <bean class="org.springframework.http.converter.json.GsonHttpMessageConverter"/>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+    <mvc:resources location="/js/" mapping="/js/**" cache-period="2592000"/>
+    <mvc:resources location="/css/" mapping="/css/**" cache-period="2592000"/>
+
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/pages/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+    <bean class="com.gs.spider.gather.commons.CommonSpider" name="commonSpider">
+        <constructor-arg name="staticValue" ref="staticValue"/>
+        <constructor-arg name="taskManager" ref="taskManager"/>
+        <property name="commonWebpageDAO" ref="commonWebpageDAO"/>
+        <property name="spiderInfoDAO" ref="spiderInfoDAO"/>
+        <property name="commonWebpagePipeline" ref="commonWebpagePipeline"/>
+        <property name="contentLengthLimitHttpClientDownloader" ref="contentLengthLimitHttpClientDownloader"/>
+        <property name="keywordsExtractor" ref="HANLPExtractor"/>
+        <property name="summaryExtractor" ref="HANLPExtractor"/>
+        <property name="namedEntitiesExtractor" ref="HANLPExtractor"/>
+        <!--普通网页爬虫数据输出管道配置-->
+        <property name="pipelineList">
+            <list>
+                <!--Redis输出-->
+                <ref bean="commonWebpageRedisPipeline"/>
+            </list>
+        </property>
+    </bean>
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <array>
+            </array>
+        </property>
+        <property name="fileEncoding" value="utf-8"/>
+    </bean>
+    <context:component-scan base-package="com.gs.spider.**"/>
+</beans>

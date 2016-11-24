@@ -1,0 +1,121 @@
+{
+  "spiderinfo": {
+    "properties": {
+      "charset": {
+        "type": "keyword"
+      },
+      "defaultCategory": {
+        "type": "keyword"
+      },
+      "publishTimeXPath": {
+        "type": "keyword"
+      },
+      "siteName": {
+        "type": "text",
+        "analyzer": "index_ansj",
+        "search_analyzer": "query_ansj",
+        "include_in_all": true,
+        "fields": {
+          "raw": {
+            "type": "keyword"
+          }
+        }
+      },
+      "gatherFirstPage": {
+        "type": "boolean"
+      },
+      "timeout": {
+        "type": "long"
+      },
+      "sleep": {
+        "type": "long"
+      },
+      "startURL": {
+        "type": "keyword"
+      },
+      "doNLP": {
+        "type": "boolean"
+      },
+      "titleReg": {
+        "type": "keyword"
+      },
+      "callbackURL": {
+        "type": "keyword"
+      },
+      "titleXPath": {
+        "type": "keyword"
+      },
+      "publishTimeReg": {
+        "type": "keyword"
+      },
+      "categoryReg": {
+        "type": "keyword"
+      },
+      "retry": {
+        "type": "long"
+      },
+      "contentReg": {
+        "type": "keyword"
+      },
+      "categoryXPath": {
+        "type": "keyword"
+      },
+      "needContent": {
+        "type": "boolean"
+      },
+      "needPublishTime": {
+        "type": "boolean"
+      },
+      "contentXPath": {
+        "type": "keyword"
+      },
+      "ajaxSite": {
+        "type": "boolean"
+      },
+      "needTitle": {
+        "type": "boolean"
+      },
+      "thread": {
+        "type": "long"
+      },
+      "priority": {
+        "type": "long"
+      },
+      "publishTimeFormat": {
+        "type": "keyword"
+      },
+      "domain": {
+        "type": "keyword"
+      },
+      "urlReg": {
+        "type": "keyword"
+      },
+      "maxPageGather": {
+        "type": "long"
+      },
+      "lang": {
+        "type": "keyword"
+      },
+      "country": {
+        "type": "keyword"
+      },
+      "dynamicFields": {
+        "type": "nested",
+        "properties": {
+          "regex": {
+            "type": "keyword"
+          },
+          "xpath": {
+            "type": "keyword"
+          },
+          "name": {
+            "type": "keyword"
+          },
+          "need": {
+            "type": "boolean"
+          }
+        }
+      }
+    }
+  }
+}

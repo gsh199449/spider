@@ -1,0 +1,15 @@
+{
+  "esHost": "localhost",
+  "esClusterName": "elasticsearch",
+  "commonsIndex": "commons",
+  "maxHttpDownloadLength": 1048576,
+  "commonsSpiderDebug": false,
+  "taskDeleteDelay": 1,
+  "taskDeletePeriod": 2,
+  "limitOfCommonWebpageDownloadQueue": 100000,
+  "needRedis": false,
+  "redisPort": 6379,
+  "redisHost": "localhost",
+  "webpageRedisPublishChannelName": "webpage",
+  "commonsWebpageCrawlRatio": 2
+}
