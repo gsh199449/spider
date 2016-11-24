@@ -15,9 +15,8 @@
 <%@include file="../../commons/head.jsp" %>
 <div class="container">
     <div class="jumbotron">
-        <h1 class="display-2">数据存储中心控制台</h1>
-        <p class="lead">
-            数据存储中心控制台。</p>
+        <h1 class="display-2">欢迎来到数据采集平台</h1>
+        <p class="lead">请选择上方导航栏中的功能</p>
     </div>
 </div>
 </body>

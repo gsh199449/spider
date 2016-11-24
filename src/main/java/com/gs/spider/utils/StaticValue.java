@@ -60,7 +60,6 @@ public class StaticValue {
             this.esHost = jsonObject.get("esHost").getAsString();
             this.esClusterName = jsonObject.get("esClusterName").getAsString();
             this.commonsIndex = jsonObject.get("commonsIndex").getAsString();
-            this.commonSpiderTaskManagerPort = jsonObject.get("commonSpiderTaskManagerPort").getAsInt();
             this.maxHttpDownloadLength = jsonObject.get("maxHttpDownloadLength").getAsLong();
             this.commonsSpiderDebug = jsonObject.get("commonsSpiderDebug").getAsBoolean();
             this.taskDeleteDelay = jsonObject.get("taskDeleteDelay").getAsInt();

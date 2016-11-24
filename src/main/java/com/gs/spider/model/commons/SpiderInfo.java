@@ -126,10 +126,6 @@ public class SpiderInfo {
      */
     private boolean needPublishTime = false;
     /**
-     * 是否是ajax网站,如果是则使用casperjs下载器
-     */
-    private boolean ajaxSite = false;
-    /**
      * 动态字段列表
      */
     private List<FieldConfig> dynamicFields = Lists.newLinkedList();
@@ -410,15 +406,6 @@ public class SpiderInfo {
         return this;
     }
 
-    public boolean isAjaxSite() {
-        return ajaxSite;
-    }
-
-    public SpiderInfo setAjaxSite(boolean ajaxSite) {
-        this.ajaxSite = ajaxSite;
-        return this;
-    }
-
     public String getLang() {
         return lang;
     }
@@ -502,7 +489,6 @@ public class SpiderInfo {
                 .append(isNeedTitle(), that.isNeedTitle())
                 .append(isNeedContent(), that.isNeedContent())
                 .append(isNeedPublishTime(), that.isNeedPublishTime())
-                .append(isAjaxSite(), that.isAjaxSite())
                 .append(getSiteName(), that.getSiteName())
                 .append(getDomain(), that.getDomain())
                 .append(getStartURL(), that.getStartURL())
@@ -557,7 +543,6 @@ public class SpiderInfo {
                 .append(isNeedTitle())
                 .append(isNeedContent())
                 .append(isNeedPublishTime())
-                .append(isAjaxSite())
                 .append(getLang())
                 .append(getCountry())
                 .append(getUserAgent())
