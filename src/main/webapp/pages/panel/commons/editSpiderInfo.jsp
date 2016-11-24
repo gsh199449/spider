@@ -462,7 +462,7 @@
                            placeholder="发布时间模板" value="${spiderInfo.publishTimeFormat}">
                 </div>
                 <div class="form-group" id="dynamicFields">
-                    <button type="button" onclick="addDynamicField()" class="btn btn-info">添加动态字段(Experimental!)
+                    <button type="button" onclick="addDynamicField()" class="btn btn-info">添加动态字段
                     </button>
                     <c:forEach items="${spiderInfo.dynamicFields}" var="field" varStatus="index">
                         <div id="dynamicField${index.count}" class="dynamicField" name="${field.name}">
@@ -494,7 +494,7 @@
                     </c:forEach>
                 </div>
                 <div class="form-group" id="staticFields">
-                    <button type="button" onclick="addStaticField()" class="btn btn-info">添加静态字段(Experimental!)
+                    <button type="button" onclick="addStaticField()" class="btn btn-info">添加静态字段
                     </button>
                     <c:forEach items="${spiderInfo.staticFields}" var="field" varStatus="index">
                         <div id="staticField${index.count}" class="staticField" name="${field.name}">

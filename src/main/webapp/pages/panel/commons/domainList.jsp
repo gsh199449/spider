@@ -20,9 +20,8 @@
         <tr>
             <th>#</th>
             <th>网站域名</th>
-            <th>资讯数</th>
+            <th>网页数</th>
             <th>查看列表</th>
-            <th>词云</th>
             <th>删除</th>
         </tr>
         </thead>
@@ -33,10 +32,7 @@
                 <td>${domain.key}</td>
                 <td>${domain.value}</td>
                 <td><a class="btn btn-info"
-                       href="${pageContext.request.contextPath}/panel/commons/list?domain=${domain.key}">查看资讯列表</a></td>
-                <td><a class="btn btn-primary"
-                       onclick="showWordCloud('${pageContext.request.contextPath}/panel/commons/wordCount', {domain: '${domain.key}'});">资讯智能分析</a>
-                </td>
+                       href="${pageContext.request.contextPath}/panel/commons/list?domain=${domain.key}">查看数据列表</a></td>
                 <td><a class="btn btn-danger"
                        onclick="rpcAndShowData('${pageContext.request.contextPath}/commons/webpage/deleteByDomain', {domain: '${domain.key}'});">删除网站数据</a>
                 </td>

@@ -110,12 +110,6 @@
         "dynamic": true,
         "properties": {}
       },
-      "attachmentList": {
-        "type": "keyword"
-      },
-      "imageList": {
-        "type": "keyword"
-      },
       "processTime": {
         "type": "long"
       }
