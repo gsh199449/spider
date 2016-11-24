@@ -67,22 +67,22 @@ Gather Platform 数据抓取平台是一套基于[Webmagic](https://github.com/c
 
   部署完成后打开浏览器,访问 `http://localhost:8080/spider` 打开采集平台首页,点击导航栏的下拉菜单选择功能.
 
-  ![数据采集平台首页](/doc/img/home.png)
+  ![数据采集平台首页](https://github.com/gsh199449/spider/raw/master/doc/img/home.png)
 
 
 ### 配置爬虫模板
 
   在导航栏的下拉菜单中点击 `编辑模板`  按钮,在这个页面中可完成一个爬虫的所有配置,具体每一个配置项的说明见每一个输入框的提示.
 
-![编辑模板](/doc/img/spiderinfo.png)
+![编辑模板](https://github.com/gsh199449/spider/raw/master/doc/img/spiderinfo.png)
 
   爬虫模板配置完成后,点击下面的 `采集样例数据` 按钮,稍等片刻即可在下方展示根据刚刚配置的模板抓取的数据,如果数据有误在上面的模板中进行修改,然后再次点击 `采集样例数据` 按钮即可重新抓取.
 
-  ![采集样例数据](/doc/img/testSpiderinfo.png)
+  ![采集样例数据](https://github.com/gsh199449/spider/raw/master/doc/img/testSpiderinfo.png)
 
   注意,在对于爬虫模板没有完全的把握之前请勿选择爬虫模板下方的几个 `是否网页必须有XXX` 的配置项.以文章的标题为例,因为如果文章标题的配置项(即为title)配置有误,爬虫就无法抓取到网页的标题,如果这时再选中了 `是否网页必须有标题` 的话,就会导致爬虫无限制的进行抓取.
 
-  ![needXXX](/doc/img/need.png)
+  ![needXXX](https://github.com/gsh199449/spider/raw/master/doc/img/need.png)
 
   当模板配置完毕,即可点击下方的 `导出模板` 按钮,这时下方的大输入框中显示的Json格式的文字即为爬虫模板,可以将段文字保存到文本文件中,以便以后使用,也可以点击 `存储此模板` 对这个模板进行存储,以后可在本平台的 `爬虫模板管理系统` 中查找.
 
@@ -90,7 +90,7 @@ Gather Platform 数据抓取平台是一套基于[Webmagic](https://github.com/c
 
   在导航栏中点击查看进度就可以看到当前爬虫的运行状况,在这个界面中可以实现对爬虫的停止,删除,查看进度,查看已抓取的数据,查看模板等操作.
 
-  ![spiderList](/doc/img/spiderList.png)
+  ![spiderList](https://github.com/gsh199449/spider/raw/master/doc/img/spiderList.png)
 
   注意,按照采集平台默认配置,这里的所有爬虫运行记录将在每两个小时对于已经完成的爬虫进行删除.如果不想让系统定时自动删除任何爬虫记录,或者改变删除记录的时间周期,请参阅高级配置中对于配置文件的解释部分.
 
@@ -98,13 +98,13 @@ Gather Platform 数据抓取平台是一套基于[Webmagic](https://github.com/c
 
   点击导航栏下拉菜单中的搜索,即可看到目前Elasticsearch库中存储的所有网页数据,这些网页数据在默认情况下是按照抓取时间进行排序的,也就是说,在导航栏点击 `搜索` 之后,展示的第一条数据就是最新抓取的数据.
 
-  ![search](/doc/img/search.png)
+  ![search](https://github.com/gsh199449/spider/raw/master/doc/img/search.png)
 
   在搜索页面是上方可以通过输入关键词对所有已抓取的网页数据进行搜索,也可以指定网站域名查看指定网站的所有数据.如果是指定关键词进行搜索则搜索结果是按照与输入的关键词的相关度进行排序的,如果是输入域名,查看某一网站的所有数据则按照抓取时间进行排序,最新抓取的数据在最上方.
 
   点击导航栏中的 `网站列表` 按钮即可查看目前已经抓取的数据中都是那些网站的信息,对于每个网站都可以点击 `查看数据列表` 按钮查看该网站的所有数据.点击 `删除网站数据` 即可删除该网站下的所有数据.
 
-  ![domainList](/doc/img/domainList.png)
+  ![domainList](https://github.com/gsh199449/spider/raw/master/doc/imgs/domainList.png)
 
 
 ### 高级使用
@@ -113,7 +113,7 @@ Gather Platform 数据抓取平台是一套基于[Webmagic](https://github.com/c
 
   在配置网页模板时,有一个 `添加动态字段` 按钮,这个功能是为了抓取那些不在预设字段里的其他字段所设计.举例来说,目前爬虫模板可以配置的预设字段有:标题,正文,发布时间等等.如果我们想抓取文章的作者或者文章的发布文号,这时就需要使用动态字段来实现.
 
-  ![动态字段](/doc/img/dynamic.png)
+  ![动态字段](https://github.com/gsh199449/spider/raw/master/doc/img/dynamic.png)
 
   点击 `添加动态字段` 按钮,在弹出的输入框中输入要抓取的字段名称,我们以要抓取文章的作者为例,在框中输入author. 注意这个动态字段的名称必须使用英文名称.之后再模板编辑页面就多出来的两个输入框,一个是author Reg,一个是author XPath,其中一个是配置作者字段的正则表达式,另一个是配置作者字段的XPath表达式,这两个选其一即可.
 
