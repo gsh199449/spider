@@ -7,7 +7,7 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4b864787-4a0d-405d-894b-c5fa0defbf1c" name="Default" comment="修正动态字段模态框不弹出的问题&#10;修改说明文档">
+    <list default="true" id="4b864787-4a0d-405d-894b-c5fa0defbf1c" name="Default" comment="修改说明文档图片">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
     </list>
@@ -878,7 +878,7 @@
       <option name="presentableId" value="Default" />
       <updated>1479947496067</updated>
       <workItem from="1479947499809" duration="4255000" />
-      <workItem from="1479967446151" duration="4839000" />
+      <workItem from="1479967446151" duration="5118000" />
     </task>
     <task id="LOCAL-00001" summary="系统完善">
       <created>1479970819600</created>
@@ -901,11 +901,18 @@
       <option name="project" value="LOCAL" />
       <updated>1479999406246</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="修改说明文档图片">
+      <created>1479999867516</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1479999867516</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="9094000" />
+    <option name="totallyTimeSpent" value="9373000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1080" extended-state="0" />
@@ -966,7 +973,8 @@
     <option name="CHECK_CODE_CLEANUP_BEFORE_PROJECT_COMMIT" value="true" />
     <MESSAGE value="系统完善" />
     <MESSAGE value="修正动态字段模态框不弹出的问题&#10;修改说明文档" />
-    <option name="LAST_COMMIT_MESSAGE" value="修正动态字段模态框不弹出的问题&#10;修改说明文档" />
+    <MESSAGE value="修改说明文档图片" />
+    <option name="LAST_COMMIT_MESSAGE" value="修改说明文档图片" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
