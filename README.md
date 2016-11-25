@@ -136,15 +136,75 @@ Gather Platform 数据抓取平台是一套基于[Webmagic](https://github.com/c
 
 #### 同一网站不同模板的情况
 
-针对同一网站可以有不同的抽取模板的问题,可以通过配置另外的模板进行解决.
+  针对同一网站可以有不同的抽取模板的问题,可以通过配置另外的模板进行解决.
 
 ### 高级配置
 
+  项目的配置文件在spider.war/WEB-INF文件夹下
+
 #### 输出网页数据至Redis Channel
+
+  找到 `mvc-dispatcher-servlet.xml` 配置文件,增加redis数据输出管道:
+
+  ```xml
+    <property name="pipelineList">
+        <list>
+            <!--Redis输出-->
+            <ref bean="commonWebpageRedisPipeline"/>
+            <ref bean="commonWebpagePipeline"/>
+        </list>
+    </property>
+  ```
+
+  在 `staticvalue.json` 配置文件中,修改如下内容:
+
+  ```
+  "needRedis": false,
+  "redisPort": 6379,
+  "redisHost": "localhost",
+  "webpageRedisPublishChannelName": "webpage",
+  ```
+
+ - needRedis设置为true将在系统启动时检查redis配置
+ - redisPort redis的端口
+ - redisHost redis的服务器地址
+ - webpageRedisPublishChannelName redis发布不通道的名称
 
 #### 输出网页数据至任意数据源
 
+  写一个类实现 `Pipeline` 接口,然后在 `mvc-dispatcher-servlet.xml` 配置文件中配置这个数据处理类,即可将每一条网页数据输出至 `process` 方法.
+
 #### 配置文件解释
+
+  本系统配置文件名称为 `staticvalue.json` :
+
+  ```json
+    {
+      "esHost": "localhost",
+      "esClusterName": "elasticsearch",
+      "commonsIndex": "commons",
+      "maxHttpDownloadLength": 1048576,
+      "commonsSpiderDebug": false,
+      "taskDeleteDelay": 1,
+      "taskDeletePeriod": 2,
+      "limitOfCommonWebpageDownloadQueue": 100000,
+      "needRedis": false,
+      "redisPort": 6379,
+      "redisHost": "localhost",
+      "webpageRedisPublishChannelName": "webpage",
+      "commonsWebpageCrawlRatio": 2
+    }
+  ```
+
+ - esHost:es服务器地址
+ - esClusterName:es集群名称
+ - commonsIndex:网页数据在es中存储的index名称
+ - maxHttpDownloadLength: 如果网页超过这个大小则不再下载这个网页
+ - commonsSpiderDebug:置为true则在爬虫管理系统的爬虫运行日志中可以看到更多的错误信息
+ - taskDeleteDelay: 自动删除任务记录延时几小时启动
+ - taskDeletePeriod: 每几小时删除一次已完成的任务记录
+ - limitOfCommonWebpageDownloadQueue: 最大网页下载队列长度
+ - commonsWebpageCrawlRatio: 如果抓取的网页超过需要网页commonsWebpageCrawlRatio倍,爬虫退出
 
 ### 二次开发接口
 
