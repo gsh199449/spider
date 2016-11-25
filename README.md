@@ -172,7 +172,7 @@ Gather Platform 数据抓取平台是一套基于[Webmagic](https://github.com/c
 
 #### 输出网页数据至任意数据源
 
-  写一个类实现 `Pipeline` 接口,然后在 `mvc-dispatcher-servlet.xml` 配置文件中配置这个数据处理类,即可将每一条网页数据输出至 `process` 方法.
+  写一个类实现 `Pipeline` 接口,然后在 `mvc-dispatcher-servlet.xml` 配置文件中配置这个数据处理类, 爬虫框架会把每一个采集并处理好的的网页传入 `process` 方法,然后通过自己的代码将这些网页数据存储至你想要的位置即可,可以参考本平台实现的[Redis pipeline](https://github.com/gsh199449/spider/blob/master/src/main/java/com/gs/spider/dao/CommonWebpageRedisPipeline.java).本平台默认的ES输出[CommonWebpagePipeline](https://github.com/gsh199449/spider/blob/master/src/main/java/com/gs/spider/dao/CommonWebpagePipeline.java)中有一个 `convertResultItems2Webpage` 便利方法,可以将Webmagic框架的 `ResultItems` 对象转换为一个 `Webpage` 对象方便处理.
 
 #### 配置文件解释
 
