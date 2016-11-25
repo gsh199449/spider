@@ -69,7 +69,6 @@ Gather Platform 数据抓取平台是一套基于[Webmagic](https://github.com/c
 
   ![数据采集平台首页](https://raw.githubusercontent.com/gsh199449/spider/master/doc/imgs/home.png)
 
-
 ### 配置爬虫模板
 
   在导航栏的下拉菜单中点击 `编辑模板`  按钮,在这个页面中可完成一个爬虫的所有配置,具体每一个配置项的说明见每一个输入框的提示.
@@ -85,6 +84,12 @@ Gather Platform 数据抓取平台是一套基于[Webmagic](https://github.com/c
   ![needXXX](https://raw.githubusercontent.com/gsh199449/spider/master/doc/imgs/need.png)
 
   当模板配置完毕,即可点击下方的 `导出模板` 按钮,这时下方的大输入框中显示的Json格式的文字即为爬虫模板,可以将段文字保存到文本文件中,以便以后使用,也可以点击 `存储此模板` 对这个模板进行存储,以后可在本平台的 `爬虫模板管理系统` 中查找.
+
+### 快速上手
+
+  本平台在examples文件夹中给出了两个抓取腾讯新闻的示例,这两个一个是使用预定义的发布时间抓取规则,另外一个是使用系统自动探测文章的发布时间.
+  以预定义的爬虫模板为例,打开[news.qq.com.json](https://github.com/gsh199449/spider/tree/master/examples/news.qq.com.json),将文件内容全部拷贝至爬虫模板编辑页面最下方的大输入框中,点击自动填充.这时爬虫配置文件中的爬虫模板信息就被自动填充进上面的表格了.然后点击抓取样例数据按钮,稍等片刻即可在当前页面下方看到通过这个模板抓取的新闻数据了.
+  如果模板配置的有问题,导致长时间卡在获取数据页面,请转至爬虫监控页面,将刚刚提交的这个抓取任务停止即可.
 
 ### 爬虫监控
 

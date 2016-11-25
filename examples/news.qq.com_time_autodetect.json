@@ -1,0 +1,49 @@
+{
+  "id": "",
+  "thread": "2",
+  "retry": "2",
+  "sleep": "800",
+  "maxPageGather": "10",
+  "timeout": "5000",
+  "priority": "0",
+  "siteName": "腾讯新闻",
+  "domain": "news.qq.com",
+  "startURL": [
+    "http://news.qq.com"
+  ],
+  "contentReg": "",
+  "contentXPath": "//div[@id='Cnt-Main-Article-QQ']/tidyText()",
+  "titleReg": "",
+  "titleXPath": "",
+  "categoryReg": "",
+  "categoryXPath": "//a[@accesskey=\"5\"]/text()",
+  "defaultCategory": "",
+  "urlReg": "http://news.qq.com/a/\\d{8}/\\d+\\.htm",
+  "charset": "",
+  "publishTimeXPath": "",
+  "publishTimeReg": "",
+  "publishTimeFormat": "",
+  "authorReg": "",
+  "authorXPath": "//h1/tidyText()",
+  "lang": "",
+  "country": "",
+  "callbackURL": [],
+  "userAgent": "Mozilla/5.0 (Windows NT 5.2) AppleWebKit/534.30 (KHTML, like Gecko) Chrome/12.0.742.122 Safari/534.30",
+  "doNLP": true,
+  "saveCapture": true,
+  "autoDetectPublishDate": true,
+  "gatherFirstPage": false,
+  "needTitle": false,
+  "needContent": false,
+  "needPublishTime": false,
+  "ajaxSite": false,
+  "dynamicFields": [
+    {
+      "regex": "",
+      "xpath": "//h1/tidyText()",
+      "name": "author",
+      "need": false
+    }
+  ],
+  "staticFields": []
+}
