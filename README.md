@@ -28,7 +28,7 @@ Gather Platform 数据抓取平台是一套基于[Webmagic](https://github.com/c
 
 ### 1. 使用预编译版本抓取数据
 
- - 从百度云[下载](https://pan.baidu.com/s/1i4IoEhB) 密码: v3jm, 预编译安装包和依赖环境
+ - 从百度云[下载](https://pan.baidu.com/s/1i4IoEhB) 密码: v3jm, 预编译安装包和依赖环境,*nix用户下载 `elasticsearch-5.0.0.zip` ,windows用户请下载 `elasticsearch-5.0.0-win.zip` 包
  - 安装JDK 8 ,从[ORACLE](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)下载JDK
  - 解压elasticsearch5.0.0.zip
  - 进入bin文件夹,若是*nix环境运行 `elasticsearch` ,windows环境运行 `elasticsearch.bat`
@@ -40,7 +40,7 @@ Gather Platform 数据抓取平台是一套基于[Webmagic](https://github.com/c
       "cluster_name" : "elasticsearch",
       "cluster_uuid" : "0LJm-YogQ2qgLLznrlvWwQ",
       "version" : {
-        "number" : "5.0.1",
+        "number" : "5.0.0",
         "build_hash" : "080bb47",
         "build_date" : "2016-11-11T22:08:49.812Z",
         "build_snapshot" : false,
@@ -51,12 +51,12 @@ Gather Platform 数据抓取平台是一套基于[Webmagic](https://github.com/c
  ```
  - 解压apache-tomcat-8.zip,将spider.war放入Tomcat下面的webapp文件夹
  - 进入tomcat目录下的bin文件夹,若是*nix环境运行 `startup.sh` ,windows环境运行 `startup.bat`
- - 然后使用浏览器访问 `http://localhost:8080` 打开数据采集平台Web控制台
+ - 然后使用浏览器访问 `http://localhost:8080/spider` 打开数据采集平台Web控制台
 
 ### 2. 手工编译安装
 
  - 安装 JDK 8 以上版本, [ORACLE](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
- - 下载并安装Elasticsearch 5.0, [elastic](https://www.elastic.co)
+ - 下载并安装Elasticsearch 5.0, [elastic.co](https://www.elastic.co/downloads/past-releases/elasticsearch-5-0-0)
  - 安装ansj-elasticsearch插件, [github](https://github.com/NLPchina/elasticsearch-analysis-ansj)
  - 运行Elasticsearch
  - 安装Tomcat 8, [Apache Tomcat](http://tomcat.apache.org)
