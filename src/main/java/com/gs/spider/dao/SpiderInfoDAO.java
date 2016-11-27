@@ -5,6 +5,7 @@ import com.google.common.collect.Lists;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.gs.spider.model.commons.SpiderInfo;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.elasticsearch.action.delete.DeleteResponse;
@@ -12,6 +13,8 @@ import org.elasticsearch.action.get.GetResponse;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.action.update.UpdateRequest;
+import org.elasticsearch.action.update.UpdateResponse;
 import org.elasticsearch.index.query.Operator;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
@@ -20,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 /**
  * SpiderInfoDAO
@@ -158,5 +162,21 @@ public class SpiderInfoDAO extends IDAO<SpiderInfo> {
     public boolean deleteById(String id) {
         DeleteResponse response = client.prepareDelete(INDEX_NAME, TYPE_NAME, id).get();
         return response.getResult() == DeleteResponse.Result.DELETED;
+    }
+
+    /**
+     * 更新爬虫模板
+     *
+     * @param spiderInfo 爬虫模板实体
+     * @return 爬虫模板id
+     * @throws ExecutionException
+     * @throws InterruptedException
+     */
+    public String update(SpiderInfo spiderInfo) throws ExecutionException, InterruptedException {
+        Preconditions.checkArgument(StringUtils.isNotBlank(spiderInfo.getId()), "待更新爬虫模板id不可为空");
+        UpdateRequest updateRequest = new UpdateRequest(INDEX_NAME, TYPE_NAME, spiderInfo.getId());
+        updateRequest.doc(gson.toJson(spiderInfo));
+        UpdateResponse updateResponse = client.update(updateRequest).get();
+        return updateResponse.getId();
     }
 }

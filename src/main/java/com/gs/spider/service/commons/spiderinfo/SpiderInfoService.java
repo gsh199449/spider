@@ -5,6 +5,7 @@ import com.gs.spider.model.commons.SpiderInfo;
 import com.gs.spider.model.utils.ResultBundle;
 import com.gs.spider.model.utils.ResultBundleBuilder;
 import com.gs.spider.model.utils.ResultListBundle;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,7 +55,7 @@ public class SpiderInfoService {
      * @return 如果爬虫模板索引成功则返回模板id, 否则返回null
      */
     public ResultBundle<String> index(SpiderInfo spiderInfo) {
-        return bundleBuilder.bundle(spiderInfo.getDomain(), () -> spiderInfoDAO.index(spiderInfo));
+        return bundleBuilder.bundle(spiderInfo.getDomain(), () -> StringUtils.isBlank(spiderInfo.getId()) ? spiderInfoDAO.index(spiderInfo) : spiderInfoDAO.update(spiderInfo));
     }
 
     /**
@@ -85,5 +86,15 @@ public class SpiderInfoService {
      */
     public ResultBundle<SpiderInfo> getById(String id) {
         return bundleBuilder.bundle(id, () -> spiderInfoDAO.getById(id));
+    }
+
+    /**
+     * 更新爬虫模板
+     *
+     * @param spiderInfo 爬虫模板实体
+     * @return 爬虫模板id
+     */
+    public ResultBundle<String> update(SpiderInfo spiderInfo) {
+        return bundleBuilder.bundle(spiderInfo.getId(), () -> spiderInfoDAO.update(spiderInfo));
     }
 }
