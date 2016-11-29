@@ -29,6 +29,13 @@ Gather Platform 数据抓取平台是一套基于[Webmagic](https://github.com/c
 ### 1. 使用预编译版本抓取数据
 
  - 从百度云[下载](https://pan.baidu.com/s/1i4IoEhB) 密码: v3jm, 预编译安装包和依赖环境,*nix用户下载 `elasticsearch-5.0.0.zip` ,windows用户请下载 `elasticsearch-5.0.0-win.zip` 包
+
+> Windows用户**注意**:如果在启动elasticsearch时发生elasticsearch.bat闪退的问题请修改 `JAVA_HOME/jre/lib/security/java.policy` 文件,在 `grant` 段落里面加入
+
+> `permission java.io.FilePermission "ES安装路径/*", "read";`
+
+> 除此之外,ES和tomcat请勿安装到含有空格或者中文等字符的路径下面.
+
  - 安装JDK 8 ,从[ORACLE](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)下载JDK
  - 解压elasticsearch5.0.0.zip
  - 进入bin文件夹,若是*nix环境运行 `elasticsearch` ,windows环境运行 `elasticsearch.bat`
