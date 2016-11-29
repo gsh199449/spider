@@ -4,6 +4,8 @@
 
 [Readme in English](https://github.com/gsh199449/spider/tree/master/README-en.md)
 
+欢迎加入 `Gather Platform交流` QQ群 : 206264662
+
 [![Build Status](https://travis-ci.org/gsh199449/spider.svg?branch=master)](https://travis-ci.org/gsh199449/spider)
 
 Gather Platform 数据抓取平台是一套基于[Webmagic](https://github.com/code4craft/webmagic)内核的,具有Web任务配置和任务管理界面的数据采集与搜索平台.具有以下功能
