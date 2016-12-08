@@ -31,7 +31,7 @@ Gather Platform 数据抓取平台是一套基于[Webmagic](https://github.com/c
 
 本系统提供一份预编译版本和配置好的依赖环境,只需从百度云下载,按照步骤安装即可使用.从0.1版本开始 Gather Platform 不再默认存储ES,如果需要将数据存储至ES,或者需要数据查看与搜索功能,则需要开启ES.
 
-与不需要ES的版本,开启ES之后,搜索平台将可以实现以下功能:
+与不需要ES的版本相比,开启ES之后,搜索平台将可以实现以下功能:
 
  - 增量抓取
  - 数据查看与搜索
@@ -40,7 +40,7 @@ Gather Platform 数据抓取平台是一套基于[Webmagic](https://github.com/c
 ### 1. [不需ES] 使用预编译版本抓取数据并存储至本地磁盘
 
  - 安装JDK 8 ,从[ORACLE](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)下载JDK
- - 解压apache-tomcat-8.zip,将spider.war放入Tomcat下面的webapp文件夹
+ - 从百度云[下载](https://pan.baidu.com/s/1i4IoEhB) 密码: v3jm, 预编译安装包和依赖环境,解压apache-tomcat-8.zip,将spider.war放入Tomcat下面的webapp文件夹
  - 进入tomcat目录下的bin文件夹,若是*nix环境运行 `startup.sh` ,windows环境运行 `startup.bat`
  - 然后使用浏览器访问 `http://localhost:8080/spider` 打开数据采集平台Web控制台
  - 抓取下来的数据存储在 `TOMCAT_HOME/bin/gather_platform_data` 文件夹下,每一个抓取任务单独存储一个json文件,文件名为任务号,每一行为一条网页数据.
