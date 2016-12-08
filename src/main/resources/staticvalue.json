@@ -8,7 +8,7 @@
   "taskDeletePeriod": 2,
   "limitOfCommonWebpageDownloadQueue": 100000,
   "needRedis": false,
-  "needEs": true,
+  "needEs": false,
   "redisPort": 6379,
   "redisHost": "localhost",
   "webpageRedisPublishChannelName": "webpage",
