@@ -93,7 +93,7 @@ public class ContentLengthLimitHttpClientDownloader extends HttpClientDownloader
         } else {
             acceptStatCode = Sets.newHashSet(200);
         }
-        LOG.info("downloading page {}", request.getUrl());
+        LOG.trace("downloading page {}", request.getUrl());
         CloseableHttpResponse httpResponse = null;
         int statusCode = 0;
         HttpUriRequest httpUriRequest = null;

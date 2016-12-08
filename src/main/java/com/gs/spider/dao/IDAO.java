@@ -66,6 +66,10 @@ public abstract class IDAO<T> {
             LOG.info("已经初始化过了");
         }
         this.client = esClient.getClient();
+        if (this.client == null) {
+            LOG.info("ES客户端未初始化");
+            return false;
+        }
         LOG.debug("检查ES index,type 是否存在");
         return check();
     }

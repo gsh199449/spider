@@ -35,7 +35,6 @@ import us.codecraft.webmagic.pipeline.Pipeline;
 import us.codecraft.webmagic.pipeline.ResultItemsCollectorPipeline;
 import us.codecraft.webmagic.processor.PageProcessor;
 import us.codecraft.webmagic.scheduler.QueueScheduler;
-import us.codecraft.webmagic.scheduler.Scheduler;
 import us.codecraft.webmagic.selector.Html;
 import us.codecraft.webmagic.selector.PlainText;
 import us.codecraft.webmagic.utils.UrlUtils;
@@ -428,7 +427,7 @@ public class CommonSpider extends AsyncGather {
         final String uuid = UUID.randomUUID().toString();
         Task task = taskManager.initTask(uuid, info.getDomain(), info.getCallbackURL(), "spiderInfoId=" + info.getId() + "&spiderUUID=" + uuid);
         task.addExtraInfo(SPIDER_INFO, info);
-        Scheduler scheduler = new QueueScheduler() {
+        QueueScheduler scheduler = new QueueScheduler() {
             @Override
             public void pushWhenNoDuplicate(Request request, us.codecraft.webmagic.Task task) {
                 int left = getLeftRequestsCount(task);
@@ -436,15 +435,17 @@ public class CommonSpider extends AsyncGather {
                     super.pushWhenNoDuplicate(request, task);
                 }
             }
-        }.setDuplicateRemover(commonWebpagePipeline);
+        };
+        if (staticValue.isNeedEs()) {
+            scheduler.setDuplicateRemover(commonWebpagePipeline);
+        }
         MySpider spider = (MySpider) makeSpider(info, task)
-                .addPipeline(commonWebpagePipeline)
                 .setScheduler(scheduler);
         //添加其他的数据管道
         if (pipelineList != null && pipelineList.size() > 0) {
             pipelineList.forEach(spider::addPipeline);
         }
-        info.getStartURL().forEach(s -> ((QueueScheduler) scheduler).pushWhenNoDuplicate(new Request(s), spider));
+        info.getStartURL().forEach(s -> scheduler.pushWhenNoDuplicate(new Request(s), spider));
         //慎用爬虫监控,可能导致内存泄露
 //        spiderMonitor.register(spider);
         spiderMap.put(uuid, spider);

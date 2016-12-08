@@ -20,17 +20,34 @@ Gather Platform 数据抓取平台是一套基于[Webmagic](https://github.com/c
 
  - JDK 8 及以上
  - Tomcat 8.3 及以上
- - Elasticsearch 5.0
+
+可选依赖组件:
+
+  - Elasticsearch 5.0
 
 ## 部署方式
 
-本系统提供一份预编译版本和配置好的依赖环境,只需从百度云下载,按照步骤安装即可使用.
+本系统提供一份预编译版本和配置好的依赖环境,只需从百度云下载,按照步骤安装即可使用.从0.1版本开始 Gather Platform 不再默认存储ES,如果需要将数据存储至ES,或者需要数据查看与搜索功能,则需要开启ES.
 
-### 1. 使用预编译版本抓取数据
+与不需要ES的版本,开启ES之后,搜索平台将可以实现以下功能:
+
+ - 增量抓取
+ - 数据查看与搜索
+ - 数据统计
+
+### 1. [不需ES] 使用预编译版本抓取数据并存储至本地磁盘
+
+ - 安装JDK 8 ,从[ORACLE](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)下载JDK
+ - 解压apache-tomcat-8.zip,将spider.war放入Tomcat下面的webapp文件夹
+ - 进入tomcat目录下的bin文件夹,若是*nix环境运行 `startup.sh` ,windows环境运行 `startup.bat`
+ - 然后使用浏览器访问 `http://localhost:8080/spider` 打开数据采集平台Web控制台
+ - 抓取下来的数据存储在 `TOMCAT_HOME/bin/gather_platform_data` 文件夹下,每一个抓取任务单独存储一个json文件,文件名为任务号,每一行为一条网页数据.
+
+### 2. [需要ES] 使用预编译版本抓取数据并存储至ES
 
  - 从百度云[下载](https://pan.baidu.com/s/1i4IoEhB) 密码: v3jm, 预编译安装包和依赖环境,*nix用户下载 `elasticsearch-5.0.0.zip` ,windows用户请下载 `elasticsearch-5.0.0-win.zip` 包
 
-> Windows用户**注意**:如果在启动elasticsearch时发生elasticsearch.bat闪退的问题请修改 `JAVA_HOME/jre/lib/security/java.policy` 文件,在 `grant` 段落里面加入
+> **注意**:如果在启动elasticsearch时发生elasticsearch.bat闪退的问题请修改 `JAVA_HOME/jre/lib/security/java.policy` 文件,在 `grant` 段落里面加入
 
 > `permission java.io.FilePermission "ES安装路径/*", "read";`
 
@@ -57,10 +74,22 @@ Gather Platform 数据抓取平台是一套基于[Webmagic](https://github.com/c
     }
  ```
  - 解压apache-tomcat-8.zip,将spider.war放入Tomcat下面的webapp文件夹
+ - 解压spider.war,打开 `spider/WEB-INF/classes/staticvalue.json` 配置文件, 将 `needEs` 配置项改为true
+ - 然后打开`spider/WEB-INF/classes/mvc-dispatcher-servlet.xml` 配置文件,找到输出源配置项,按照下面进行配置:
+
+  ```xml
+        <property name="pipelineList">
+            <list>
+                <ref bean="commonWebpagePipeline"/>
+                <!--<ref bean="jsonFilePipeline"/>-->
+            </list>
+        </property>
+ ```
+ 这样的配置就是不再向Json文件进行输出,而将数据输出至ES进行存储.
  - 进入tomcat目录下的bin文件夹,若是*nix环境运行 `startup.sh` ,windows环境运行 `startup.bat`
  - 然后使用浏览器访问 `http://localhost:8080/spider` 打开数据采集平台Web控制台
 
-### 2. 手工编译安装
+### 3. 手工编译安装
 
  - 安装 JDK 8 以上版本, [ORACLE](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
  - 下载并安装Elasticsearch 5.0, [elastic.co](https://www.elastic.co/downloads/past-releases/elasticsearch-5-0-0)
@@ -68,6 +97,18 @@ Gather Platform 数据抓取平台是一套基于[Webmagic](https://github.com/c
  - 运行Elasticsearch
  - 安装Tomcat 8, [Apache Tomcat](http://tomcat.apache.org)
  - 下载本项目源码包
+ - `src/resource/staticvalue.json` 配置文件, 将 `needEs` 配置项改为true
+ - `src/resource/mvc-dispatcher-servlet.xml`  配置文件,找到输出源配置项,按照下面进行配置:
+
+  ```xml
+        <property name="pipelineList">
+            <list>
+                <ref bean="commonWebpagePipeline"/>
+                <!--<ref bean="jsonFilePipeline"/>-->
+            </list>
+        </property>
+ ```
+ 这样的配置就是不再向Json文件进行输出,而将数据输出至ES进行存储.
  - 执行 `mvn package` 编译打包
  - 将spider.war放入Tomcat下面的webapp文件夹
  - 运行tomcat

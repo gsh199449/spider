@@ -41,6 +41,7 @@ public class StaticValue {
      * 是否需要Redis
      */
     private boolean needRedis;
+    private boolean needEs;
     private int redisPort;
     private String redisHost;
     private String webpageRedisPublishChannelName;
@@ -68,6 +69,7 @@ public class StaticValue {
             this.redisPort = jsonObject.get("redisPort").getAsInt();
             this.redisHost = jsonObject.get("redisHost").getAsString();
             this.needRedis = jsonObject.get("needRedis").getAsBoolean();
+            this.needEs = jsonObject.get("needEs").getAsBoolean();
             this.webpageRedisPublishChannelName = jsonObject.get("webpageRedisPublishChannelName").getAsString();
             this.commonsWebpageCrawlRatio = jsonObject.get("commonsWebpageCrawlRatio").getAsInt();
         } catch (IOException e) {
@@ -199,6 +201,15 @@ public class StaticValue {
 
     public StaticValue setCommonsWebpageCrawlRatio(int commonsWebpageCrawlRatio) {
         this.commonsWebpageCrawlRatio = commonsWebpageCrawlRatio;
+        return this;
+    }
+
+    public boolean isNeedEs() {
+        return needEs;
+    }
+
+    public StaticValue setNeedEs(boolean needEs) {
+        this.needEs = needEs;
         return this;
     }
 }

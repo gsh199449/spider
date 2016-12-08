@@ -63,6 +63,10 @@ public class ESClient {
     }
 
     public Client getClient() {
+        if (!staticValue.isNeedEs()) {
+            LOG.info("已在配置文件中声明不需要ES,如需要ES,请在配置文件中进行配置");
+            return null;
+        }
         if (client != null) return client;
         try {
             LOG.info("正在初始化ElasticSearch客户端," + staticValue.getEsHost());

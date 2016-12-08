@@ -381,11 +381,11 @@
                     <input type="number" class="form-control" id="timeout" name="timeout" placeholder="HTTP链接超时时间"
                            value="${spiderInfo.timeout}">
                 </div>
-                <div class="form-group">
-                    <label for="priority">priority</label>
-                    <input type="text" class="form-control" id="priority" name="priority" placeholder="网站权重"
-                           value="${spiderInfo.priority}">
-                </div>
+                <%--<div class="form-group">--%>
+                <%--<label for="priority">priority</label>--%>
+                <%--<input type="text" class="form-control" id="priority" name="priority" placeholder="网站权重"--%>
+                <%--value="${spiderInfo.priority}">--%>
+                <%--</div>--%>
                 <div class="form-group">
                     <label for="siteName">siteName</label>
                     <input type="text" class="form-control" id="siteName" name="siteName" placeholder="网站名称"

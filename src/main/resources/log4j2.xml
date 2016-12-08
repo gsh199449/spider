@@ -17,7 +17,7 @@
         </RollingFile>
     </appenders>
     <loggers>
-        <root level="debug">
+        <root level="info">
             <appender-ref ref="Console"/>
             <appender-ref ref="RollingFile"/>
         </root>
@@ -42,6 +42,14 @@
             <appender-ref ref="RollingFile"/>
         </logger>
         <logger name="org.apache.http" level="error" additivity="false">
+            <appender-ref ref="Console"/>
+            <appender-ref ref="RollingFile"/>
+        </logger>
+        <logger name="us.codecraft.webmagic" level="error" additivity="false">
+            <appender-ref ref="Console"/>
+            <appender-ref ref="RollingFile"/>
+        </logger>
+        <logger name="TASK_LOG" level="error" additivity="false">
             <appender-ref ref="Console"/>
             <appender-ref ref="RollingFile"/>
         </logger>
