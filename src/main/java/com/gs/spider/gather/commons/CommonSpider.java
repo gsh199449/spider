@@ -67,29 +67,36 @@ public class CommonSpider extends AsyncGather {
         try {
             ignoredUrls = FileUtils.readLines(new File(CommonSpider.class.getClassLoader().getResource("ignoredUrls.txt").getFile()));
             LOG.info("加载普通网页爬虫url忽略名单成功,忽略名单:{}", ignoredUrls);
-            String[] datePatternFile = FileUtils.readFileToString(new File(CommonSpider.class.getClassLoader().getResource("datePattern.txt").getFile())).split("=====\n");
-            String[] dateList = datePatternFile[0].split("\n");
-            String[] timeList = datePatternFile[1].split("\n");
-            for (String date : dateList) {
-                String[] dateEntry = date.split("##");
-                String dateReg = dateEntry[0];
-                String dateFormat = dateEntry[1];
-                LOG.debug("正在编译日期正则{},format:{}", dateReg, dateFormat);
-                datePattern.add(Pair.of(dateReg, new SimpleDateFormat(dateFormat)));
-                for (String time : timeList) {
-                    String[] timeEntry = time.split("##");
-                    String timeReg = timeEntry[0];
-                    String timeFormat = timeEntry[1];
-                    //日期与时间中间有空格
-                    LOG.debug("正在编译日期正则{},format:{}", dateReg + " " + timeReg, dateFormat + " " + timeFormat);
-                    datePattern.add(Pair.of(dateReg + " " + timeReg, new SimpleDateFormat(dateFormat + " " + timeFormat)));
-                    //日期与时间中间无空格
-                    LOG.debug("正在编译日期正则{},format:{}", dateReg + timeReg, dateFormat + timeFormat);
-                    datePattern.add(Pair.of(dateReg + timeReg, new SimpleDateFormat(dateFormat + timeFormat)));
+            try {
+                String[] datePatternFile = FileUtils.readFileToString(
+                        new File(CommonSpider.class.getClassLoader().getResource("datePattern.txt").getFile()),
+                        "utf8"
+                ).replace("\r", "").split("=====\n");
+                String[] dateList = datePatternFile[0].split("\n");
+                String[] timeList = datePatternFile[1].split("\n");
+                for (String date : dateList) {
+                    String[] dateEntry = date.split("##");
+                    String dateReg = dateEntry[0];
+                    String dateFormat = dateEntry[1];
+                    LOG.debug("正在编译日期正则{},format:{}", dateReg, dateFormat);
+                    datePattern.add(Pair.of(dateReg, new SimpleDateFormat(dateFormat)));
+                    for (String time : timeList) {
+                        String[] timeEntry = time.split("##");
+                        String timeReg = timeEntry[0];
+                        String timeFormat = timeEntry[1];
+                        //日期与时间中间有空格
+                        LOG.debug("正在编译日期正则{},format:{}", dateReg + " " + timeReg, dateFormat + " " + timeFormat);
+                        datePattern.add(Pair.of(dateReg + " " + timeReg, new SimpleDateFormat(dateFormat + " " + timeFormat)));
+                        //日期与时间中间无空格
+                        LOG.debug("正在编译日期正则{},format:{}", dateReg + timeReg, dateFormat + timeFormat);
+                        datePattern.add(Pair.of(dateReg + timeReg, new SimpleDateFormat(dateFormat + timeFormat)));
+                    }
                 }
+                datePattern.sort((o1, o2) -> o2.getLeft().length() - o1.getLeft().length());
+                LOG.info("日期匹配式加载完成");
+            } catch (IOException e) {
+                LOG.error("加载日期匹配式失败，{}", e.getLocalizedMessage());
             }
-            datePattern.sort((o1, o2) -> o2.getLeft().length() - o1.getLeft().length());
-            LOG.info("日期匹配式加载完成");
         } catch (IOException e) {
             e.printStackTrace();
             LOG.error("加载普通网页爬虫url忽略名单失败", e);
