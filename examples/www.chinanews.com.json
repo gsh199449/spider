@@ -1,0 +1,42 @@
+{
+    "id": "AVfALN3RF1PCz-98qhff",
+    "thread": "2",
+    "retry": "2",
+    "sleep": "0",
+    "maxPageGather": "100000",
+    "timeout": "5000",
+    "priority": "0",
+    "siteName": "中国新闻网",
+    "domain": "www.chinanews.com",
+    "startURL": [
+        "http://www.chinanews.com/index.shtml"
+    ],
+    "contentReg": "",
+    "contentXPath": "//div[@class='left_zw']/allText()",
+    "titleReg": "",
+    "titleXPath": "//div[@id='cont_1_1_2']/h1/text()",
+    "categoryReg": "",
+    "categoryXPath": "",
+    "defaultCategory": "",
+    "urlReg": "http://www.chinanews.com/\\w+/\\d+\\/\\d{2}\\-\\d{2}/\\d+\\.shtml",
+    "charset": "",
+    "publishTimeXPath": "//div[@class='left-t']/text()",
+    "publishTimeReg": "",
+    "publishTimeFormat": " yyyy年MM月dd日 HH:mm　来源：",
+    "lang": "",
+    "country": "",
+    "callbackURL": [
+        "http://172.16.1.105:8080/htccData/DataInjectUtil?sourceId=5799d9def13ec7bc45eab74e&siteId=5020&siteName=%E4%B8%AD%E5%9B%BD%E6%96%B0%E9%97%BB%E7%BD%91"
+    ],
+    "userAgent": "Mozilla/5.0 (Windows NT 5.2) AppleWebKit/534.30 (KHTML, like Gecko) Chrome/12.0.742.122 Safari/534.30",
+    "doNLP": true,
+    "needPublishTime": true,
+    "saveCapture": true,
+    "gatherFirstPage": false,
+    "needTitle": false,
+    "needContent": false,
+    "ajaxSite": false,
+    "autoDetectPublishDate": false,
+    "dynamicFields": [],
+    "staticFields": []
+}
