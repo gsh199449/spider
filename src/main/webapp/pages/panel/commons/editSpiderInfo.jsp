@@ -323,69 +323,18 @@
                 }
             })
         }
+        function showAdvancedSetting() {
+            $('#advancedSetting').show("normal");
+            $('#showAdvancedSettingBtn').hide();
+        }
     </script>
 </head>
 <body>
-<%--<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" style="overflow:scroll">--%>
-<%--<div class="modal-dialog" role="document">--%>
-<%--<div class="modal-content">--%>
-<%--<div class="modal-header">--%>
-<%--<button type="button" class="close" data-dismiss="modal" aria-label="Close">--%>
-<%--<span aria-hidden="true">&times;</span>--%>
-<%--<span class="sr-only">Close</span>--%>
-<%--</button>--%>
-<%--<h4 class="modal-title" id="confirmModalTitle"></h4>--%>
-<%--</div>--%>
-<%--<div class="modal-body" id="confirmModalBody">--%>
-
-<%--</div>--%>
-<%--<div class="modal-footer">--%>
-<%--<button type="button" class="btn btn-secondary" data-dismiss="modal" id="cancelButton">取消</button>--%>
-<%--<button type="button" class="btn btn-primary" id="confirmButton">确定</button>--%>
-<%--</div>--%>
-<%--</div><!-- /.modal-content -->--%>
-<%--</div><!-- /.modal-dialog -->--%>
-<%--</div>--%>
 <%@include file="../../commons/head.jsp" %>
 <div class="container">
     <div class="row">
         <div class="col-md-12">
             <form id="spiderInfoForm" action="${pageContext.request.contextPath}/commons/spider/testSpiderInfo">
-                <div class="form-group">
-                    <label for="id">id</label>
-                    <input type="text" class="form-control" id="id" name="id" placeholder="模板ID,系统自动填充,请勿手工赋值"
-                           value="${spiderInfo.id}">
-                </div>
-                <div class="form-group">
-                    <label for="thread">thread</label>
-                    <input type="number" class="form-control" id="thread" name="thread" placeholder="抓取线程数"
-                           value="${spiderInfo.thread}">
-                </div>
-                <div class="form-group">
-                    <label for="retry">retry</label>
-                    <input type="number" class="form-control" id="retry" name="retry" placeholder="失败的网页重试次数"
-                           value="${spiderInfo.retry}">
-                </div>
-                <div class="form-group">
-                    <label for="sleep">sleep</label>
-                    <input type="number" class="form-control" id="sleep" name="sleep" placeholder="抓取每个网页睡眠时间"
-                           value="${spiderInfo.sleep}">
-                </div>
-                <div class="form-group">
-                    <label for="maxPageGather">maxPageGather(请在导出模板前将最大抓取数量设置为生产环境中正确的值)</label>
-                    <input type="number" class="form-control" id="maxPageGather" name="maxPageGather"
-                           placeholder="最大抓取网页数量,0代表不限制" value="${spiderInfo.maxPageGather}">
-                </div>
-                <div class="form-group">
-                    <label for="timeout">timeout</label>
-                    <input type="number" class="form-control" id="timeout" name="timeout" placeholder="HTTP链接超时时间"
-                           value="${spiderInfo.timeout}">
-                </div>
-                <%--<div class="form-group">--%>
-                <%--<label for="priority">priority</label>--%>
-                <%--<input type="text" class="form-control" id="priority" name="priority" placeholder="网站权重"--%>
-                <%--value="${spiderInfo.priority}">--%>
-                <%--</div>--%>
                 <div class="form-group">
                     <label for="siteName">siteName</label>
                     <input type="text" class="form-control" id="siteName" name="siteName" placeholder="网站名称"
@@ -401,205 +350,244 @@
                     <label for="startURL">startURL(多个起始地址请使用json格式书写,例如['http://news.qq.com','http://news.qq.com/dfs/dfs.fg'])</label>
                     <input type="text" class="form-control" id="startURL" name="startURL" placeholder="起始链接">
                 </div>
-                <div class="form-group">
-                    <label for="contentReg">contentReg</label>
-                    <input type="text" class="form-control" id="contentReg" name="contentReg" placeholder="正文正则表达式"
-                           value="${spiderInfo.contentReg}">
-                </div>
-                <div class="form-group">
-                    <label for="contentXPath">contentXPath</label>
-                    <input type="text" class="form-control" id="contentXPath" name="contentXPath" placeholder="正文Xpath"
-                           value="${spiderInfo.contentXPath}">
-                </div>
-                <div class="form-group">
-                    <label for="titleReg">titleReg</label>
-                    <input type="text" class="form-control" id="titleReg" name="titleReg" placeholder="标题正则"
-                           value="${spiderInfo.titleReg}">
-                </div>
-                <div class="form-group">
-                    <label for="titleXPath">titleXPath</label>
-                    <input type="text" class="form-control" id="titleXPath" name="titleXPath" placeholder="标题xpath"
-                           value="${spiderInfo.titleXPath}">
-                </div>
-                <div class="form-group">
-                    <label for="categoryReg">categoryReg</label>
-                    <input type="text" class="form-control" id="categoryReg" name="categoryReg" placeholder="分类信息正则"
-                           value="${spiderInfo.categoryReg}">
-                </div>
-                <div class="form-group">
-                    <label for="categoryXPath">categoryXPath</label>
-                    <input type="text" class="form-control" id="categoryXPath" name="categoryXPath"
-                           placeholder="分类信息XPath" value="${spiderInfo.categoryXPath}">
-                </div>
-                <div class="form-group">
-                    <label for="defaultCategory">defaultCategory</label>
-                    <input type="text" class="form-control" id="defaultCategory" name="defaultCategory"
-                           placeholder="默认分类" value="${spiderInfo.defaultCategory}">
-                </div>
-                <div class="form-group">
-                    <label for="urlReg">urlReg</label>
-                    <input type="text" class="form-control" id="urlReg" name="urlReg" placeholder="url正则"
-                           value="${spiderInfo.urlReg}">
-                </div>
-                <div class="form-group">
-                    <label for="charset">charset</label>
-                    <input type="text" class="form-control" id="charset" name="charset" placeholder="编码"
-                           value="${spiderInfo.charset}">
-                </div>
-                <div class="form-group">
-                    <label for="publishTimeXPath">publishTimeXPath</label>
-                    <input type="text" class="form-control" id="publishTimeXPath" name="publishTimeXPath"
-                           placeholder="发布时间xpath" value="${spiderInfo.publishTimeXPath}">
-                </div>
-                <div class="form-group">
-                    <label for="publishTimeReg">publishTimeReg</label>
-                    <input type="text" class="form-control" id="publishTimeReg" name="publishTimeReg"
-                           placeholder="发布时间正则" value="${spiderInfo.publishTimeReg}">
-                </div>
-                <div class="form-group">
-                    <label for="publishTimeFormat">publishTimeFormat</label>
-                    <input type="text" class="form-control" id="publishTimeFormat" name="publishTimeFormat"
-                           placeholder="发布时间模板" value="${spiderInfo.publishTimeFormat}">
-                </div>
-                <div class="form-group" id="dynamicFields">
-                    <button type="button" onclick="addDynamicField()" class="btn btn-info">添加动态字段
-                    </button>
-                    <c:forEach items="${spiderInfo.dynamicFields}" var="field" varStatus="index">
-                        <div id="dynamicField${index.count}" class="dynamicField" name="${field.name}">
-                            <button class="btn btn-danger" type="button"
-                                    onclick="$('#dynamicField${index.count}').remove();">删除动态字段${field.name}</button>
-                            <div class="form-group">
-                                <label for="${field.name}Reg"><span class="label label-warning">动态</span>${field.name}正则</label>
-                                <input type="text" class="form-control" id="${field.name}Reg" name="${field.name}Reg"
-                                       placeholder="${field.name}正则" value="${field.regex}">
+                <div id="advancedSetting" style="display: none;">
+                    <div class="form-group">
+                        <label for="id">id</label>
+                        <input type="text" class="form-control" id="id" name="id" placeholder="模板ID,系统自动填充,请勿手工赋值"
+                               value="${spiderInfo.id}">
+                    </div>
+                    <div class="form-group">
+                        <label for="thread">thread</label>
+                        <input type="number" class="form-control" id="thread" name="thread" placeholder="抓取线程数"
+                               value="${spiderInfo.thread}">
+                    </div>
+                    <div class="form-group">
+                        <label for="retry">retry</label>
+                        <input type="number" class="form-control" id="retry" name="retry" placeholder="失败的网页重试次数"
+                               value="${spiderInfo.retry}">
+                    </div>
+                    <div class="form-group">
+                        <label for="sleep">sleep</label>
+                        <input type="number" class="form-control" id="sleep" name="sleep" placeholder="抓取每个网页睡眠时间"
+                               value="${spiderInfo.sleep}">
+                    </div>
+                    <div class="form-group">
+                        <label for="maxPageGather">maxPageGather(请在导出模板前将最大抓取数量设置为生产环境中正确的值)</label>
+                        <input type="number" class="form-control" id="maxPageGather" name="maxPageGather"
+                               placeholder="最大抓取网页数量,0代表不限制" value="${spiderInfo.maxPageGather}">
+                    </div>
+                    <div class="form-group">
+                        <label for="timeout">timeout</label>
+                        <input type="number" class="form-control" id="timeout" name="timeout" placeholder="HTTP链接超时时间"
+                               value="${spiderInfo.timeout}">
+                    </div>
+                    <div class="form-group">
+                        <label for="contentReg">contentReg</label>
+                        <input type="text" class="form-control" id="contentReg" name="contentReg" placeholder="正文正则表达式"
+                               value="${spiderInfo.contentReg}">
+                    </div>
+                    <div class="form-group">
+                        <label for="contentXPath">contentXPath</label>
+                        <input type="text" class="form-control" id="contentXPath" name="contentXPath"
+                               placeholder="正文Xpath"
+                               value="${spiderInfo.contentXPath}">
+                    </div>
+                    <div class="form-group">
+                        <label for="titleReg">titleReg</label>
+                        <input type="text" class="form-control" id="titleReg" name="titleReg" placeholder="标题正则"
+                               value="${spiderInfo.titleReg}">
+                    </div>
+                    <div class="form-group">
+                        <label for="titleXPath">titleXPath</label>
+                        <input type="text" class="form-control" id="titleXPath" name="titleXPath" placeholder="标题xpath"
+                               value="${spiderInfo.titleXPath}">
+                    </div>
+                    <div class="form-group">
+                        <label for="categoryReg">categoryReg</label>
+                        <input type="text" class="form-control" id="categoryReg" name="categoryReg" placeholder="分类信息正则"
+                               value="${spiderInfo.categoryReg}">
+                    </div>
+                    <div class="form-group">
+                        <label for="categoryXPath">categoryXPath</label>
+                        <input type="text" class="form-control" id="categoryXPath" name="categoryXPath"
+                               placeholder="分类信息XPath" value="${spiderInfo.categoryXPath}">
+                    </div>
+                    <div class="form-group">
+                        <label for="defaultCategory">defaultCategory</label>
+                        <input type="text" class="form-control" id="defaultCategory" name="defaultCategory"
+                               placeholder="默认分类" value="${spiderInfo.defaultCategory}">
+                    </div>
+                    <div class="form-group">
+                        <label for="urlReg">urlReg</label>
+                        <input type="text" class="form-control" id="urlReg" name="urlReg" placeholder="url正则"
+                               value="${spiderInfo.urlReg}">
+                    </div>
+                    <div class="form-group">
+                        <label for="charset">charset</label>
+                        <input type="text" class="form-control" id="charset" name="charset" placeholder="编码"
+                               value="${spiderInfo.charset}">
+                    </div>
+                    <div class="form-group">
+                        <label for="publishTimeXPath">publishTimeXPath</label>
+                        <input type="text" class="form-control" id="publishTimeXPath" name="publishTimeXPath"
+                               placeholder="发布时间xpath" value="${spiderInfo.publishTimeXPath}">
+                    </div>
+                    <div class="form-group">
+                        <label for="publishTimeReg">publishTimeReg</label>
+                        <input type="text" class="form-control" id="publishTimeReg" name="publishTimeReg"
+                               placeholder="发布时间正则" value="${spiderInfo.publishTimeReg}">
+                    </div>
+                    <div class="form-group">
+                        <label for="publishTimeFormat">publishTimeFormat</label>
+                        <input type="text" class="form-control" id="publishTimeFormat" name="publishTimeFormat"
+                               placeholder="发布时间模板" value="${spiderInfo.publishTimeFormat}">
+                    </div>
+                    <div class="form-group" id="dynamicFields">
+                        <button type="button" onclick="addDynamicField()" class="btn btn-info">添加动态字段
+                        </button>
+                        <c:forEach items="${spiderInfo.dynamicFields}" var="field" varStatus="index">
+                            <div id="dynamicField${index.count}" class="dynamicField" name="${field.name}">
+                                <button class="btn btn-danger" type="button"
+                                        onclick="$('#dynamicField${index.count}').remove();">
+                                    删除动态字段${field.name}</button>
+                                <div class="form-group">
+                                    <label for="${field.name}Reg"><span
+                                            class="label label-warning">动态</span>${field.name}正则</label>
+                                    <input type="text" class="form-control" id="${field.name}Reg"
+                                           name="${field.name}Reg"
+                                           placeholder="${field.name}正则" value="${field.regex}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="${field.name}XPath"><span
+                                            class="label label-warning">动态</span>${field.name}XPath</label>
+                                    <input type="text" class="form-control" id="${field.name}XPath"
+                                           name="${field.name}XPath"
+                                           placeholder="${field.name}XPath" value="${field.xpath}">
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <c:if test="${field.need}">
+                                            <input type="checkbox" name="need${field.name}" id="need${field.name}"
+                                                   checked="checked">
+                                        </c:if>
+                                        <c:if test="${!field.need}">
+                                            <input type="checkbox" name="need${field.name}" id="need${field.name}">
+                                        </c:if> 是否网页必须有${field.name}
+                                    </label>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label for="${field.name}XPath"><span class="label label-warning">动态</span>${field.name}XPath</label>
-                                <input type="text" class="form-control" id="${field.name}XPath"
-                                       name="${field.name}XPath"
-                                       placeholder="${field.name}XPath" value="${field.xpath}">
+                        </c:forEach>
+                    </div>
+                    <div class="form-group" id="staticFields">
+                        <button type="button" onclick="addStaticField()" class="btn btn-info">添加静态字段
+                        </button>
+                        <c:forEach items="${spiderInfo.staticFields}" var="field" varStatus="index">
+                            <div id="staticField${index.count}" class="staticField" name="${field.name}">
+                                <button class="btn btn-danger" type="button"
+                                        onclick="$('#staticField${index.count}').remove();">删除静态字段${field.name}</button>
+                                <div class="form-group">
+                                    <label for="static-${field.name}-value"><span
+                                            class="label label-warning">静态</span>${field.name} Value</label>
+                                    <input type="text" class="form-control" id="static-${field.name}-value"
+                                           name="${field.name}-value"
+                                           placeholder="${field.name}value" value="${field.value}">
+                                </div>
                             </div>
-                            <div class="checkbox">
-                                <label>
-                                    <c:if test="${field.need}">
-                                        <input type="checkbox" name="need${field.name}" id="need${field.name}"
-                                               checked="checked">
-                                    </c:if>
-                                    <c:if test="${!field.need}">
-                                        <input type="checkbox" name="need${field.name}" id="need${field.name}">
-                                    </c:if> 是否网页必须有${field.name}
-                                </label>
-                            </div>
+                        </c:forEach>
+                    </div>
+                    <div class="form-group">
+                        <label for="lang">lang</label>
+                        <input type="text" class="form-control" id="lang" name="lang"
+                               placeholder="发布时间模板语言" value="${spiderInfo.lang}">
+                    </div>
+                    <div class="form-group">
+                        <label for="country">country</label>
+                        <input type="text" class="form-control" id="country" name="country"
+                               placeholder="发布时间模板国家" value="${spiderInfo.country}">
+                    </div>
+                    <div class="form-group">
+                        <label for="callbackURL">callbackURL(多个回调地址请使用json格式书写,例如['http://news.qq.com','http://news.qq.com/dfs/dfs.fg'])</label>
+                        <input type="text" class="form-control" id="callbackURL" name="callbackURL" placeholder="回调url"
+                               value="${spiderInfo.callbackURL}">
+                    </div>
+                    <div class="form-group">
+                        <label for="userAgent">userAgent</label>
+                        <input type="text" class="form-control" id="userAgent" name="userAgent" placeholder="userAgent"
+                               value="${spiderInfo.userAgent}">
+                    </div>
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label>
+                                <c:if test="${spiderInfo.doNLP}">
+                                    <input type="checkbox" name="doNLP" id="doNLP" checked="checked">
+                                </c:if>
+                                <c:if test="${!spiderInfo.doNLP}">
+                                    <input type="checkbox" name="doNLP" id="doNLP">
+                                </c:if>是否进行nlp处理(包括摘要,关键词,命名实体抽取)
+                            </label>
                         </div>
-                    </c:forEach>
-                </div>
-                <div class="form-group" id="staticFields">
-                    <button type="button" onclick="addStaticField()" class="btn btn-info">添加静态字段
-                    </button>
-                    <c:forEach items="${spiderInfo.staticFields}" var="field" varStatus="index">
-                        <div id="staticField${index.count}" class="staticField" name="${field.name}">
-                            <button class="btn btn-danger" type="button"
-                                    onclick="$('#staticField${index.count}').remove();">删除静态字段${field.name}</button>
-                            <div class="form-group">
-                                <label for="static-${field.name}-value"><span
-                                        class="label label-warning">静态</span>${field.name} Value</label>
-                                <input type="text" class="form-control" id="static-${field.name}-value"
-                                       name="${field.name}-value"
-                                       placeholder="${field.name}value" value="${field.value}">
-                            </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label>
+                                <c:if test="${spiderInfo.gatherFirstPage}">
+                                    <input type="checkbox" name="gatherFirstPage" id="gatherFirstPage"
+                                           checked="checked">
+                                </c:if>
+                                <c:if test="${!spiderInfo.gatherFirstPage}">
+                                    <input type="checkbox" name="gatherFirstPage" id="gatherFirstPage">
+                                </c:if> 是否只抓取首页
+                            </label>
                         </div>
-                    </c:forEach>
-                </div>
-                <div class="form-group">
-                    <label for="lang">lang</label>
-                    <input type="text" class="form-control" id="lang" name="lang"
-                           placeholder="发布时间模板语言" value="${spiderInfo.lang}">
-                </div>
-                <div class="form-group">
-                    <label for="country">country</label>
-                    <input type="text" class="form-control" id="country" name="country"
-                           placeholder="发布时间模板国家" value="${spiderInfo.country}">
-                </div>
-                <div class="form-group">
-                    <label for="callbackURL">callbackURL(多个回调地址请使用json格式书写,例如['http://news.qq.com','http://news.qq.com/dfs/dfs.fg'])</label>
-                    <input type="text" class="form-control" id="callbackURL" name="callbackURL" placeholder="回调url"
-                           value="${spiderInfo.callbackURL}">
-                </div>
-                <div class="form-group">
-                    <label for="userAgent">userAgent</label>
-                    <input type="text" class="form-control" id="userAgent" name="userAgent" placeholder="userAgent"
-                           value="${spiderInfo.userAgent}">
-                </div>
-                <div class="form-group">
-                    <div class="checkbox">
-                        <label>
-                            <c:if test="${spiderInfo.doNLP}">
-                                <input type="checkbox" name="doNLP" id="doNLP" checked="checked">
-                            </c:if>
-                            <c:if test="${!spiderInfo.doNLP}">
-                                <input type="checkbox" name="doNLP" id="doNLP">
-                            </c:if>是否进行nlp处理(包括摘要,关键词,命名实体抽取)
-                        </label>
                     </div>
-                </div>
-                <div class="form-group">
-                    <div class="checkbox">
-                        <label>
-                            <c:if test="${spiderInfo.gatherFirstPage}">
-                                <input type="checkbox" name="gatherFirstPage" id="gatherFirstPage" checked="checked">
-                            </c:if>
-                            <c:if test="${!spiderInfo.gatherFirstPage}">
-                                <input type="checkbox" name="gatherFirstPage" id="gatherFirstPage">
-                            </c:if> 是否只抓取首页
-                        </label>
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label>
+                                <c:if test="${spiderInfo.needTitle}">
+                                    <input type="checkbox" name="needTitle" id="needTitle" checked="checked">
+                                </c:if>
+                                <c:if test="${!spiderInfo.needTitle}">
+                                    <input type="checkbox" name="needTitle" id="needTitle">
+                                </c:if> 是否网页必须有标题
+                            </label>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <div class="checkbox">
-                        <label>
-                            <c:if test="${spiderInfo.needTitle}">
-                                <input type="checkbox" name="needTitle" id="needTitle" checked="checked">
-                            </c:if>
-                            <c:if test="${!spiderInfo.needTitle}">
-                                <input type="checkbox" name="needTitle" id="needTitle">
-                            </c:if> 是否网页必须有标题
-                        </label>
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label>
+                                <c:if test="${spiderInfo.needContent}">
+                                    <input type="checkbox" name="needContent" id="needContent" checked="checked">
+                                </c:if>
+                                <c:if test="${!spiderInfo.needContent}">
+                                    <input type="checkbox" name="needContent" id="needContent">
+                                </c:if> 是否网页必须有正文
+                            </label>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <div class="checkbox">
-                        <label>
-                            <c:if test="${spiderInfo.needContent}">
-                                <input type="checkbox" name="needContent" id="needContent" checked="checked">
-                            </c:if>
-                            <c:if test="${!spiderInfo.needContent}">
-                                <input type="checkbox" name="needContent" id="needContent">
-                            </c:if> 是否网页必须有正文
-                        </label>
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label>
+                                <c:if test="${spiderInfo.needPublishTime}">
+                                    <input type="checkbox" name="needPublishTime" id="needPublishTime"
+                                           checked="checked">
+                                </c:if>
+                                <c:if test="${!spiderInfo.needPublishTime}">
+                                    <input type="checkbox" name="needPublishTime" id="needPublishTime">
+                                </c:if> 是否网页必须有发布时间
+                            </label>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <div class="checkbox">
-                        <label>
-                            <c:if test="${spiderInfo.needPublishTime}">
-                                <input type="checkbox" name="needPublishTime" id="needPublishTime" checked="checked">
-                            </c:if>
-                            <c:if test="${!spiderInfo.needPublishTime}">
-                                <input type="checkbox" name="needPublishTime" id="needPublishTime">
-                            </c:if> 是否网页必须有发布时间
-                        </label>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="checkbox">
-                        <label>
-                            <c:if test="${spiderInfo.saveCapture}">
-                                <input type="checkbox" name="saveCapture" id="saveCapture" checked="checked">
-                            </c:if>
-                            <c:if test="${!spiderInfo.saveCapture}">
-                                <input type="checkbox" name="saveCapture" id="saveCapture">
-                            </c:if> 是否保存网页快照,默认保存
-                        </label>
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label>
+                                <c:if test="${spiderInfo.saveCapture}">
+                                    <input type="checkbox" name="saveCapture" id="saveCapture" checked="checked">
+                                </c:if>
+                                <c:if test="${!spiderInfo.saveCapture}">
+                                    <input type="checkbox" name="saveCapture" id="saveCapture">
+                                </c:if> 是否保存网页快照,默认保存
+                            </label>
+                        </div>
                     </div>
                 </div>
                 <div class="form-group">
@@ -619,6 +607,9 @@
                 <button type="button" class="btn btn-primary" onclick="exportJson()">导出模板</button>
                 <button type="button" class="btn btn-danger" onclick="submitTask()">提交抓取任务</button>
                 <button type="button" class="btn btn-warning" onclick="save()">存储此模板</button>
+                <button type="button" class="btn btn-info" id="showAdvancedSettingBtn" onclick="showAdvancedSetting()">
+                    显示高级配置
+                </button>
             </form>
         </div>
     </div>

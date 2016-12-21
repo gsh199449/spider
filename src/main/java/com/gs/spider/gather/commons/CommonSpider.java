@@ -760,7 +760,6 @@ public class CommonSpider extends AsyncGather {
                 commonWebpagePipeline.deleteUrls(task.getTaskId());
                 taskManager.stopTask(task);
             }
-            pageProcessor = null;
         }
 
         SpiderInfo getSpiderInfo() {

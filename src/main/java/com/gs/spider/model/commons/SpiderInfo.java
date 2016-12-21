@@ -28,7 +28,7 @@ public class SpiderInfo {
     /**
      * 最大抓取网页数量,0代表不限制
      */
-    private int maxPageGather = 0;
+    private int maxPageGather = 10;
     /**
      * HTTP链接超时时间
      */
