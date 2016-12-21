@@ -25,9 +25,7 @@
     "publishTimeFormat": " yyyy年MM月dd日 HH:mm　来源：",
     "lang": "",
     "country": "",
-    "callbackURL": [
-        "http://172.16.1.105:8080/htccData/DataInjectUtil?sourceId=5799d9def13ec7bc45eab74e&siteId=5020&siteName=%E4%B8%AD%E5%9B%BD%E6%96%B0%E9%97%BB%E7%BD%91"
-    ],
+    "callbackURL": [],
     "userAgent": "Mozilla/5.0 (Windows NT 5.2) AppleWebKit/534.30 (KHTML, like Gecko) Chrome/12.0.742.122 Safari/534.30",
     "doNLP": true,
     "needPublishTime": true,
