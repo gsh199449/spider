@@ -112,7 +112,7 @@ public class SpiderInfo {
     /**
      * 是否进行nlp处理
      */
-    private boolean doNLP = false;
+    private boolean doNLP = true;
     /**
      * 网页必须有标题
      */

@@ -7,12 +7,9 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4b864787-4a0d-405d-894b-c5fa0defbf1c" name="Default" comment="注明windows用户安装es注意事项">
+    <list default="true" id="4b864787-4a0d-405d-894b-c5fa0defbf1c" name="Default" comment="修正爬虫停止时出现空指针问题&#10;爬虫管理界面可选高级配置显示">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/gs/spider/gather/commons/CommonSpider.java" afterPath="$PROJECT_DIR$/src/main/java/com/gs/spider/gather/commons/CommonSpider.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/gs/spider/model/commons/SpiderInfo.java" afterPath="$PROJECT_DIR$/src/main/java/com/gs/spider/model/commons/SpiderInfo.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/pages/commons/head.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/pages/commons/head.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/pages/panel/commons/editSpiderInfo.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/pages/panel/commons/editSpiderInfo.jsp" />
     </list>
     <ignored path="spider.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -42,18 +39,18 @@
             <state relative-caret-position="177">
               <caret line="296" column="22" selection-start-line="296" selection-start-column="22" selection-end-line="296" selection-end-column="22" />
               <folding>
-                <marker date="1482316174000" expanded="true" signature="5340:6568" placeholder="..." />
-                <marker date="1482316174000" expanded="true" signature="5547:5868" placeholder="..." />
-                <marker date="1482316174000" expanded="true" signature="5793:5840" placeholder="..." />
-                <marker date="1482316174000" expanded="true" signature="5914:6262" placeholder="..." />
-                <marker date="1482316174000" expanded="true" signature="6141:6234" placeholder="..." />
-                <marker date="1482316174000" expanded="true" signature="6306:6540" placeholder="..." />
-                <marker date="1482316174000" expanded="true" signature="6335:6512" placeholder="..." />
-                <marker date="1482316174000" expanded="true" signature="6979:7722" placeholder="..." />
-                <marker date="1482316174000" expanded="true" signature="7062:7176" placeholder="..." />
-                <marker date="1482316174000" expanded="true" signature="7238:7678" placeholder="..." />
-                <marker date="1482316174000" expanded="true" signature="7508:7634" placeholder="..." />
-                <marker date="1482316174000" expanded="true" signature="9989:10032" placeholder="..." />
+                <marker date="1482316508000" expanded="true" signature="5340:6568" placeholder="..." />
+                <marker date="1482316508000" expanded="true" signature="5547:5868" placeholder="..." />
+                <marker date="1482316508000" expanded="true" signature="5793:5840" placeholder="..." />
+                <marker date="1482316508000" expanded="true" signature="5914:6262" placeholder="..." />
+                <marker date="1482316508000" expanded="true" signature="6141:6234" placeholder="..." />
+                <marker date="1482316508000" expanded="true" signature="6306:6540" placeholder="..." />
+                <marker date="1482316508000" expanded="true" signature="6335:6512" placeholder="..." />
+                <marker date="1482316508000" expanded="true" signature="6979:7722" placeholder="..." />
+                <marker date="1482316508000" expanded="true" signature="7062:7176" placeholder="..." />
+                <marker date="1482316508000" expanded="true" signature="7238:7678" placeholder="..." />
+                <marker date="1482316508000" expanded="true" signature="7508:7634" placeholder="..." />
+                <marker date="1482316508000" expanded="true" signature="9989:10032" placeholder="..." />
               </folding>
             </state>
           </provider>
@@ -62,21 +59,21 @@
       <file leaf-file-name="SpiderInfo.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/gs/spider/model/commons/SpiderInfo.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="24">
-              <caret line="22" column="2" selection-start-line="22" selection-start-column="2" selection-end-line="22" selection-end-column="2" />
+            <state relative-caret-position="42">
+              <caret line="114" column="32" selection-start-line="114" selection-start-column="32" selection-end-line="114" selection-end-column="32" />
               <folding>
-                <element signature="e#3245#3246#0" expanded="true" />
-                <element signature="e#3281#3282#0" expanded="true" />
+                <element signature="e#3244#3245#0" expanded="true" />
+                <element signature="e#3280#3281#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="head.jsp" pinned="false" current-in-tab="true">
+      <file leaf-file-name="head.jsp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/pages/commons/head.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1548">
-              <caret line="86" column="24" selection-start-line="86" selection-start-column="24" selection-end-line="86" selection-end-column="24" />
+            <state relative-caret-position="1530">
+              <caret line="85" column="24" selection-start-line="85" selection-start-column="24" selection-end-line="85" selection-end-column="24" />
               <folding />
             </state>
           </provider>
@@ -90,6 +87,26 @@
               <folding>
                 <marker date="1479998593000" expanded="true" signature="668:759" placeholder="..." />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SpiderInfoDAO.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/gs/spider/dao/SpiderInfoDAO.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="168">
+              <caret line="125" column="0" selection-start-line="125" selection-start-column="0" selection-end-line="125" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SpiderInfoController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/gs/spider/controller/commons/spiderinfo/SpiderInfoController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="168">
+              <caret line="50" column="0" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -156,9 +173,9 @@
         <option value="$PROJECT_DIR$/src/main/resources/staticvalue.json" />
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/src/main/java/com/gs/spider/gather/commons/CommonSpider.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/gs/spider/model/commons/SpiderInfo.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/pages/panel/commons/editSpiderInfo.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/pages/commons/head.jsp" />
+        <option value="$PROJECT_DIR$/src/main/java/com/gs/spider/model/commons/SpiderInfo.java" />
       </list>
     </option>
   </component>
@@ -939,7 +956,7 @@
       <workItem from="1481113546145" duration="23000" />
       <workItem from="1481173399376" duration="2702000" />
       <workItem from="1481273811415" duration="202000" />
-      <workItem from="1482315122150" duration="1239000" />
+      <workItem from="1482315122150" duration="1528000" />
     </task>
     <task id="LOCAL-00001" summary="系统完善">
       <created>1479970819600</created>
@@ -1039,11 +1056,18 @@
       <option name="project" value="LOCAL" />
       <updated>1480400474209</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="修正爬虫停止时出现空指针问题&#10;爬虫管理界面可选高级配置显示">
+      <created>1482316509325</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1482316509325</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="21505000" />
+    <option name="totallyTimeSpent" value="21794000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
@@ -1113,7 +1137,8 @@
     <MESSAGE value="更新README,增加windows适配的elasticsearch" />
     <MESSAGE value="fixed #4 在爬虫模板含有id时更新原模板,而不是新存储一个" />
     <MESSAGE value="注明windows用户安装es注意事项" />
-    <option name="LAST_COMMIT_MESSAGE" value="注明windows用户安装es注意事项" />
+    <MESSAGE value="修正爬虫停止时出现空指针问题&#10;爬虫管理界面可选高级配置显示" />
+    <option name="LAST_COMMIT_MESSAGE" value="修正爬虫停止时出现空指针问题&#10;爬虫管理界面可选高级配置显示" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
@@ -1304,13 +1329,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/gs/spider/controller/commons/spiderinfo/SpiderInfoController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="668">
-          <caret line="86" column="35" selection-start-line="86" selection-start-column="35" selection-end-line="86" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/gs/spider/dao/ESPipeline.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-25">
@@ -1391,14 +1409,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/gs/spider/dao/SpiderInfoDAO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="96">
-          <caret line="125" column="0" selection-start-line="125" selection-start-column="0" selection-end-line="125" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/gs/spider/gather/commons/ContentLengthLimitHttpClientDownloader.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="199">
@@ -1451,17 +1461,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/gs/spider/model/commons/SpiderInfo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="24">
-          <caret line="22" column="2" selection-start-line="22" selection-start-column="2" selection-end-line="22" selection-end-column="2" />
-          <folding>
-            <element signature="e#3245#3246#0" expanded="true" />
-            <element signature="e#3281#3282#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/pages/commons/header.jsp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="100">
@@ -1475,18 +1474,18 @@
         <state relative-caret-position="177">
           <caret line="296" column="22" selection-start-line="296" selection-start-column="22" selection-end-line="296" selection-end-column="22" />
           <folding>
-            <marker date="1482316174000" expanded="true" signature="5340:6568" placeholder="..." />
-            <marker date="1482316174000" expanded="true" signature="5547:5868" placeholder="..." />
-            <marker date="1482316174000" expanded="true" signature="5793:5840" placeholder="..." />
-            <marker date="1482316174000" expanded="true" signature="5914:6262" placeholder="..." />
-            <marker date="1482316174000" expanded="true" signature="6141:6234" placeholder="..." />
-            <marker date="1482316174000" expanded="true" signature="6306:6540" placeholder="..." />
-            <marker date="1482316174000" expanded="true" signature="6335:6512" placeholder="..." />
-            <marker date="1482316174000" expanded="true" signature="6979:7722" placeholder="..." />
-            <marker date="1482316174000" expanded="true" signature="7062:7176" placeholder="..." />
-            <marker date="1482316174000" expanded="true" signature="7238:7678" placeholder="..." />
-            <marker date="1482316174000" expanded="true" signature="7508:7634" placeholder="..." />
-            <marker date="1482316174000" expanded="true" signature="9989:10032" placeholder="..." />
+            <marker date="1482316508000" expanded="true" signature="5340:6568" placeholder="..." />
+            <marker date="1482316508000" expanded="true" signature="5547:5868" placeholder="..." />
+            <marker date="1482316508000" expanded="true" signature="5793:5840" placeholder="..." />
+            <marker date="1482316508000" expanded="true" signature="5914:6262" placeholder="..." />
+            <marker date="1482316508000" expanded="true" signature="6141:6234" placeholder="..." />
+            <marker date="1482316508000" expanded="true" signature="6306:6540" placeholder="..." />
+            <marker date="1482316508000" expanded="true" signature="6335:6512" placeholder="..." />
+            <marker date="1482316508000" expanded="true" signature="6979:7722" placeholder="..." />
+            <marker date="1482316508000" expanded="true" signature="7062:7176" placeholder="..." />
+            <marker date="1482316508000" expanded="true" signature="7238:7678" placeholder="..." />
+            <marker date="1482316508000" expanded="true" signature="7508:7634" placeholder="..." />
+            <marker date="1482316508000" expanded="true" signature="9989:10032" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -1503,8 +1502,35 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/pages/commons/head.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1548">
-          <caret line="86" column="24" selection-start-line="86" selection-start-column="24" selection-end-line="86" selection-end-column="24" />
+        <state relative-caret-position="1530">
+          <caret line="85" column="24" selection-start-line="85" selection-start-column="24" selection-end-line="85" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/gs/spider/model/commons/SpiderInfo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="42">
+          <caret line="114" column="32" selection-start-line="114" selection-start-column="32" selection-end-line="114" selection-end-column="32" />
+          <folding>
+            <element signature="e#3244#3245#0" expanded="true" />
+            <element signature="e#3280#3281#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/gs/spider/controller/commons/spiderinfo/SpiderInfoController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="50" column="0" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/gs/spider/dao/SpiderInfoDAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="125" column="0" selection-start-line="125" selection-start-column="0" selection-end-line="125" selection-end-column="0" />
           <folding />
         </state>
       </provider>
