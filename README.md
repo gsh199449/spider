@@ -124,8 +124,9 @@ Gather Platform 数据抓取平台是一套基于[Webmagic](https://github.com/c
 ### 配置爬虫模板
 
   在导航栏的下拉菜单中点击 `编辑模板`  按钮,在这个页面中可完成一个爬虫的所有配置,具体每一个配置项的说明见每一个输入框的提示.
-
-![编辑模板](https://raw.githubusercontent.com/gsh199449/spider/master/doc/imgs/spiderinfo.png)
+  页面上只显示最基本的几个配置项，只要配置了这几个配置即可马上开始采集。如果需要更加详细的配置，则可以点击 `显示高级配置` 即可展开更多的配置项。
+  
+  ![编辑模板](https://raw.githubusercontent.com/gsh199449/spider/master/doc/imgs/editSpiderInfo.png)
 
   爬虫模板配置完成后,点击下面的 `采集样例数据` 按钮,稍等片刻即可在下方展示根据刚刚配置的模板抓取的数据,如果数据有误在上面的模板中进行修改,然后再次点击 `采集样例数据` 按钮即可重新抓取.
 
