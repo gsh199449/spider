@@ -1,0 +1,49 @@
+{
+  "id": "",
+  "thread": "1",
+  "retry": "2",
+  "sleep": "0",
+  "maxPageGather": "10",
+  "timeout": "5000",
+  "priority": "0",
+  "siteName": "oschina",
+  "domain": "www.oschina.net",
+  "startURL": [
+    "http://www.oschina.net/p/gather-platform"
+  ],
+  "contentReg": "",
+  "contentXPath": "//section[@id='v-details']/tidyText()",
+  "titleReg": "",
+  "titleXPath": "//h1/tidyText()",
+  "categoryReg": "",
+  "categoryXPath": "",
+  "defaultCategory": "",
+  "urlReg": "https://www\\.oschina\\.net/p/.*",
+  "charset": "",
+  "publishTimeXPath": "",
+  "publishTimeReg": "收录时间：\\d{4}-\\d{2}-\\d{2}",
+  "publishTimeFormat": "收录时间：yyyy-mm-dd",
+  "homePageReg": "",
+  "homePageXPath": "//a[@class='item  index']/@href",
+  "lang": "",
+  "country": "",
+  "callbackURL": [],
+  "userAgent": "Mozilla/5.0 (Windows NT 5.2) AppleWebKit/534.30 (KHTML, like Gecko) Chrome/12.0.742.122 Safari/534.30",
+  "doNLP": true,
+  "needTitle": true,
+  "needContent": true,
+  "gatherFirstPage": false,
+  "needPublishTime": false,
+  "ajaxSite": false,
+  "saveCapture": false,
+  "autoDetectPublishDate": false,
+  "dynamicFields": [
+    {
+      "regex": "",
+      "xpath": "//a[@class='item  index']/@href",
+      "name": "homePage",
+      "need": false
+    }
+  ],
+  "staticFields": []
+}
