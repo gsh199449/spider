@@ -272,7 +272,7 @@
 
         });
         $.validator.addMethod("maxGather", function (value, element, params) {
-            return !(value <= 0 && !$("#gatherFirstPage").prop("checked"));
+            return !(value < 0 && !$("#gatherFirstPage").prop("checked"));
         }, "最大抓取页数与只抓取首页必选其一");
         $.validator.addMethod("domain", function (value, element, params) {
             return value.indexOf('/') == -1;

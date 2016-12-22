@@ -14,6 +14,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.io.OutputStream;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -194,5 +195,37 @@ public class CommonWebpageService {
     public ResultBundle<String> updateBySpiderInfoID(String spiderInfoIdUpdateBy, String spiderInfoJson, List<String> callbackUrls) {
         SpiderInfo spiderInfo = gson.fromJson(spiderInfoJson, SpiderInfo.class);
         return bundleBuilder.bundle(spiderInfoIdUpdateBy, () -> commonSpider.updateBySpiderinfoID(spiderInfoIdUpdateBy, spiderInfo, callbackUrls));
+    }
+
+    /**
+     * 根据爬虫id导出 标题-正文 对
+     *
+     * @param uuid         爬虫id
+     * @param outputStream 文件输出流
+     */
+    public void exportTitleContentPairBySpiderUUID(String uuid, OutputStream outputStream) {
+        commonWebpageDAO.exportTitleContentPairBySpiderUUID(uuid, outputStream);
+    }
+
+    /**
+     * 根据爬虫id导出 webpage的JSON对象
+     *
+     * @param uuid         爬虫id
+     * @param includeRaw   是否包含网页快照
+     * @param outputStream 文件输出流
+     */
+    public void exportWebpageJSONBySpiderUUID(String uuid, Boolean includeRaw, OutputStream outputStream) {
+        commonWebpageDAO.exportWebpageJSONBySpiderUUID(uuid, includeRaw, outputStream);
+    }
+
+    /**
+     * 根据域名导出 webpage的JSON对象
+     *
+     * @param domain       域名
+     * @param includeRaw   是否包含网页快照
+     * @param outputStream 文件输出流
+     */
+    public void exportWebpageJSONByDomain(String domain, Boolean includeRaw, OutputStream outputStream) {
+        commonWebpageDAO.exportWebpageJSONByDomain(domain, includeRaw, outputStream);
     }
 }

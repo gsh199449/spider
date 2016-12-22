@@ -22,10 +22,7 @@ import org.elasticsearch.action.search.SearchType;
 import org.elasticsearch.action.update.UpdateRequest;
 import org.elasticsearch.action.update.UpdateResponse;
 import org.elasticsearch.common.unit.TimeValue;
-import org.elasticsearch.index.query.BoolQueryBuilder;
-import org.elasticsearch.index.query.MoreLikeThisQueryBuilder;
-import org.elasticsearch.index.query.QueryBuilder;
-import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.index.query.*;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.aggregations.AggregationBuilder;
@@ -38,6 +35,7 @@ import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.io.OutputStream;
 import java.text.DateFormat;
 import java.util.*;
 import java.util.concurrent.ExecutionException;
@@ -102,6 +100,78 @@ public class CommonWebpageDAO extends IDAO<Webpage> {
                 .setSize(size).setFrom(size * (page - 1));
         SearchResponse response = searchRequestBuilder.execute().actionGet();
         return warpHits2List(response.getHits());
+    }
+
+    /**
+     * 导出 标题-正文 对
+     *
+     * @param queryBuilder    查询
+     * @param outputStream    文件输出流
+     */
+    private void exportTitleContentPairBy(QueryBuilder queryBuilder, OutputStream outputStream) {
+        exportData(queryBuilder,
+                searchResponse -> {
+                    List<List<String>> resultList = Lists.newLinkedList();
+                    List<Webpage> webpageList = warpHits2List(searchResponse.getHits());
+                    webpageList.forEach(webpage -> resultList.add(Lists.newArrayList(webpage.getTitle())));
+                    return resultList;
+                },
+                searchResponse -> {
+                    List<String> resultList = Lists.newLinkedList();
+                    List<Webpage> webpageList = warpHits2List(searchResponse.getHits());
+                    webpageList.forEach(webpage -> resultList.add(webpage.getContent()));
+                    return resultList;
+                }, outputStream);
+    }
+
+    /**
+     * 根据爬虫id导出 标题-正文 对
+     *
+     * @param uuid         爬虫id
+     * @param outputStream 文件输出流
+     */
+    public void exportTitleContentPairBySpiderUUID(String uuid, OutputStream outputStream) {
+        exportTitleContentPairBy(QueryBuilders.matchQuery("spiderUUID", uuid).operator(Operator.AND), outputStream);
+    }
+
+    /**
+     * 导出 webpage的JSON对象
+     *
+     * @param queryBuilder 查询
+     * @param includeRaw   是否包含网页快照
+     * @param outputStream 文件输出流
+     */
+    private void exportWebpageJSONBy(QueryBuilder queryBuilder, Boolean includeRaw, OutputStream outputStream) {
+        exportData(queryBuilder,
+                searchResponse -> Lists.newLinkedList(),
+                searchResponse -> {
+                    List<String> resultList = Lists.newLinkedList();
+                    List<Webpage> webpageList = warpHits2List(searchResponse.getHits());
+                    webpageList.forEach(webpage -> resultList.add(gson.toJson(includeRaw ? webpage : webpage.setRawHTML(null))));
+                    return resultList;
+                }, outputStream);
+    }
+
+    /**
+     * 根据爬虫id导出 webpage的JSON对象
+     *
+     * @param uuid         爬虫id
+     * @param includeRaw   是否包含网页快照
+     * @param outputStream 文件输出流
+     */
+    public void exportWebpageJSONBySpiderUUID(String uuid, Boolean includeRaw, OutputStream outputStream) {
+        exportWebpageJSONBy(QueryBuilders.matchQuery("spiderUUID", uuid).operator(Operator.AND), includeRaw, outputStream);
+    }
+
+    /**
+     * 根据domain导出 webpage的JSON对象
+     *
+     * @param domain       域名
+     * @param includeRaw   是否包含网页快照
+     * @param outputStream 文件输出流
+     */
+    public void exportWebpageJSONByDomain(String domain, Boolean includeRaw, OutputStream outputStream) {
+        exportWebpageJSONBy(QueryBuilders.matchQuery("domain", domain).operator(Operator.AND), includeRaw, outputStream);
     }
 
     /**
@@ -308,7 +378,7 @@ public class CommonWebpageDAO extends IDAO<Webpage> {
         SearchResponse response = searchRequestBuilder.execute().actionGet();
         Terms termsAgg = response.getAggregations().get("domain");
         List<Terms.Bucket> list = termsAgg.getBuckets();
-        Map<String, Long> count = new HashMap<>();
+        Map<String, Long> count = Maps.newLinkedHashMap();
         list.stream().filter(bucket -> ((String) bucket.getKey()).length() > 1).forEach(bucket -> {
             count.put((String) bucket.getKey(), bucket.getDocCount());
         });

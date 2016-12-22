@@ -1,6 +1,9 @@
 package com.gs.spider.dao;
 
+import com.google.common.base.Preconditions;
 import com.gs.spider.model.async.Task;
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.elasticsearch.action.bulk.BulkRequestBuilder;
@@ -14,10 +17,15 @@ import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
 
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.List;
 import java.util.Queue;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.ConcurrentLinkedDeque;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 
 /**
@@ -66,10 +74,6 @@ public abstract class IDAO<T> {
             LOG.info("已经初始化过了");
         }
         this.client = esClient.getClient();
-        if (this.client == null) {
-            LOG.info("ES客户端未初始化");
-            return false;
-        }
         LOG.debug("检查ES index,type 是否存在");
         return check();
     }
@@ -173,5 +177,57 @@ public abstract class IDAO<T> {
                 .setQuery(queryBuilder);
         SearchResponse response = searchRequestBuilder.execute().actionGet();
         return response.getHits().getTotalHits();
+    }
+
+    /**
+     * 导出数据
+     *
+     * @param queryBuilder    数据查询
+     * @param labelsSupplier  提取labels,每篇文章返回一个label的List
+     * @param contentSupplier 提取正文
+     * @return 经过分词的输出流
+     */
+    protected void exportData(QueryBuilder queryBuilder, Function<SearchResponse, List<List<String>>> labelsSupplier, Function<SearchResponse, List<String>> contentSupplier, OutputStream outputStream) {
+        final int size = 50;
+        String scrollId = null;
+        for (int page = 1; ; page++) {
+            LOG.debug("正在输出{}第{}页", queryBuilder, page);
+            SearchResponse response;
+            if (StringUtils.isBlank(scrollId)) {
+                response = client.prepareSearch(INDEX_NAME)
+                        .setTypes(TYPE_NAME)
+                        .setQuery(queryBuilder)
+                        .setSize(size)
+                        .setScroll(TimeValue.timeValueMinutes(SCROLL_TIMEOUT))
+                        .execute().actionGet();
+                scrollId = response.getScrollId();
+            } else {
+                response = client.prepareSearchScroll(scrollId)
+                        .setScroll(TimeValue.timeValueMinutes(SCROLL_TIMEOUT)).execute().actionGet();
+            }
+            final List<List<String>> labels = labelsSupplier.apply(response);
+            final List<String> contentList = contentSupplier.apply(response);
+            Preconditions.checkNotNull(labels);
+            Preconditions.checkNotNull(contentList);
+            if (contentList.size() <= 0) break;
+            List<String> combine;
+            if (labels.size() > 0) {
+                combine = labels.stream().map(labelList ->
+                        labelList.parallelStream().collect(Collectors.joining("/")
+                        )).collect(Collectors.toList());
+                for (int i = 0; i < labels.size(); i++) {
+                    String content = contentList.get(i);
+                    combine.set(i, combine.get(i) + " " + content);
+                }
+            } else {
+                combine = contentList;
+            }
+            try {
+                IOUtils.write(combine.stream().collect(Collectors.joining("\n")) + "\n", outputStream, "utf-8");
+                outputStream.flush();
+            } catch (IOException e) {
+                LOG.error("输出错误,{}", e.getLocalizedMessage());
+            }
+        }
     }
 }

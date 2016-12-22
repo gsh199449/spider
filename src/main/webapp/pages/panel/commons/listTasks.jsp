@@ -79,12 +79,13 @@
             <th>查看数据</th>
             <th>停止</th>
             <th>删除</th>
+            <th>导出数据</th>
         </tr>
         </thead>
         <tbody>
         <c:forEach items="${resultBundle.resultList}" var="task" varStatus="index">
             <tr>
-                <!--<th scope="row">${task.taskId}</th>-->
+                    <%--<th scope="row">${task.taskId}</th>--%>
                 <th scope="row">${index.count}</th>
                 <td>${task.name}</td>
                 <td>${task.count}</td>
@@ -136,6 +137,36 @@
                         <button onclick="rpcAndShowData('${pageContext.request.contextPath}/commons/spider/delete',{uuid:'${task.taskId}'})"
                                 class="btn btn-danger">删除
                         </button>
+                    </c:if>
+                </td>
+                <td>
+                    <c:if test="${spiderInfoList.get(index.index) == \"null\"}">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">
+                                导出数据数据
+                            </button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item">下载标题正文对</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item">下载JSON</a>
+                            </div>
+                        </div>
+                    </c:if>
+                    <c:if test="${spiderInfoList.get(index.index) != \"null\"}">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">
+                                导出数据数据
+                            </button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item"
+                                   href="${pageContext.request.contextPath}/commons/webpage/exportTitleContentPairBySpiderUUID?uuid=${task.taskId}">下载标题正文对</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item"
+                                   href="${pageContext.request.contextPath}/commons/webpage/exportWebpageJSONBySpiderUUID?uuid=${task.taskId}">下载JSON</a>
+                            </div>
+                        </div>
                     </c:if>
                 </td>
             </tr>
