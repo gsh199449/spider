@@ -1,6 +1,6 @@
 package com.gs.spider.model.commons;
 
-import com.google.common.base.MoreObjects;
+import com.google.common.base.Objects;
 import com.google.gson.annotations.SerializedName;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -261,7 +261,7 @@ public class Webpage {
 
     @Override
     public String toString() {
-        return MoreObjects.toStringHelper(this)
+        return Objects.toStringHelper(this)
                 .add("content", content)
                 .add("title", title)
                 .add("url", url)

@@ -94,7 +94,7 @@ public class CommonWebpagePipeline extends IDAO<Webpage> implements DuplicateRem
         Set<String> tempLists = urls.get(task.getUUID());
         //初始化已采集网站列表缓存
         if (tempLists == null) {
-            tempLists = Sets.newConcurrentHashSet();
+            tempLists = Sets.newHashSet();
             urls.put(task.getUUID(), tempLists);
         }
         if (tempLists.add(request.getUrl())) {//先检查当前生命周期是否抓取过,如果当前生命周期未抓取,则进一步检查ES

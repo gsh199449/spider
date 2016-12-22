@@ -12,5 +12,7 @@
   "redisPort": 6379,
   "redisHost": "localhost",
   "webpageRedisPublishChannelName": "webpage",
-  "commonsWebpageCrawlRatio": 2
+  "commonsWebpageCrawlRatio": 2,
+  "needHBase": true,
+  "hbaseHost": "192.168.31.203"
 }

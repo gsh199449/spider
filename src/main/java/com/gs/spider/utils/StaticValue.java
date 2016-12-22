@@ -42,9 +42,11 @@ public class StaticValue {
      */
     private boolean needRedis;
     private boolean needEs;
+    private boolean needHBase;
     private int redisPort;
     private String redisHost;
     private String webpageRedisPublishChannelName;
+    private String hbaseHost;
     /**
      * 抓取页面比例,如果抓取页面超过最大抓取数量ratio倍的时候仍未达到最大抓取数量爬虫也退出
      */
@@ -70,8 +72,10 @@ public class StaticValue {
             this.redisHost = jsonObject.get("redisHost").getAsString();
             this.needRedis = jsonObject.get("needRedis").getAsBoolean();
             this.needEs = jsonObject.get("needEs").getAsBoolean();
+            this.needHBase = jsonObject.get("needHBase").getAsBoolean();
             this.webpageRedisPublishChannelName = jsonObject.get("webpageRedisPublishChannelName").getAsString();
             this.commonsWebpageCrawlRatio = jsonObject.get("commonsWebpageCrawlRatio").getAsInt();
+            this.hbaseHost = jsonObject.get("hbaseHost").getAsString();
         } catch (IOException e) {
             LOG.fatal("初始化StaticValue失败," + e.getLocalizedMessage());
             e.printStackTrace();
@@ -210,6 +214,24 @@ public class StaticValue {
 
     public StaticValue setNeedEs(boolean needEs) {
         this.needEs = needEs;
+        return this;
+    }
+
+    public String getHbaseHost() {
+        return hbaseHost;
+    }
+
+    public StaticValue setHbaseHost(String hbaseHost) {
+        this.hbaseHost = hbaseHost;
+        return this;
+    }
+
+    public boolean isNeedHBase() {
+        return needHBase;
+    }
+
+    public StaticValue setNeedHBase(boolean needHBase) {
+        this.needHBase = needHBase;
         return this;
     }
 }
