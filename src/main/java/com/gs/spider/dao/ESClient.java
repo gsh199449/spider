@@ -88,6 +88,7 @@ public class ESClient {
     }
 
     public boolean checkType(String index, String type, String mapping) {
+        if (client == null) return false;
         if (!client.admin().indices().typesExists(new TypesExistsRequest(new String[]{index}, type)).actionGet().isExists()) {
             LOG.info(type + " type不存在,正在准备创建type");
             File mappingFile;
@@ -122,6 +123,7 @@ public class ESClient {
     }
 
     public boolean checkIndex(String index, String mapping) {
+        if (client == null) return false;
         if (!client.admin().indices().exists(new IndicesExistsRequest(index)).actionGet().isExists()) {
             File indexMappingFile;
             try {

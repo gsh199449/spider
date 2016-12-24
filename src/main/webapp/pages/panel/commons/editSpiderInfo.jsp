@@ -442,6 +442,7 @@
                         <input type="text" class="form-control" id="publishTimeFormat" name="publishTimeFormat"
                                placeholder="发布时间模板" value="${spiderInfo.publishTimeFormat}">
                     </div>
+                    <%--动态字段--%>
                     <div class="form-group" id="dynamicFields">
                         <button type="button" onclick="addDynamicField()" class="btn btn-info">添加动态字段
                         </button>
@@ -478,6 +479,7 @@
                             </div>
                         </c:forEach>
                     </div>
+                    <%--静态字段--%>
                     <div class="form-group" id="staticFields">
                         <button type="button" onclick="addStaticField()" class="btn btn-info">添加静态字段
                         </button>
@@ -656,16 +658,19 @@
 </div>
 </body>
 <script>
+    //JSON格式填充起始URL
     var startUrls = [];
     <c:forEach items="${spiderInfo.startURL}" var="url">
     startUrls.push('${url}');
     </c:forEach>
     $('#startURL').val(JSON.stringify(startUrls));
+    //JSON格式填充回调地址
     var callbackURL = [];
     <c:forEach items="${spiderInfo.callbackURL}" var="url">
     callbackURL.push('${url}');
     </c:forEach>
     $('#callbackURL').val(JSON.stringify(callbackURL));
+    // 检测上次编辑到一半的模板
     var spiderInfo = localStorage["spiderInfo"];
     if (spiderInfo != undefined) {
         showModal("请注意", "检测到有尚未保存的爬虫模板,是否要继续编辑?", function () {
