@@ -98,7 +98,7 @@ public class ContentLengthLimitHttpClientDownloader extends HttpClientDownloader
         int statusCode = 0;
         HttpUriRequest httpUriRequest = null;
         try {
-            httpUriRequest = getHttpUriRequest(request, site, headers);
+            httpUriRequest = getHttpUriRequest(request, site, headers, null);
             httpResponse = getHttpClient(site).execute(httpUriRequest);
             statusCode = httpResponse.getStatusLine().getStatusCode();
             request.putExtra(Request.STATUS_CODE, statusCode);
@@ -140,7 +140,7 @@ public class ContentLengthLimitHttpClientDownloader extends HttpClientDownloader
 
     private CloseableHttpClient getHttpClient(Site site) {
         if (site == null) {
-            return httpClientGenerator.getClient(null);
+            return httpClientGenerator.getClient(null, null);
         }
         String domain = site.getDomain();
         CloseableHttpClient httpClient = httpClients.get(domain);
@@ -148,7 +148,7 @@ public class ContentLengthLimitHttpClientDownloader extends HttpClientDownloader
             synchronized (this) {
                 httpClient = httpClients.get(domain);
                 if (httpClient == null) {
-                    httpClient = httpClientGenerator.getClient(site);
+                    httpClient = httpClientGenerator.getClient(site, null);
                     httpClients.put(domain, httpClient);
                 }
             }
