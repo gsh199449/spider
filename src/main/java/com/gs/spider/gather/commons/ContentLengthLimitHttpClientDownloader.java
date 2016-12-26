@@ -3,6 +3,7 @@ package com.gs.spider.gather.commons;
 import com.google.common.collect.Sets;
 import com.gs.spider.utils.StaticValue;
 import org.apache.commons.io.IOUtils;
+import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpUriRequest;
@@ -18,6 +19,7 @@ import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.Task;
 import us.codecraft.webmagic.downloader.HttpClientDownloader;
 import us.codecraft.webmagic.downloader.HttpClientGenerator;
+import us.codecraft.webmagic.proxy.Proxy;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -93,13 +95,21 @@ public class ContentLengthLimitHttpClientDownloader extends HttpClientDownloader
         } else {
             acceptStatCode = Sets.newHashSet(200);
         }
-        LOG.trace("downloading page {}", request.getUrl());
+        LOG.info("downloading page {}", request.getUrl());
         CloseableHttpResponse httpResponse = null;
         int statusCode = 0;
-        HttpUriRequest httpUriRequest = null;
         try {
-            httpUriRequest = getHttpUriRequest(request, site, headers, null);
-            httpResponse = getHttpClient(site).execute(httpUriRequest);
+            HttpHost proxyHost = null;
+            Proxy proxy = null;
+            if (site.getHttpProxyPool() != null && site.getHttpProxyPool().isEnable()) {
+                proxy = site.getHttpProxyFromPool();
+                proxyHost = proxy.getHttpHost();
+            } else if (site.getHttpProxy() != null) {
+                proxyHost = site.getHttpProxy();
+            }
+
+            HttpUriRequest httpUriRequest = getHttpUriRequest(request, site, headers, proxyHost);
+            httpResponse = getHttpClient(site, proxy).execute(httpUriRequest);
             statusCode = httpResponse.getStatusLine().getStatusCode();
             request.putExtra(Request.STATUS_CODE, statusCode);
             if (statusAccept(acceptStatCode, statusCode)) {
@@ -107,26 +117,22 @@ public class ContentLengthLimitHttpClientDownloader extends HttpClientDownloader
                 onSuccess(request);
                 return page;
             } else {
-                LOG.warn("code error " + statusCode + "\t" + request.getUrl());
+                LOG.warn("get page {} error, status code {} ", request.getUrl(), statusCode);
                 return null;
             }
-        } catch (IllegalArgumentException e) {
-            if (httpUriRequest != null) {
-                httpUriRequest.abort();
-            }
-            writeExceptionLog(e, request);
-            onError(request);
-            return null;
         } catch (IOException e) {
-            LOG.warn("download page " + request.getUrl() + " error", e);
+            LOG.warn("download page {} error", request.getUrl(), e);
             if (site.getCycleRetryTimes() > 0) {
                 return addToCycleRetry(request, site);
             }
-            writeExceptionLog(e, request);
             onError(request);
             return null;
         } finally {
             request.putExtra(Request.STATUS_CODE, statusCode);
+            if (site.getHttpProxyPool() != null && site.getHttpProxyPool().isEnable()) {
+                site.returnHttpProxyToPool((HttpHost) request.getExtra(Request.PROXY), (Integer) request
+                        .getExtra(Request.STATUS_CODE));
+            }
             try {
                 if (httpResponse != null) {
                     //ensure the connection is released back to pool
@@ -138,9 +144,9 @@ public class ContentLengthLimitHttpClientDownloader extends HttpClientDownloader
         }
     }
 
-    private CloseableHttpClient getHttpClient(Site site) {
+    private CloseableHttpClient getHttpClient(Site site, Proxy proxy) {
         if (site == null) {
-            return httpClientGenerator.getClient(null, null);
+            return httpClientGenerator.getClient(null, proxy);
         }
         String domain = site.getDomain();
         CloseableHttpClient httpClient = httpClients.get(domain);
@@ -148,7 +154,7 @@ public class ContentLengthLimitHttpClientDownloader extends HttpClientDownloader
             synchronized (this) {
                 httpClient = httpClients.get(domain);
                 if (httpClient == null) {
-                    httpClient = httpClientGenerator.getClient(site, null);
+                    httpClient = httpClientGenerator.getClient(site, proxy);
                     httpClients.put(domain, httpClient);
                 }
             }
