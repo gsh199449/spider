@@ -107,7 +107,8 @@
                     <button onclick="showDetail('${webpage.id}')" class="btn btn-info">Show</button>
                 </td>
                 <td>
-                    <a href="${webpage.url}" class="btn btn-primary" target="_blank">Go</a>
+                    <a href="${pageContext.request.contextPath}/panel/commons/showWebpageById?id=${webpage.id}"
+                       class="btn btn-primary" target="_blank">Go</a>
                 </td>
                 <td>
                     <button onclick="rpcAndShowData('${pageContext.request.contextPath}/commons/webpage/deleteById',{id:'${webpage.id}'})"

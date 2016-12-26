@@ -1,5 +1,6 @@
 \d{4}-\d{2}-\d{2}##yyyy-MM-dd
 \d{4}年\d{2}月\d{2}日##yyyy年MM月dd日
+\d{4}/\d{2}/\d{2}##yyyy/MM/dd
 \d{2}月\d{2}日##MM月dd日
 \d{2}-\d{2}##MM-dd
 =====

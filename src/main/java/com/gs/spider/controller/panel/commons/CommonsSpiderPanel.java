@@ -183,4 +183,18 @@ public class CommonsSpiderPanel extends BaseController {
         modelAndView.addObject("spiderInfoIdUpdateBy", spiderInfoIdUpdateBy);
         return modelAndView;
     }
+
+    /**
+     * 根据网页id展示网页
+     *
+     * @param id 网页id
+     * @return 展示页
+     */
+    @RequestMapping(value = "showWebpageById", method = {RequestMethod.GET})
+    public ModelAndView showWebpageById(String id) {
+        ModelAndView modelAndView = new ModelAndView("panel/commons/showWebpageById");
+        modelAndView.addObject("webpage", commonWebpageService.getWebpageById(id).getResult());
+        modelAndView.addObject("relatedWebpageList", commonWebpageService.moreLikeThis(id, 15, 1).getResultList());
+        return modelAndView;
+    }
 }
