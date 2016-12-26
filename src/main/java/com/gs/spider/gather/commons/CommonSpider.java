@@ -341,7 +341,7 @@ public class CommonSpider extends AsyncGather {
             //本页面处理时长
             page.putField("processTime", System.currentTimeMillis() - start);
         } catch (Exception e) {
-            task.setDescription("处理网页出错，{}", e.toString());
+            task.setDescription("处理网页出错，%s", e.toString());
         }
     };
     private List<Pipeline> pipelineList;

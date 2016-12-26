@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <title>${webpage.title}</title>
@@ -52,7 +53,7 @@
                 <tr>
                     <td>人名</td>
                     <td style="word-break:break-all; word-wrap:break-word;">
-                        <c:forEach items="${webpage.namedEntity.get(\"nr\")}" var="word">
+                        <c:forEach items="${webpage.namedEntity.get('nr')}" var="word">
                             ${word},
                         </c:forEach>
                     </td>
@@ -60,7 +61,7 @@
                 <tr>
                     <td>地名</td>
                     <td style="word-break:break-all; word-wrap:break-word;">
-                        <c:forEach items="${webpage.namedEntity.get(\"ns\")}" var="word">
+                        <c:forEach items="${webpage.namedEntity.get('ns')}" var="word">
                             ${word},
                         </c:forEach>
                     </td>
@@ -68,7 +69,7 @@
                 <tr>
                     <td>机构名</td>
                     <td style="word-break:break-all; word-wrap:break-word;">
-                        <c:forEach items="${webpage.namedEntity.get(\"nt\")}" var="word">
+                        <c:forEach items="${webpage.namedEntity.get('nt')}" var="word">
                             ${word},
                         </c:forEach>
                     </td>
