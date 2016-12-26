@@ -169,6 +169,10 @@ public class CommonsSpiderService extends AsyncGatherService {
      * @param spiderInfo 爬虫模板
      */
     private void validateSpiderInfo(SpiderInfo spiderInfo) {
+        Preconditions.checkArgument(spiderInfo.getThread() <= 1, "线程不可超过1");
+        Preconditions.checkArgument(spiderInfo.getMaxPageGather() <= 20, "最大抓取数量不可超过20");
+        Preconditions.checkArgument(spiderInfo.getTimeout() <= 8000, "超时时间不可超过8秒");
+        Preconditions.checkArgument(spiderInfo.getDynamicFields().size() <= 5, "动态字段不可超过5个");
         Preconditions.checkArgument(spiderInfo.getStartURL().size() > 0, "起始地址列表不能为空");
         Preconditions.checkArgument(StringUtils.isNotBlank(spiderInfo.getDomain()), "domain不可为空");
         Preconditions.checkArgument(!spiderInfo.getDomain().contains("/"), "域名不能包含/");

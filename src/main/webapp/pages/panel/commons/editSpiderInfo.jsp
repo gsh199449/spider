@@ -182,7 +182,11 @@
                         var modalTitle = $("#confirmModalTitle");
                         if (data.count <= 0) {
                             modalTitle.text("错误!");
-                            modalBody.html("无法获取数据,请检查模板参数");
+                            if (data.errorMsg == undefined) {
+                                modalBody.html("无法获取数据,请检查模板参数," + data.errorMsg);
+                            } else {
+                                modalBody.html("无法获取数据,请检查模板参数");
+                            }
                             return;
                         }
                         modalTitle.text("成功!");
@@ -221,7 +225,7 @@
                     thread: {
                         required: true,
                         digits: true,
-                        min: 1
+                        max: 1
                     },
                     retry: {
                         required: true,
@@ -235,12 +239,14 @@
                     maxPageGather: {
                         required: true,
                         digits: true,
-                        maxGather: 0
+                        maxGather: 0,
+                        max: 20
                     },
                     timeout: {
                         required: true,
                         digits: true,
-                        min: 1000
+                        min: 1000,
+                        max: 8000
                     },
                     siteName: {
                         required: true

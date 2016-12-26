@@ -39,8 +39,8 @@
             <list>
                 <!--Redis输出-->
                 <!--<ref bean="commonWebpageRedisPipeline"/>-->
-                <!--<ref bean="commonWebpagePipeline"/>-->
-                <ref bean="jsonFilePipeline"/>
+                <ref bean="commonWebpagePipeline"/>
+                <!--<ref bean="jsonFilePipeline"/>-->
             </list>
         </property>
     </bean>
