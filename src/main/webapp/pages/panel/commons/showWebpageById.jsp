@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
     <title>${webpage.title}</title>
@@ -99,11 +100,15 @@
                            href="${pageContext.request.contextPath}/panel/commons/editSpiderInfoById?spiderInfoId=${webpage.spiderInfoId}">查看爬虫模板</a>
                     </td>
                 </tr>
+                <tr>
+                    <td>原网站</td>
+                    <td>
+                        <a class="btn btn-info" target="_blank"
+                           href="${pageContext.request.contextPath}/panel/commons/list?domain=${webpage.domain}">查看${webpage.domain}的新闻</a>
+                    </td>
+                </tr>
                 </tbody>
             </table>
-            <p>
-                <a href="${webpage.url}" target="_blank">阅读原文</a>
-            </p>
             <h3>动态字段</h3>
             <table class="table table-reflow">
                 <thead>
@@ -121,6 +126,9 @@
                 </tr>
                 </tbody>
             </table>
+            <p>
+                <a href="${webpage.url}" target="_blank">阅读原文</a>
+            </p>
         </div>
         <div class="col-sm-3">
             <h3>相关资讯</h3>
