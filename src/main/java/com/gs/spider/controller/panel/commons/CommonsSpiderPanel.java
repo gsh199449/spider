@@ -214,7 +214,27 @@ public class CommonsSpiderPanel extends BaseController {
     public ModelAndView showRelatedInfo(String query, @RequestParam(required = false, defaultValue = "10") int size) {
         ModelAndView modelAndView = new ModelAndView("panel/commons/showRelatedInfo");
         Pair<Map<String, List<Terms.Bucket>>, List<Webpage>> result = commonWebpageService.relatedInfo(query, size).getResult();
+        String title = "";
+        String[] queryArray = query.split(":");
+        String field = queryArray[0];
+        String queryWord = queryArray[1];
+        switch (field) {
+            case "keywords":
+                title += "关键词:";
+                break;
+            case "namedEntity.nr":
+                title += "人物:";
+                break;
+            case "namedEntity.ns":
+                title += "地点:";
+                break;
+            case "namedEntity.nt":
+                title += "机构:";
+                break;
+        }
+        title += queryWord + "的相关信息";
         modelAndView.addObject("relatedPeople", result.getKey().get("relatedPeople"));
+        modelAndView.addObject("title", title);
         modelAndView.addObject("relatedLocation", result.getKey().get("relatedLocation"));
         modelAndView.addObject("relatedInstitution", result.getKey().get("relatedInstitution"));
         modelAndView.addObject("relatedKeywords", result.getKey().get("relatedKeywords"));

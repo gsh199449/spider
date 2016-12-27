@@ -14,22 +14,94 @@
 </head>
 <body>
 <%@include file="/pages/commons/head.jsp" %>
-people
-<c:forEach items="${relatedPeople}" var="bucket">
-    ${bucket.key} -> ${bucket.docCount} <br>
-</c:forEach>
-relatedLocation
-<c:forEach items="${relatedLocation}" var="bucket">
-    ${bucket.key} -> ${bucket.docCount}<br>
-</c:forEach>
-relatedInstitution
-<c:forEach items="${relatedInstitution}" var="bucket">
-    ${bucket.key} -> ${bucket.docCount}<br>
-</c:forEach>
-relatedKeywords
-<c:forEach items="${relatedKeywords}" var="bucket">
-    ${bucket.key} -> ${bucket.docCount}<br>
-</c:forEach>
+<div class="container">
+    <div class="row">
+        <h1 class="display-1">
+            ${title}
+        </h1>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>人物名称</th>
+                    <th>提及次数</th>
+                </tr>
+                </thead>
+                <tbody>
+                <c:forEach items="${relatedPeople}" var="bucket">
+                    <tr>
+                        <td>${bucket.key} </td>
+                        <td> ${bucket.docCount}</td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-sm-6">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>地点名称</th>
+                    <th>提及次数</th>
+                </tr>
+                </thead>
+                <tbody>
 
+                <c:forEach items="${relatedLocation}" var="bucket">
+                    <tr>
+                        <td>${bucket.key} </td>
+                        <td> ${bucket.docCount}</td>
+                    </tr>
+                </c:forEach>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>机构名称</th>
+                    <th>提及次数</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <c:forEach items="${relatedInstitution}" var="bucket">
+                    <tr>
+                        <td>${bucket.key} </td>
+                        <td> ${bucket.docCount}</td>
+                    </tr>
+                </c:forEach>
+
+                </tbody>
+            </table>
+        </div>
+        <div class="col-sm-6">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>关键词</th>
+                    <th>提及次数</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <c:forEach items="${relatedKeywords}" var="bucket">
+                    <tr>
+                        <td>${bucket.key} </td>
+                        <td> ${bucket.docCount}</td>
+                    </tr>
+                </c:forEach>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 </body>
 </html>
