@@ -55,7 +55,8 @@
                     <td>人名</td>
                     <td style="word-break:break-all; word-wrap:break-word;">
                         <c:forEach items="${webpage.namedEntity.get('nr')}" var="word">
-                            ${word},
+                            <a class="btn btn-info btn-sm" style="margin: 1px"
+                               href="${pageContext.request.contextPath}/panel/commons/showRelatedInfo?query=namedEntity.nr:${word}">${word}</a>
                         </c:forEach>
                     </td>
                 </tr>
@@ -63,7 +64,8 @@
                     <td>地名</td>
                     <td style="word-break:break-all; word-wrap:break-word;">
                         <c:forEach items="${webpage.namedEntity.get('ns')}" var="word">
-                            ${word},
+                            <a class="btn btn-info btn-sm" style="margin: 1px"
+                               href="${pageContext.request.contextPath}/panel/commons/showRelatedInfo?query=namedEntity.ns:${word}">${word}</a>
                         </c:forEach>
                     </td>
                 </tr>
@@ -71,7 +73,8 @@
                     <td>机构名</td>
                     <td style="word-break:break-all; word-wrap:break-word;">
                         <c:forEach items="${webpage.namedEntity.get('nt')}" var="word">
-                            ${word},
+                            <a class="btn btn-info btn-sm" style="margin: 1px"
+                               href="${pageContext.request.contextPath}/panel/commons/showRelatedInfo?query=namedEntity.nt:${word}">${word}</a>
                         </c:forEach>
                     </td>
                 </tr>

@@ -5,6 +5,7 @@ import com.gs.spider.controller.BaseController;
 import com.gs.spider.model.async.State;
 import com.gs.spider.model.async.Task;
 import com.gs.spider.model.commons.SpiderInfo;
+import com.gs.spider.model.commons.Webpage;
 import com.gs.spider.model.utils.ResultBundle;
 import com.gs.spider.model.utils.ResultListBundle;
 import com.gs.spider.service.commons.spider.CommonsSpiderService;
@@ -12,8 +13,10 @@ import com.gs.spider.service.commons.spiderinfo.SpiderInfoService;
 import com.gs.spider.service.commons.webpage.CommonWebpageService;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.tuple.Pair;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.elasticsearch.search.aggregations.bucket.terms.Terms;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +24,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -195,6 +200,25 @@ public class CommonsSpiderPanel extends BaseController {
         ModelAndView modelAndView = new ModelAndView("panel/commons/showWebpageById");
         modelAndView.addObject("webpage", commonWebpageService.getWebpageById(id).getResult());
         modelAndView.addObject("relatedWebpageList", commonWebpageService.moreLikeThis(id, 15, 1).getResultList());
+        return modelAndView;
+    }
+
+    /**
+     * 获取query的关联信息
+     *
+     * @param query 查询queryString
+     * @param size  结果集数量
+     * @return 相关信息
+     */
+    @RequestMapping(value = "showRelatedInfo", method = {RequestMethod.GET})
+    public ModelAndView showRelatedInfo(String query, @RequestParam(required = false, defaultValue = "10") int size) {
+        ModelAndView modelAndView = new ModelAndView("panel/commons/showRelatedInfo");
+        Pair<Map<String, List<Terms.Bucket>>, List<Webpage>> result = commonWebpageService.relatedInfo(query, size).getResult();
+        modelAndView.addObject("relatedPeople", result.getKey().get("relatedPeople"));
+        modelAndView.addObject("relatedLocation", result.getKey().get("relatedLocation"));
+        modelAndView.addObject("relatedInstitution", result.getKey().get("relatedInstitution"));
+        modelAndView.addObject("relatedKeywords", result.getKey().get("relatedKeywords"));
+        modelAndView.addObject("relatedWebpageList", result.getValue());
         return modelAndView;
     }
 }

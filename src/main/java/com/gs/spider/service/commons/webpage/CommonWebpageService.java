@@ -11,6 +11,7 @@ import com.gs.spider.model.utils.ResultListBundle;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.elasticsearch.search.aggregations.bucket.terms.Terms;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -195,6 +196,17 @@ public class CommonWebpageService {
     public ResultBundle<String> updateBySpiderInfoID(String spiderInfoIdUpdateBy, String spiderInfoJson, List<String> callbackUrls) {
         SpiderInfo spiderInfo = gson.fromJson(spiderInfoJson, SpiderInfo.class);
         return bundleBuilder.bundle(spiderInfoIdUpdateBy, () -> commonSpider.updateBySpiderinfoID(spiderInfoIdUpdateBy, spiderInfo, callbackUrls));
+    }
+
+    /**
+     * 获取query的关联信息
+     *
+     * @param query 查询queryString
+     * @param size  结果集数量
+     * @return 相关信息
+     */
+    public ResultBundle<Pair<Map<String, List<Terms.Bucket>>, List<Webpage>>> relatedInfo(String query, int size) {
+        return bundleBuilder.bundle(query, () -> commonWebpageDAO.relatedInfo(query, size));
     }
 
     /**
