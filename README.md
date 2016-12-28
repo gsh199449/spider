@@ -1,4 +1,4 @@
-# 欢迎使用 Gather Platform 数据抓取平台
+# 欢迎使用 Gather Platform 数据采集与分析平台
 
 ------
 
@@ -11,10 +11,11 @@
 Gather Platform 数据抓取平台是一套基于[Webmagic](https://github.com/code4craft/webmagic)内核的,具有Web任务配置和任务管理界面的数据采集与搜索平台.具有以下功能
 
 > * 根据配置的模板进行数据采集
-> * 对采集的数据进行NLP处理,包括:抽取关键词,抽取摘要,抽取实体词
 > * 在不配置采集模板的情况下自动检测网页正文,自动抽取文章发布时间
 > * 动态字段抽取与静态字段植入
 > * 已抓取数据的管理,包括:搜索,增删改查,按照新的数据模板重新抽取数据
+> * 对采集的数据进行NLP处理,包括:抽取关键词,抽取摘要,抽取实体词
+> * 含有相关文章推荐，文章中人物、地点之间的关联关系分析
 
 ## Windows/Mac/Linux 全平台支持
 
@@ -165,6 +166,14 @@ Gather Platform 数据抓取平台是一套基于[Webmagic](https://github.com/c
   点击导航栏中的 `网站列表` 按钮即可查看目前已经抓取的数据中都是那些网站的信息,对于每个网站都可以点击 `查看数据列表` 按钮查看该网站的所有数据.点击 `删除网站数据` 即可删除该网站下的所有数据.
 
   ![domainList](https://raw.githubusercontent.com/gsh199449/spider/master/doc/imgs/domainList.png)
+  
+  点击每一篇文章后面的 `Go` 按钮就会跳转至文章详情页。右侧展示的是相关的文章，下面的表格中展示了当前网页的一些元信息。
+  
+  ![showWebpageById](https://raw.githubusercontent.com/gsh199449/spider/master/doc/imgs/showWebpageById.png)
+  
+  详情页中的人名、地名、机构名称都是可以点击的，之后将跳转至相关信息分析页面，可以看出人物、地点之间的关联关系。
+  
+  ![showRelatedInfo](https://raw.githubusercontent.com/gsh199449/spider/master/doc/imgs/showRelatedInfo.png)
 
 
 ### 高级使用
