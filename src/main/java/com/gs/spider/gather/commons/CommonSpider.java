@@ -19,6 +19,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.tuple.Pair;
+import org.apache.http.HttpHost;
+import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.elasticsearch.index.query.Operator;
@@ -802,6 +804,14 @@ public class CommonSpider extends AsyncGather {
                     .setRetryTimes(info.getRetry()).setSleepTime(info.getSleep())
                     .setCharset(StringUtils.isBlank(info.getCharset()) ? null : info.getCharset())
                     .setUserAgent(info.getUserAgent());
+            //设置抓取代理IP与接口
+            if (StringUtils.isNotBlank(info.getProxyHost()) && info.getProxyPort() > 0) {
+                this.site.setHttpProxy(new HttpHost(info.getProxyHost(), info.getProxyPort()));
+                //设置代理的认证
+                if (StringUtils.isNotBlank(info.getProxyUsername()) && StringUtils.isNotBlank(info.getProxyPassword())) {
+                    this.site.setUsernamePasswordCredentials(new UsernamePasswordCredentials(info.getProxyUsername(), info.getProxyPassword()));
+                }
+            }
             this.info = info;
             this.task = task;
         }

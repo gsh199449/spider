@@ -100,7 +100,7 @@ public class ContentLengthLimitHttpClientDownloader extends HttpClientDownloader
         int statusCode = 0;
         try {
             HttpHost proxyHost = null;
-            Proxy proxy = null;
+            Proxy proxy = null; //TODO
             if (site.getHttpProxyPool() != null && site.getHttpProxyPool().isEnable()) {
                 proxy = site.getHttpProxyFromPool();
                 proxyHost = proxy.getHttpHost();

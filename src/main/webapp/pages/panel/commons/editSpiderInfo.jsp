@@ -518,6 +518,30 @@
                                value="${spiderInfo.userAgent}">
                     </div>
                     <div class="form-group">
+                        <label for="proxyHost">proxyHost</label>
+                        <input type="text" class="form-control" id="proxyHost" name="proxyHost"
+                               placeholder="proxyHost"
+                               value="${spiderInfo.proxyHost}">
+                    </div>
+                    <div class="form-group">
+                        <label for="proxyPort">proxyPort</label>
+                        <input type="number" class="form-control" id="proxyPort" name="proxyPort"
+                               placeholder="proxyPort"
+                               value="${spiderInfo.proxyPort}">
+                    </div>
+                    <div class="form-group">
+                        <label for="proxyUsername">proxyUsername</label>
+                        <input type="text" class="form-control" id="proxyUsername" name="proxyUsername"
+                               placeholder="proxyUsername"
+                               value="${spiderInfo.proxyUsername}">
+                    </div>
+                    <div class="form-group">
+                        <label for="proxyPassword">proxyPassword</label>
+                        <input type="text" class="form-control" id="proxyPassword" name="proxyPassword"
+                               placeholder="proxyPassword"
+                               value="${spiderInfo.proxyPassword}">
+                    </div>
+                    <div class="form-group">
                         <div class="checkbox">
                             <label>
                                 <c:if test="${spiderInfo.doNLP}">
