@@ -71,7 +71,7 @@ public class CommonSpider extends AsyncGather {
                 String[] datePatternFile = FileUtils.readFileToString(
                         new File(CommonSpider.class.getClassLoader().getResource("datePattern.txt").getFile()),
                         "utf8"
-                ).replace("\r", "").split("=====\n");
+                ).replace("\r", "").split("=====\r?\n");
                 String[] dateList = datePatternFile[0].split("\n");
                 String[] timeList = datePatternFile[1].split("\n");
                 for (String date : dateList) {

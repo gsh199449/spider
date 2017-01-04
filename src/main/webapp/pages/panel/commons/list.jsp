@@ -84,42 +84,62 @@
     </form>
 </div>
 <div class="container">
-    <table class="table table-hover">
-        <thead class="thead-inverse">
-        <tr>
-            <th>#</th>
-            <th>标题</th>
-            <th>网站</th>
-            <th>时间</th>
-            <th>查看</th>
-            <th>转到</th>
-            <th>删除</th>
-        </tr>
-        </thead>
-        <tbody>
-        <c:forEach items="${resultBundle}" var="webpage" varStatus="index">
+    <div class="row">
+        <table class="table table-hover">
+            <thead class="thead-inverse">
             <tr>
-                <th scope="row">${index.count}</th>
-                <td>${webpage.title}</td>
-                <td>${webpage.domain}</td>
-                <td><fmt:formatDate value="${webpage.gathertime}" pattern="yyyy/MM/dd HH:mm:ss"/></td>
-                <td>
-                    <button onclick="showDetail('${webpage.id}')" class="btn btn-info">Show</button>
-                </td>
-                <td>
-                    <a href="${pageContext.request.contextPath}/panel/commons/showWebpageById?id=${webpage.id}"
-                       class="btn btn-primary" target="_blank">Go</a>
-                </td>
-                <td>
-                    <button onclick="rpcAndShowData('${pageContext.request.contextPath}/commons/webpage/deleteById',{id:'${webpage.id}'})"
-                            class="btn btn-danger">
-                        删除
-                    </button>
-                </td>
+                <th>#</th>
+                <th>标题</th>
+                <th>网站</th>
+                <th>时间</th>
+                <th>查看</th>
+                <th>转到</th>
+                <th>删除</th>
             </tr>
-        </c:forEach>
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+            <c:forEach items="${resultBundle}" var="webpage" varStatus="index">
+                <tr>
+                    <th scope="row">${index.count}</th>
+                    <td>${webpage.title}</td>
+                    <td>${webpage.domain}</td>
+                    <td><fmt:formatDate value="${webpage.gathertime}" pattern="yyyy/MM/dd HH:mm:ss"/></td>
+                    <td>
+                        <button onclick="showDetail('${webpage.id}')" class="btn btn-info">Show</button>
+                    </td>
+                    <td>
+                        <a href="${pageContext.request.contextPath}/panel/commons/showWebpageById?id=${webpage.id}"
+                           class="btn btn-primary" target="_blank">Go</a>
+                    </td>
+                    <td>
+                        <button onclick="rpcAndShowData('${pageContext.request.contextPath}/commons/webpage/deleteById',{id:'${webpage.id}'})"
+                                class="btn btn-danger">
+                            删除
+                        </button>
+                    </td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
+    </div>
+    <div class="row">
+        <nav>
+            <ul class="pager">
+                <c:if test="${page == 1}">
+                    <li class="pager-prev disabled"><a href="#">上一页</a></li>
+                </c:if>
+                <c:if test="${page > 1}">
+                    <li class="pager-prev"><a href="?query=${query}&page=${page-1}&domain=${domain}">上一页</a></li>
+                </c:if>
+                <c:if test="${resultBundle.size() < 10}">
+                    <li class="pager-next disabled"><a href="#">下一页</a></li>
+                </c:if>
+                <c:if test="${resultBundle.size() == 10}">
+                    <li class="pager-next"><a href="?query=${query}&page=${page+1}&domain=${domain}">下一页</a></li>
+                </c:if>
+            </ul>
+        </nav>
+    </div>
 </div>
 </body>
 </html>

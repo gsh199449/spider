@@ -91,12 +91,8 @@ public class CommonWebpagePipeline extends IDAO<Webpage> implements DuplicateRem
 
     @Override
     public boolean isDuplicate(Request request, Task task) {
-        Set<String> tempLists = urls.get(task.getUUID());
+        Set<String> tempLists = urls.computeIfAbsent(task.getUUID(), k -> Sets.newConcurrentHashSet());
         //初始化已采集网站列表缓存
-        if (tempLists == null) {
-            tempLists = Sets.newConcurrentHashSet();
-            urls.put(task.getUUID(), tempLists);
-        }
         if (tempLists.add(request.getUrl())) {//先检查当前生命周期是否抓取过,如果当前生命周期未抓取,则进一步检查ES
             GetResponse response = client.prepareGet(INDEX_NAME, TYPE_NAME,
                     Hashing.md5().hashString(request.getUrl(), Charset.forName("utf-8")).toString()
