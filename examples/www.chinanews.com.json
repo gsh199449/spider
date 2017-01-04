@@ -3,7 +3,7 @@
     "thread": "2",
     "retry": "2",
     "sleep": "0",
-    "maxPageGather": "100000",
+    "maxPageGather": "10",
     "timeout": "5000",
     "priority": "0",
     "siteName": "中国新闻网",

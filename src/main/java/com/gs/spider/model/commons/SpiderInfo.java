@@ -153,6 +153,10 @@ public class SpiderInfo {
      * 自动探测发布时间
      */
     private boolean autoDetectPublishDate = false;
+    private String proxyHost;
+    private int proxyPort;
+    private String proxyUsername;
+    private String proxyPassword;
 
     public int getThread() {
         return thread;
@@ -466,6 +470,42 @@ public class SpiderInfo {
 
     public SpiderInfo setAutoDetectPublishDate(boolean autoDetectPublishDate) {
         this.autoDetectPublishDate = autoDetectPublishDate;
+        return this;
+    }
+
+    public String getProxyHost() {
+        return proxyHost;
+    }
+
+    public SpiderInfo setProxyHost(String proxyHost) {
+        this.proxyHost = proxyHost;
+        return this;
+    }
+
+    public int getProxyPort() {
+        return proxyPort;
+    }
+
+    public SpiderInfo setProxyPort(int proxyPort) {
+        this.proxyPort = proxyPort;
+        return this;
+    }
+
+    public String getProxyUsername() {
+        return proxyUsername;
+    }
+
+    public SpiderInfo setProxyUsername(String proxyUsername) {
+        this.proxyUsername = proxyUsername;
+        return this;
+    }
+
+    public String getProxyPassword() {
+        return proxyPassword;
+    }
+
+    public SpiderInfo setProxyPassword(String proxyPassword) {
+        this.proxyPassword = proxyPassword;
         return this;
     }
 
