@@ -22,7 +22,7 @@ Gather Platform 数据抓取平台是一套基于[Webmagic](https://github.com/c
 5分钟即可部署完毕,半分钟即可完成一个爬虫,开始数据采集.
 不需要进行任何编码就可以完成一个功能强大的爬虫.
 
-![展示](https://raw.githubusercontent.com/gsh199449/spider/master/doc/imgs/show.gif)
+<img src="https://github.com/gsh199449/spider/blob/master/doc/imgs/show.gif?raw=true" alt="show"/>
 
 ## Windows/Mac/Linux 全平台支持
 
