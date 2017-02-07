@@ -41,7 +41,15 @@
     </filter>
     <filter-mapping>
         <filter-name>etagFilter</filter-name>
-        <servlet-name>mvc-dispatcher</servlet-name>
+        <url-pattern>/panel/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>etagFilter</filter-name>
+        <url-pattern>/js/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>etagFilter</filter-name>
+        <url-pattern>/css/*</url-pattern>
     </filter-mapping>
     <filter>
         <filter-name>log4jServletFilter</filter-name>
