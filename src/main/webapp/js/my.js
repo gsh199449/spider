@@ -36,7 +36,7 @@ function rpc(url, pram, callback) {
         $('#confirmModal').modal('hide');
         needShowResultModel = true;
     });
-    $("#confirmButton").on('hidden.bs.modal', function  () {
+    $("#confirmModal").on('hidden.bs.modal', function  () {
         if (needShowResultModel) {
             $.getJSON(url, pram, callback);
         };
@@ -47,9 +47,17 @@ function rpcAndShowData(url, pram) {
     rpc(url, pram, function (data) {
         needShowResultModel = false;
         if (data.success) {
-            showModal("成功", data.result != undefined ? data.result : data.resultList);
+            showModal("成功", data.result != undefined ? data.result : data.resultList, function  () {
+                $('#confirmModal').modal('hide');
+            }, function  () {
+                $('#confirmModal').modal('hide');
+            });
         } else {
-            showModal("失败", "请重试" + data.errorMsg);
+            showModal("失败", "请重试" + data.errorMsg, function  () {
+                $('#confirmModal').modal('hide');
+            }, function  () {
+                $('#confirmModal').modal('hide');
+            });
         }
     })
 }
