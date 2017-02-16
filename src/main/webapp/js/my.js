@@ -1,6 +1,7 @@
 /**
  * Created by gaoshen on 16/5/17.
  */
+ var needShowResultModel = false;
 function showModal(title, content) {
     $("#modalTitle").text(title);
     $("#modalBody").html(content);
@@ -33,16 +34,30 @@ function rpc(url, pram, callback) {
     $("#confirmModalBody").html("确定要执行" + url + "吗?");
     $("#confirmButton").one("click", function () {
         $('#confirmModal').modal('hide');
-        $.getJSON(url, pram, callback);
+        needShowResultModel = true;
     });
+    $("#confirmModal").on('hidden.bs.modal', function  () {
+        if (needShowResultModel) {
+            $.getJSON(url, pram, callback);
+        };
+    })
     $('#confirmModal').modal('show');
 }
 function rpcAndShowData(url, pram) {
     rpc(url, pram, function (data) {
+        needShowResultModel = false;
         if (data.success) {
-            showModal("成功", data.result != undefined ? data.result : data.resultList);
+            showModal("成功", data.result != undefined ? data.result : data.resultList, function  () {
+                $('#confirmModal').modal('hide');
+            }, function  () {
+                $('#confirmModal').modal('hide');
+            });
         } else {
-            showModal("失败", "请重试" + data.errorMsg);
+            showModal("失败", "请重试" + data.errorMsg, function  () {
+                $('#confirmModal').modal('hide');
+            }, function  () {
+                $('#confirmModal').modal('hide');
+            });
         }
     })
 }
