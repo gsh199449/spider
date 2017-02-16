@@ -2,10 +2,16 @@
  * Created by gaoshen on 16/5/17.
  */
  var needShowResultModel = false;
-function showModal(title, content) {
-    $("#modalTitle").text(title);
-    $("#modalBody").html(content);
-    $('#myModal').modal('show');
+function showModal(title, content, cancelAction, confirmAction) {
+    $("#confirmModalTitle").text(title);
+    $("#confirmModalBody").html(content);
+    if (cancelAction != undefined) {
+        $("#cancelButton").one("click", cancelAction);
+    }
+    if (confirmAction != undefined) {
+        $("#confirmButton").one("click", confirmAction);
+    }
+    $('#confirmModal').modal('show');
 }
 function inputModal(dataName, callback) {
     $('#data').val('');
@@ -39,8 +45,8 @@ function rpc(url, pram, callback) {
     $("#confirmModal").on('hidden.bs.modal', function  () {
         if (needShowResultModel) {
             $.getJSON(url, pram, callback);
-        };
-    })
+        }
+    });
     $('#confirmModal').modal('show');
 }
 function rpcAndShowData(url, pram) {
