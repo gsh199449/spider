@@ -299,13 +299,6 @@
         function save() {
             rpcAndShowData("${pageContext.request.contextPath}/commons/spiderinfo/save", {spiderInfoJson: JSON.stringify(formToJson("spiderInfoForm"))});
         }
-        function showModal(title, content, cancelAction, confirmAction) {
-            $("#confirmModalTitle").text(title);
-            $("#confirmModalBody").html(content);
-            $("#cancelButton").one("click", cancelAction);
-            $("#confirmButton").one("click", confirmAction);
-            $('#confirmModal').modal('show');
-        }
         function onDomainBlur() {
             var domain = $('#domain').val();
             $('#startURL').val('[\'http://' + domain + '/\']');
