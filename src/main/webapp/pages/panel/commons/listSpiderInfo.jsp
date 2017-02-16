@@ -34,6 +34,18 @@
             });
 
         });
+        function checkAll() {
+            $('input:checkbox').each(function () {
+                $(this).attr('checked', true);
+            });
+        }
+        function startAll() {
+            var idList = [];
+            $("input:checkbox:checked").each(function () {
+                idList.push($(this).attr('data-infoid'));
+            });
+            rpcAndShowData('${pageContext.request.contextPath}/commons/spider/startAll', {spiderInfoIdList: idList.join(',')});
+        }
     </script>
 </head>
 <body>
@@ -53,6 +65,10 @@
     </form>
 </div>
 <div class="container">
+    <div class="row">
+        <button type="button" onclick="startAll()">启动选中</button>
+        <button type="button" onclick="checkAll()">全选</button>
+    </div>
     <table class="table table-hover">
         <thead class="thead-inverse">
         <tr>
@@ -67,6 +83,9 @@
         <tbody>
         <c:forEach items="${spiderInfoList}" var="info" varStatus="index">
             <tr>
+                <th><label>
+                    <input type="checkbox" data-infoid="${info.id}">
+                </label></th>
                 <th scope="row">${index.count}</th>
                 <td>${info.domain}</td>
                 <td>${info.siteName}</td>
