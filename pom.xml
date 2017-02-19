@@ -246,6 +246,18 @@
                     <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
+                <version>9.4.1.v20170120</version>
+                <configuration>
+                    <httpConnector>
+                        <port>8081</port>
+                        <host>localhost</host>
+                    </httpConnector>
+                    <scanIntervalSeconds>1</scanIntervalSeconds>
+                </configuration>
+            </plugin>
         </plugins>
         <finalName>spider</finalName>
     </build>

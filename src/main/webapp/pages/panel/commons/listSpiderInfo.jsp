@@ -84,9 +84,8 @@
         <c:forEach items="${spiderInfoList}" var="info" varStatus="index">
             <tr>
                 <th><label>
-                    <input type="checkbox" data-infoid="${info.id}">
+                    <input type="checkbox" data-infoid="${info.id}">${index.count}
                 </label></th>
-                <th scope="row">${index.count}</th>
                 <td>${info.domain}</td>
                 <td>${info.siteName}</td>
                     <%--<td></td>--%>
