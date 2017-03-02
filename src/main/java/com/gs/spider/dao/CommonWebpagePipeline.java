@@ -9,9 +9,6 @@ import com.gs.spider.model.commons.Webpage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.elasticsearch.action.get.GetResponse;
-import org.elasticsearch.action.search.SearchRequestBuilder;
-import org.elasticsearch.action.search.SearchResponse;
-import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import us.codecraft.webmagic.Request;
@@ -118,19 +115,13 @@ public class CommonWebpagePipeline extends IDAO<Webpage> implements DuplicateRem
     public void process(ResultItems resultItems, Task task) {
         SpiderInfo spiderInfo = resultItems.get("spiderInfo");
         Webpage webpage = convertResultItems2Webpage(resultItems);
-        SearchRequestBuilder searchRequestBuilder = client.prepareSearch(INDEX_NAME)
-                .setTypes(TYPE_NAME)
-                .setQuery(QueryBuilders.matchQuery("url", webpage.getUrl()));
-        SearchResponse response = searchRequestBuilder.execute().actionGet();
-        if (response.getHits().totalHits() == 0) {
-            try {
-                client.prepareIndex(INDEX_NAME, TYPE_NAME)
-                        .setId(Hashing.md5().hashString(webpage.getUrl(), Charset.forName("utf-8")).toString())
-                        .setSource(gson.toJson(webpage))
-                        .get();
-            } catch (Exception e) {
-                LOG.error("索引 Webpage 出错," + e.getLocalizedMessage());
-            }
+        try {
+            client.prepareIndex(INDEX_NAME, TYPE_NAME)
+                    .setId(Hashing.md5().hashString(webpage.getUrl(), Charset.forName("utf-8")).toString())
+                    .setSource(gson.toJson(webpage))
+                    .get();
+        } catch (Exception e) {
+            LOG.error("索引 Webpage 出错," + e.getLocalizedMessage());
         }
     }
 
