@@ -42,7 +42,7 @@ function rpc(url, pram, callback) {
         $('#confirmModal').modal('hide');
         needShowResultModel = true;
     });
-    $("#confirmModal").on('hidden.bs.modal', function  () {
+    $("#confirmModal").one('hidden.bs.modal', function () {
         if (needShowResultModel) {
             $.getJSON(url, pram, callback);
         }

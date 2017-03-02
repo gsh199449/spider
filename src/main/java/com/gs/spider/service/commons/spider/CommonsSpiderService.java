@@ -1,6 +1,7 @@
 package com.gs.spider.service.commons.spider;
 
 import com.google.common.base.Preconditions;
+import com.google.common.collect.Lists;
 import com.google.gson.Gson;
 import com.gs.spider.gather.async.AsyncGather;
 import com.gs.spider.gather.commons.CommonSpider;
@@ -18,6 +19,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
+import javax.management.JMException;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -186,5 +189,27 @@ public class CommonsSpiderService extends AsyncGatherService {
                             .count() == 0,
                     "动态字段配置含有无效配置,每一个动态字段都必须有name,而且正则和xpath不可同时为空,请检查");
         }
+    }
+
+    /**
+     * 根据爬虫模板ID批量启动任务
+     *
+     * @param spiderInfoIdList 爬虫模板ID列表
+     * @return 任务id列表
+     */
+    public ResultListBundle<String> startAll(List<String> spiderInfoIdList) {
+        return bundleBuilder.listBundle(spiderInfoIdList.toString(), () -> {
+            List<String> taskIdList = Lists.newArrayList();
+            for (String id : spiderInfoIdList) {
+                try {
+                    SpiderInfo info = spiderInfoService.getById(id).getResult();
+                    String taskId = commonSpider.start(info);
+                    taskIdList.add(taskId);
+                } catch (JMException e) {
+                    LOG.error("启动任务ID{}出错，{}", id, e);
+                }
+            }
+            return taskIdList;
+        });
     }
 }

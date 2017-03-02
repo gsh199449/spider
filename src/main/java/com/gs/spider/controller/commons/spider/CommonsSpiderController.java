@@ -8,6 +8,7 @@ import com.gs.spider.service.AsyncGatherService;
 import com.gs.spider.service.commons.spider.CommonsSpiderService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.assertj.core.util.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -138,5 +139,17 @@ public class CommonsSpiderController extends AsyncGatherBaseController {
     @ResponseBody
     public ResultBundle<String> addIgnoredUrl(String postfix) {
         return spiderService.addIgnoredUrl(postfix);
+    }
+
+    /**
+     * 根据爬虫模板ID批量启动任务
+     *
+     * @param spiderInfoIdList 爬虫模板ID列表
+     * @return 任务id列表
+     */
+    @RequestMapping(value = "startAll", method = RequestMethod.GET, produces = "application/json")
+    @ResponseBody
+    public ResultListBundle<String> startAll(String spiderInfoIdList) {
+        return spiderService.startAll(Lists.newArrayList(spiderInfoIdList.split(",")));
     }
 }
