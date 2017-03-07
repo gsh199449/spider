@@ -78,6 +78,7 @@
             <%--<th>查看数据</th>--%>
             <th>编辑</th>
             <th>删除</th>
+            <th>定时任务</th>
         </tr>
         </thead>
         <tbody>
@@ -98,6 +99,10 @@
                             class="btn btn-danger">
                         删除
                     </button>
+                </td>
+                <td>
+                    <a href="${pageContext.request.contextPath}/panel/commons/createQuartz?spiderInfoId=${info.id}"
+                       class="btn btn-secondary">创建定时任务</a>
                 </td>
             </tr>
         </c:forEach>
