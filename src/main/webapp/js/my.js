@@ -47,6 +47,7 @@ function rpc(url, pram, callback) {
             $.getJSON(url, pram, callback);
         }
     });
+    needShowResultModel = false;
     $('#confirmModal').modal('show');
 }
 function rpcAndShowData(url, pram) {
