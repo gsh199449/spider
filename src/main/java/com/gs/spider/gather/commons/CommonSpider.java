@@ -216,6 +216,7 @@ public class CommonSpider extends AsyncGather {
             content = content.replaceAll("<script([\\s\\S]*?)</script>", "");
             content = content.replaceAll("<style([\\s\\S]*?)</style>", "");
             content = content.replace("</p>", "***");
+            content = content.replace("<BR>", "***");
             content = content.replaceAll("<([\\s\\S]*?)>", "");
 
             content = content.replace("***", "<br/>");
