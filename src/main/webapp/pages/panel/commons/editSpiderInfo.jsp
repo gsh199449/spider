@@ -183,7 +183,7 @@
                         var modalTitle = $("#confirmModalTitle");
                         if (data.count <= 0) {
                             modalTitle.text("错误!");
-                            modalBody.html("无法获取数据,请检查模板参数");
+                            modalBody.html("无法采集到数据");
                             return;
                         }
                         modalTitle.text("成功!");

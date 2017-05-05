@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>数据存储中心控制台</title>
+    <title>数据采集平台</title>
     <%@include file="../../commons/header.jsp" %>
 </head>
 <body>

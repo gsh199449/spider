@@ -19,10 +19,12 @@ import org.apache.logging.log4j.Logger;
 import org.elasticsearch.search.aggregations.bucket.terms.Terms;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 import java.util.Map;
@@ -240,5 +242,24 @@ public class CommonsSpiderPanel extends BaseController {
         modelAndView.addObject("relatedKeywords", result.getKey().get("relatedKeywords"));
         modelAndView.addObject("relatedWebpageList", result.getValue());
         return modelAndView;
+    }
+
+    @RequestMapping(value = "listQuartz")
+    public String listQuartz(Model model) {
+        model.addAttribute("list", commonsSpiderService.listAllQuartzJobs().getResult());
+        return "panel/commons/listQuartz";
+    }
+
+    @RequestMapping(value = "createQuartz", method = RequestMethod.POST)
+    public String createQuartz(String spiderInfoId, int hourInterval, RedirectAttributes redirectAttributes) {
+        commonsSpiderService.createQuartzJob(spiderInfoId, hourInterval);
+        redirectAttributes.addFlashAttribute("msg", "添加成功");
+        return "redirect:/panel/commons/listQuartz";
+    }
+
+    @RequestMapping(value = "createQuartz", method = RequestMethod.GET)
+    public String createQuartz(String spiderInfoId, Model model, RedirectAttributes redirectAttributes) {
+        model.addAttribute("spiderInfoId", spiderInfoId);
+        return "panel/commons/createQuartz";
     }
 }

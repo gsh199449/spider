@@ -216,6 +216,7 @@ public class CommonSpider extends AsyncGather {
             content = content.replaceAll("<script([\\s\\S]*?)</script>", "");
             content = content.replaceAll("<style([\\s\\S]*?)</style>", "");
             content = content.replace("</p>", "***");
+            content = content.replace("<BR>", "***");
             content = content.replaceAll("<([\\s\\S]*?)>", "");
 
             content = content.replace("***", "<br/>");
@@ -763,7 +764,7 @@ public class CommonSpider extends AsyncGather {
                             (reachMax = (SPIDER_INFO.getMaxPageGather() > 0 && task.getCount() >= SPIDER_INFO.getMaxPageGather()))
                                     ||
                                     //如果抓取页面超过最大抓取数量ratio倍的时候,仍未达到最大抓取数量,爬虫也退出
-                                    (exceedRatio = (this.getPageCount() > SPIDER_INFO.getMaxPageGather() * staticValue.getCommonsWebpageCrawlRatio()))
+                                    (exceedRatio = (this.getPageCount() > SPIDER_INFO.getMaxPageGather() * staticValue.getCommonsWebpageCrawlRatio() && SPIDER_INFO.getMaxPageGather() > 0))
                     )
                             && this.getStatus() == Status.Running) {
                 LOG.info("爬虫ID{}已处理{}个页面,有效页面{}个,最大抓取页数{},reachMax={},exceedRatio={},退出.", this.getUUID(), this.getPageCount(), task.getCount(), SPIDER_INFO.getMaxPageGather(), reachMax, exceedRatio);

@@ -115,6 +115,8 @@
                        href="${pageContext.request.contextPath}/panel/commons/listSpiderInfo">模板列表</a>
                     <a class="dropdown-item"
                        href="${pageContext.request.contextPath}/panel/commons/updateBySpiderInfoID">更新数据</a>
+                    <a class="dropdown-item"
+                       href="${pageContext.request.contextPath}/panel/commons/listQuartz">定时任务管理</a>
                 </div>
             </li>
         </ul>
