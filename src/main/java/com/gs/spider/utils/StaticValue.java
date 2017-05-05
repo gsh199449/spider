@@ -49,6 +49,7 @@ public class StaticValue {
      * 抓取页面比例,如果抓取页面超过最大抓取数量ratio倍的时候仍未达到最大抓取数量爬虫也退出
      */
     private int commonsWebpageCrawlRatio;
+    private String ajaxDownloader;
 
     public StaticValue() {
         LOG.debug("正在初始化StaticValue");
@@ -72,6 +73,7 @@ public class StaticValue {
             this.needEs = jsonObject.get("needEs").getAsBoolean();
             this.webpageRedisPublishChannelName = jsonObject.get("webpageRedisPublishChannelName").getAsString();
             this.commonsWebpageCrawlRatio = jsonObject.get("commonsWebpageCrawlRatio").getAsInt();
+            this.ajaxDownloader = jsonObject.get("ajaxDownloader").getAsString();
         } catch (IOException e) {
             LOG.fatal("初始化StaticValue失败," + e.getLocalizedMessage());
             e.printStackTrace();
@@ -211,5 +213,13 @@ public class StaticValue {
     public StaticValue setNeedEs(boolean needEs) {
         this.needEs = needEs;
         return this;
+    }
+
+    public String getAjaxDownloader() {
+        return ajaxDownloader;
+    }
+
+    public void setAjaxDownloader(String ajaxDownloader) {
+        this.ajaxDownloader = ajaxDownloader;
     }
 }

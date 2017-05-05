@@ -34,6 +34,7 @@
         <property name="keywordsExtractor" ref="HANLPExtractor"/>
         <property name="summaryExtractor" ref="HANLPExtractor"/>
         <property name="namedEntitiesExtractor" ref="HANLPExtractor"/>
+        <property name="casperjsDownloader" ref="casperjsDownloader"/>
         <!--普通网页爬虫数据输出管道配置-->
         <property name="pipelineList">
             <list>
