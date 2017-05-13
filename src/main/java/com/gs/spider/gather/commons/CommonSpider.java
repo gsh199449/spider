@@ -270,7 +270,7 @@ public class CommonSpider extends AsyncGather {
             }
             if (StringUtils.isNotBlank(category)) {
                 page.putField("category", category);
-            }else {
+            } else {
                 page.putField("category", info.getDefaultCategory());
             }
 
@@ -349,6 +349,7 @@ public class CommonSpider extends AsyncGather {
             task.setDescription("处理网页出错，%s", e.toString());
         }
     };
+    private CasperjsDownloader casperjsDownloader;
     private List<Pipeline> pipelineList;
     private CommonWebpagePipeline commonWebpagePipeline;
     private ContentLengthLimitHttpClientDownloader contentLengthLimitHttpClientDownloader;
@@ -485,6 +486,11 @@ public class CommonSpider extends AsyncGather {
         MySpider spider = (MySpider) makeSpider(info, task)
                 .addPipeline(resultItemsCollectorPipeline)
                 .setScheduler(queueScheduler);
+        if (info.isAjaxSite() && StringUtils.isNotBlank(staticValue.getAjaxDownloader())) {
+            spider.setDownloader(casperjsDownloader);
+        } else {
+            spider.setDownloader(contentLengthLimitHttpClientDownloader);
+        }
         spider.startUrls(info.getStartURL());
         //慎用爬虫监控,可能导致内存泄露
 //        spiderMonitor.register(spider);
@@ -645,10 +651,15 @@ public class CommonSpider extends AsyncGather {
      * @return
      */
     private MySpider makeSpider(SpiderInfo info, Task task) {
-        return ((MySpider) new MySpider(new MyPageProcessor(info, task), info)
+        MySpider spider = ((MySpider) new MySpider(new MyPageProcessor(info, task), info)
                 .thread(info.getThread())
-                .setDownloader(contentLengthLimitHttpClientDownloader)
                 .setUUID(task.getTaskId()));
+        if (info.isAjaxSite() && StringUtils.isNotBlank(staticValue.getAjaxDownloader())) {
+            spider.setDownloader(casperjsDownloader);
+        } else {
+            spider.setDownloader(contentLengthLimitHttpClientDownloader);
+        }
+        return spider;
     }
 
     public NLPExtractor getKeywordsExtractor() {
@@ -718,6 +729,15 @@ public class CommonSpider extends AsyncGather {
 
     public CommonSpider setPipelineList(List<Pipeline> pipelineList) {
         this.pipelineList = pipelineList;
+        return this;
+    }
+
+    public CasperjsDownloader getCasperjsDownloader() {
+        return casperjsDownloader;
+    }
+
+    public CommonSpider setCasperjsDownloader(CasperjsDownloader casperjsDownloader) {
+        this.casperjsDownloader = casperjsDownloader;
         return this;
     }
 

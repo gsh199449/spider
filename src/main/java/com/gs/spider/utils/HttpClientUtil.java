@@ -127,6 +127,16 @@ public class HttpClientUtil {
         return p.getResponseBodyAsString();
     }
 
+    public String post(String url, String data) throws IOException {
+        PostMethod post = new PostMethod(url);
+        if (data != null && !data.isEmpty()) {
+            post.addRequestHeader("Content-Type", "application/json");
+            post.setRequestEntity(new StringRequestEntity(data, "application/json", "utf8"));
+        }
+        hc.executeMethod(post);
+        return post.getResponseBodyAsString();
+    }
+
     public String post(String postURL, Map<String, String> partam, String cookies, Map<String, String> header)
             throws IOException {
 //        clearCookies();

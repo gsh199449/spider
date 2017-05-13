@@ -46,6 +46,7 @@
             result['callbackURL'] = eval(result['callbackURL']);
             result['saveCapture'] = $("#saveCapture").prop('checked');
             result['autoDetectPublishDate'] = $("#autoDetectPublishDate").prop('checked');
+            result['ajaxSite'] = $("#ajaxSite").prop('checked');
             var dynamicFields = [];
             var fieldConfigList = $('.dynamicField');
             for (i = 0; i < fieldConfigList.length; i++) {
@@ -605,6 +606,18 @@
                                 <c:if test="${!spiderInfo.saveCapture}">
                                     <input type="checkbox" name="saveCapture" id="saveCapture">
                                 </c:if> 是否保存网页快照,默认保存
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label>
+                                <c:if test="${spiderInfo.ajaxSite}">
+                                    <input type="checkbox" name="ajaxSite" id="ajaxSite" checked="checked">
+                                </c:if>
+                                <c:if test="${!spiderInfo.ajaxSite}">
+                                    <input type="checkbox" name="ajaxSite" id="ajaxSite">
+                                </c:if> 是否是ajax网页
                             </label>
                         </div>
                     </div>
