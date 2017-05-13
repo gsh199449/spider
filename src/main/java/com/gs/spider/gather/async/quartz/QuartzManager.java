@@ -55,7 +55,6 @@ public class QuartzManager {
             Trigger trigger = scheduler.getTriggersOfJob(jobKey).get(0);
             return Pair.of(jobDetail, trigger);
         } catch (Exception e) {
-            e.printStackTrace();
             return null;
         }
     }
