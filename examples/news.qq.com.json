@@ -20,7 +20,7 @@
   "urlReg": "http://news.qq.com/a/\\d{8}/\\d+\\.htm",
   "charset": "",
   "publishTimeXPath": "",
-  "publishTimeReg": "<span class=\"article-time\">(.*?)</span>",
+  "publishTimeReg": "<span class=\"a_time\">(.*?)</span>",
   "publishTimeFormat": "yyyy-MM-dd hh:mm",
   "authorReg": "",
   "authorXPath": "//h1/tidyText()",
