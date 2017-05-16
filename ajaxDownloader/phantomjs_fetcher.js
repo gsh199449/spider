@@ -1,0 +1,236 @@
+// vim: set et sw=2 ts=2 sts=2 ff=unix fenc=utf8:
+// Author: Binux<i@binux.me>
+//         http://binux.me
+// Created on 2014-10-29 22:12:14
+
+var port, server, service,
+    wait_before_end = 1000,
+    historyLength = 20,
+    system = require('system'),
+    webpage = require('webpage');
+var requestList = [];
+function status(response) {
+    response.statusCode = 200;
+    var payload = {'status': 'OK', 'history': requestList};
+    payload = JSON.stringify(payload, null, 4);
+    response.headers = {
+        'Cache': 'no-cache',
+        'Content-Type': 'application/json',
+        'Content-Length': payload.length
+    };
+    response.write(payload);
+    response.closeGracefully();
+}
+
+if (system.args.length !== 2) {
+    console.log('Usage: phantomjs_fetcher.js <portnumber>');
+    phantom.exit(1);
+} else {
+    port = system.args[1];
+    server = require('webserver').create();
+    // console.debug = function(){};
+
+    service = server.listen(port, {
+        'keepAlive': false
+    }, function (request, response) {
+        // phantom.clearCookies();
+        console.log(JSON.stringify(request));
+        // check method
+        if (request.method == 'GET') {
+            status(response);
+            return;
+        }
+
+        var first_response = null,
+            finished = false,
+            page_loaded = false,
+            start_time = Date.now(),
+            end_time = null,
+            script_executed = false,
+            script_result = null;
+
+        var fetch = JSON.parse(request.post);
+        // console.log(JSON.stringify(fetch));
+        if (requestList.length > historyLength) {
+            requestList.shift();
+        }
+        requestList.push(fetch);
+        // create and set page
+        var page = webpage.create();
+        if (fetch.proxy) {
+            if (fetch.proxy.indexOf('://') == -1) {
+                fetch.proxy = 'http://' + fetch.proxy
+            }
+            page.setProxy(fetch.proxy);
+        }
+        page.onConsoleMessage = function (msg) {
+            // console.log('console: ' + msg);
+        };
+        page.viewportSize = {
+            width: fetch.js_viewport_width || 1024,
+            height: fetch.js_viewport_height || 768 * 3
+        };
+        if (fetch.headers) {
+            fetch.headers['Accept-Encoding'] = undefined;
+            fetch.headers['Connection'] = undefined;
+            fetch.headers['Content-Length'] = undefined;
+        }
+        if (fetch.headers && fetch.headers['User-Agent']) {
+            page.settings.userAgent = fetch.headers['User-Agent'];
+        }
+        // this may cause memory leak: https://github.com/ariya/phantomjs/issues/12903
+        page.settings.loadImages = fetch.load_images === undefined ? true : fetch.load_images;
+        page.settings.resourceTimeout = fetch.timeout ? fetch.timeout * 1000 : 20 * 1000;
+        if (fetch.headers) {
+            page.customHeaders = fetch.headers;
+        }
+
+        // add callbacks
+        page.onInitialized = function () {
+            if (!script_executed && fetch.js_script && fetch.js_run_at === "document-start") {
+                script_executed = true;
+                console.log('running document-start script.');
+                page.includeJs("http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js",
+                    function () {
+                        script_result = page.evaluateJavaScript(fetch.js_script);
+                        console.log('=====' + script_result);
+                    }
+                );
+            }
+        };
+        page.onLoadFinished = function (status) {
+            page_loaded = true;
+            if (!script_executed && fetch.js_script && fetch.js_run_at !== "document-start") {
+                script_executed = true;
+                console.log('running document-end script.');
+                page.includeJs("http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js",
+                    function () {
+                        script_result = page.evaluateJavaScript(fetch.js_script);
+                        console.log('=====' + script_result);
+                    }
+                );
+            }
+            console.debug("waiting " + wait_before_end + "ms before finished.");
+            end_time = Date.now() + wait_before_end;
+            setTimeout(make_result, wait_before_end + 10, page);
+        };
+        page.onResourceRequested = function (request) {
+            console.debug("Starting request: #" + request.id + " [" + request.method + "]" + request.url);
+            end_time = null;
+        };
+        page.onResourceReceived = function (response) {
+            console.debug("Request finished: #" + response.id + " [" + response.status + "]" + response.url);
+            if (first_response === null && response.status != 301 && response.status != 302) {
+                first_response = response;
+            }
+            if (page_loaded) {
+                console.debug("waiting " + wait_before_end + "ms before finished.");
+                end_time = Date.now() + wait_before_end;
+                setTimeout(make_result, wait_before_end + 10, page);
+            }
+        };
+        page.onResourceError = page.onResourceTimeout = function (response) {
+            console.info("Request error: #" + response.id + " [" + response.errorCode + "=" + response.errorString + "]" + response.url);
+            if (first_response === null) {
+                first_response = response;
+            }
+            if (page_loaded) {
+                console.debug("waiting " + wait_before_end + "ms before finished.");
+                end_time = Date.now() + wait_before_end;
+                setTimeout(make_result, wait_before_end + 10, page);
+            }
+        };
+
+        // make sure request will finished
+        setTimeout(make_result, page.settings.resourceTimeout + 100, page);
+
+        // send request
+        page.open(fetch.url, {
+            operation: fetch.method,
+            data: fetch.data,
+        });
+
+        // make response
+        function make_result(page) {
+            if (finished) {
+                return;
+            }
+            if (Date.now() - start_time < page.settings.resourceTimeout) {
+                if (!!!end_time) {
+                    return;
+                }
+                if (end_time > Date.now()) {
+                    setTimeout(make_result, Math.min(Date.now() - end_time, 100), page);
+                    return;
+                }
+            }
+
+            var result = {};
+            try {
+                result = _make_result(page);
+                page.close();
+                finished = true;
+                console.log("[" + result.status_code + "] " + result.orig_url + " " + result.time)
+            } catch (e) {
+                result = {
+                    orig_url: fetch.url,
+                    status_code: 599,
+                    error: e.toString(),
+                    content: page.content || "",
+                    headers: {},
+                    url: page.url || fetch.url,
+                    cookies: {},
+                    time: (Date.now() - start_time) / 1000,
+                    js_script_result: null,
+                    save: fetch.save
+                }
+            }
+
+            var body = JSON.stringify(result, null, 2);
+            response.writeHead(200, {
+                'Cache': 'no-cache',
+                'Content-Type': 'application/json',
+            });
+            response.write(body);
+            response.closeGracefully();
+        }
+
+        function _make_result(page) {
+            if (first_response === null) {
+                throw "Timeout before first response.";
+            }
+
+            var cookies = {};
+            page.cookies.forEach(function (e) {
+                cookies[e.name] = e.value;
+            });
+
+            var headers = {};
+            if (first_response.headers) {
+                first_response.headers.forEach(function (e) {
+                    headers[e.name] = e.value;
+                });
+            }
+
+            return {
+                orig_url: fetch.url,
+                status_code: first_response.status || 599,
+                error: first_response.errorString,
+                content: page.content,
+                headers: headers,
+                url: page.url,
+                cookies: cookies,
+                time: (Date.now() - start_time) / 1000,
+                js_script_result: script_result,
+                save: fetch.save
+            }
+        }
+    });
+
+    if (service) {
+        console.log('phantomjs fetcher running on port ' + port);
+    } else {
+        console.log('Error: Could not create web server listening on port ' + port);
+        phantom.exit();
+    }
+}
