@@ -74,11 +74,11 @@ public class StaticValue {
             this.webpageRedisPublishChannelName = jsonObject.get("webpageRedisPublishChannelName").getAsString();
             this.commonsWebpageCrawlRatio = jsonObject.get("commonsWebpageCrawlRatio").getAsInt();
             this.ajaxDownloader = jsonObject.get("ajaxDownloader").getAsString();
+            LOG.debug("StaticValue初始化成功," + this);
         } catch (IOException e) {
             LOG.fatal("初始化StaticValue失败," + e.getLocalizedMessage());
             e.printStackTrace();
         }
-        LOG.debug("StaticValue初始化成功," + this);
     }
 
     public String getEsHost() {
