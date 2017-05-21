@@ -103,5 +103,6 @@
         </div>
     </div>
 </div>
+<%@include file="../../commons/minScript.jsp" %>
 </body>
 </html>

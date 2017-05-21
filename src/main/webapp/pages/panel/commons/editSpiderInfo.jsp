@@ -12,6 +12,7 @@
 <head>
     <title>爬虫模板测试系统</title>
     <%@include file="../../commons/header.jsp" %>
+    <%@include file="../../commons/allScript.jsp" %>
     <script>
         function jsonStringify(data, space) {
             var seen = [];
@@ -194,16 +195,20 @@
                         $('#openTaskDetail').attr('href', '${pageContext.request.contextPath}/commons/spider/getTaskById?taskId=' + data.resultList[0].spiderUUID);
                         $('#taskIdDiv').show();
                         var engContentCount = 0, threshold = 0.8;
+                        var tempContent = "";
                         $.each(data.resultList, function (i, item) {
                             if (isEnglishWebpage(item.content)) {
                                 engContentCount++;
+                            }
+                            if(item.content.length > 50){
+                            	tempContent = item.content.substring(0,51);
                             }
                             dynamicFieldList[i] = item.dynamicFields;
                             $('<tr style="word-break:break-all; word-wrap:break-word;">' +
                                     '<th scope="row">' + i + '</th>' +
                                     '<td>' + item.title + '</td>' +
                                     '<td>' + item.summary + '</td>' +
-                                    '<td>' + item.content + '</td>' +
+                                    '<td>' + tempContent + '</td>' +
                                     '<td>' + item.publishTime + '</td>' +
                                     '<td>' + item.keywords + '</td>' +
                                     '<td>' + item.category + '</td>' +
@@ -330,7 +335,7 @@
         <div class="col-md-12">
             <form id="spiderInfoForm" action="${pageContext.request.contextPath}/commons/spider/testSpiderInfo">
                 <div class="form-group">
-                    <label for="siteName">siteName</label>
+                    <label for="siteName" >siteName</label>
                     <input type="text" class="form-control" id="siteName" name="siteName" placeholder="网站名称"
                            value="${spiderInfo.siteName}">
                 </div>
@@ -536,7 +541,7 @@
                                value="${spiderInfo.proxyPassword}">
                     </div>
                     <div class="form-group">
-                        <div class="checkbox">
+                        <div class="checkbox ">
                             <label>
                                 <c:if test="${spiderInfo.doNLP}">
                                     <input type="checkbox" name="doNLP" id="doNLP" checked="checked">
@@ -548,7 +553,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="checkbox">
+                        <div class="checkbox ">
                             <label>
                                 <c:if test="${spiderInfo.gatherFirstPage}">
                                     <input type="checkbox" name="gatherFirstPage" id="gatherFirstPage"
@@ -561,7 +566,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="checkbox">
+                        <div class="checkbox ">
                             <label>
                                 <c:if test="${spiderInfo.needTitle}">
                                     <input type="checkbox" name="needTitle" id="needTitle" checked="checked">
@@ -573,7 +578,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="checkbox">
+                        <div class="checkbox ">
                             <label>
                                 <c:if test="${spiderInfo.needContent}">
                                     <input type="checkbox" name="needContent" id="needContent" checked="checked">
@@ -585,7 +590,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="checkbox">
+                        <div class="checkbox ">
                             <label>
                                 <c:if test="${spiderInfo.needPublishTime}">
                                     <input type="checkbox" name="needPublishTime" id="needPublishTime"
@@ -598,7 +603,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="checkbox">
+                        <div class="checkbox ">
                             <label>
                                 <c:if test="${spiderInfo.saveCapture}">
                                     <input type="checkbox" name="saveCapture" id="saveCapture" checked="checked">
@@ -610,7 +615,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="checkbox">
+                        <div class="checkbox ">
                             <label>
                                 <c:if test="${spiderInfo.ajaxSite}">
                                     <input type="checkbox" name="ajaxSite" id="ajaxSite" checked="checked">
@@ -686,6 +691,7 @@
         </table>
     </div>
 </div>
+ 
 </body>
 <script>
     //JSON格式填充起始URL

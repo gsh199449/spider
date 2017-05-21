@@ -36,7 +36,7 @@
         </form>
     </div>
 </div>
-
+<%@include file="../../commons/allScript.jsp" %>
 <script>
     $().ready(function () {
         $("#quartzForm").validate({

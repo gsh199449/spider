@@ -47,5 +47,6 @@
     </table>
 </div>
 <div class="container" id="wordCloudBody" style="height:400px"></div>
+<%@include file="../../commons/allScript.jsp" %>
 </body>
 </html>

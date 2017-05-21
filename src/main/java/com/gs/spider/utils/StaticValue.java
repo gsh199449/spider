@@ -19,6 +19,7 @@ import java.io.IOException;
 @Scope("singleton")
 public class StaticValue {
     public String esHost;
+    public int esPort;
     private Logger LOG = LogManager.getLogger(StaticValue.class);
     private String commonsIndex;
     private int commonSpiderTaskManagerPort;
@@ -60,6 +61,7 @@ public class StaticValue {
             JsonElement jsonElement = jsonParser.parse(json);
             JsonObject jsonObject = jsonElement.getAsJsonObject();
             this.esHost = jsonObject.get("esHost").getAsString();
+            this.esPort = jsonObject.get("esPort").getAsInt();
             this.esClusterName = jsonObject.get("esClusterName").getAsString();
             this.commonsIndex = jsonObject.get("commonsIndex").getAsString();
             this.maxHttpDownloadLength = jsonObject.get("maxHttpDownloadLength").getAsLong();
@@ -74,11 +76,11 @@ public class StaticValue {
             this.webpageRedisPublishChannelName = jsonObject.get("webpageRedisPublishChannelName").getAsString();
             this.commonsWebpageCrawlRatio = jsonObject.get("commonsWebpageCrawlRatio").getAsInt();
             this.ajaxDownloader = jsonObject.get("ajaxDownloader").getAsString();
+            LOG.debug("StaticValue初始化成功," + this);
         } catch (IOException e) {
             LOG.fatal("初始化StaticValue失败," + e.getLocalizedMessage());
             e.printStackTrace();
         }
-        LOG.debug("StaticValue初始化成功," + this);
     }
 
     public String getEsHost() {
@@ -89,7 +91,15 @@ public class StaticValue {
         this.esHost = esHost;
     }
 
-    public String getCommonsIndex() {
+    public int getEsPort() {
+		return esPort;
+	}
+
+	public void setEsPort(int esPort) {
+		this.esPort = esPort;
+	}
+
+	public String getCommonsIndex() {
         return commonsIndex;
     }
 

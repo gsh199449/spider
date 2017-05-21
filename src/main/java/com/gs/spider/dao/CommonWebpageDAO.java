@@ -492,4 +492,61 @@ public class CommonWebpageDAO extends IDAO<Webpage> {
     public boolean deleteByDomain(String domain, Task task) {
         return deleteByQuery(QueryBuilders.matchQuery("domain", domain), task);
     }
+
+    /**
+     * 根据关键词和域名查询相关总记录数
+     * @param query
+     * @param domain
+     * @return
+     */
+	public long countByKeywordAndDomain(String query, String domain) {
+		
+		SearchRequestBuilder searchRequestBuilder = client.prepareSearch(INDEX_NAME)
+				.setTypes(TYPE_NAME);
+		QueryBuilder keyWorkQuery = null;
+		QueryBuilder domainQuery = null;
+		if (StringUtils.isBlank(query)) {
+			query = "*";
+		}
+		keyWorkQuery = QueryBuilders.queryStringQuery(query).analyzer("query_ansj").defaultField("content");
+		if (StringUtils.isBlank(domain)) {
+			domain = "*";
+		}else{
+			domain = "*"+domain+"*";
+		}
+		domainQuery = QueryBuilders.queryStringQuery(domain).field("domain");
+		
+		searchRequestBuilder.setQuery(keyWorkQuery).setPostFilter(domainQuery);
+		return searchRequestBuilder.get().getHits().getTotalHits();
+	}
+
+	/**
+	 * 根据关键词和域名分页查询
+	 * @param query
+	 * @param domain
+	 * @param size
+	 * @param page
+	 * @return
+	 */
+	public List<Webpage> getWebpageByKeywordAndDomain(String query, String domain, int size, int page) {
+		SearchRequestBuilder searchRequestBuilder = client.prepareSearch(INDEX_NAME)
+				.setTypes(TYPE_NAME);
+		QueryBuilder keyWorkQuery = null;
+		QueryBuilder domainQuery = null;
+		if (StringUtils.isBlank(query)) {
+			query = "*";
+		}
+		keyWorkQuery = QueryBuilders.queryStringQuery(query).analyzer("query_ansj").defaultField("content");
+		if (StringUtils.isBlank(domain)) {
+			domain = "*";
+		}else{
+			domain = "*"+domain+"*";
+		}
+		domainQuery = QueryBuilders.queryStringQuery(domain).field("domain");
+		
+		searchRequestBuilder.setQuery(keyWorkQuery)
+							.setPostFilter(domainQuery)
+							.setSize(size).setFrom(size * (page - 1));
+		return warpHits2List(searchRequestBuilder.get().getHits());
+	}
 }

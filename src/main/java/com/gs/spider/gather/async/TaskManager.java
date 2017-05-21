@@ -1,10 +1,13 @@
 package com.gs.spider.gather.async;
 
-import com.google.common.base.Preconditions;
-import com.google.common.collect.Lists;
-import com.gs.spider.model.async.State;
-import com.gs.spider.model.async.Task;
-import com.gs.spider.utils.HttpClientUtil;
+import java.util.Collection;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -12,14 +15,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import java.net.BindException;
-import java.util.*;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledFuture;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.stream.Collectors;
+import com.google.common.base.Preconditions;
+import com.google.common.collect.Lists;
+import com.gs.spider.model.async.State;
+import com.gs.spider.model.async.Task;
+import com.gs.spider.utils.HttpClientUtil;
 
 /**
  * TaskManager
@@ -69,17 +69,15 @@ public class TaskManager {
     public Task getTaskById(String taskId, boolean containsExtraInfo) {
         TASK_LOG.info("根据任务ID:{},获取任务实体", taskId);
         Task t = taskMap.get(taskId);
-        if (containsExtraInfo) {
-            return t;
-        } else {
-            try {
-                t = ((Task) t.clone());
-            } catch (CloneNotSupportedException e) {
-                e.printStackTrace();
-            }
-            t.setExtraInfo(null);
-            return t;
+        if (t != null && !containsExtraInfo) {
+        	try {
+        		t = ((Task) t.clone());
+        	} catch (CloneNotSupportedException e) {
+        		e.printStackTrace();
+        	}
+        	t.setExtraInfo(null);
         }
+        return t;
     }
 
     /**
@@ -148,8 +146,8 @@ public class TaskManager {
      */
     public Task initTask(String taskId, String name, List<String> callbackURL, String callbackPara) {
         Task task = new Task(taskId, name, System.currentTimeMillis());
-        task.setCallbackURL(callbackURL);
-        task.setCallbackPara(callbackPara + "&taskId=" + taskId);
+        task.setCallbackURL(callbackURL)
+        	.setCallbackPara(callbackPara + "&taskId=" + taskId);
         task.setDescription("任务名称:" + name + "已初始化");
         taskMap.put(task.getTaskId(), task);
         return task;
@@ -182,7 +180,9 @@ public class TaskManager {
     public void stopTask(String taskId) {
         //完毕更新任务状态信息
         Task task = taskMap.get(taskId);
-        stopTask(task);
+        if (task != null){ 
+        	stopTask(task);
+        }
     }
 
     /**
@@ -213,9 +213,8 @@ public class TaskManager {
                     LOG.info("任务线程结束,callBack返回值: " + callBackReturnStr);
                     task.setDescription("HTTP回调完成,URL:%s,返回值:%s", callbackURLWithPara, callBackReturnStr);
                 }
-            }
-            if (!useHttpCallback) {
-                LOG.info("任务线程结束,由于回调地址为空,不进行回调");
+            }else{
+            	LOG.info("任务线程结束,由于回调地址为空,不进行回调");
             }
         } catch (Exception e) {
             LOG.error("任务线程完毕调用回调时出错," + e.getLocalizedMessage());
@@ -232,7 +231,7 @@ public class TaskManager {
      * 根据任务名称查找正在运行的任务
      *
      * @param name 任务名称
-     * @return 十分存在
+     * @return 是否存在
      */
     public boolean findRunningTaskByName(String name) {
         return taskMap.entrySet().stream()
