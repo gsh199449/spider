@@ -541,7 +541,7 @@
                                value="${spiderInfo.proxyPassword}">
                     </div>
                     <div class="form-group">
-                        <div class="checkbox ">
+                        <div class="checkbox">
                             <label>
                                 <c:if test="${spiderInfo.doNLP}">
                                     <input type="checkbox" name="doNLP" id="doNLP" checked="checked">
@@ -553,7 +553,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="checkbox ">
+                        <div class="checkbox">
                             <label>
                                 <c:if test="${spiderInfo.gatherFirstPage}">
                                     <input type="checkbox" name="gatherFirstPage" id="gatherFirstPage"
@@ -566,7 +566,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="checkbox ">
+                        <div class="checkbox">
                             <label>
                                 <c:if test="${spiderInfo.needTitle}">
                                     <input type="checkbox" name="needTitle" id="needTitle" checked="checked">
@@ -578,7 +578,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="checkbox ">
+                        <div class="checkbox">
                             <label>
                                 <c:if test="${spiderInfo.needContent}">
                                     <input type="checkbox" name="needContent" id="needContent" checked="checked">
@@ -590,7 +590,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="checkbox ">
+                        <div class="checkbox">
                             <label>
                                 <c:if test="${spiderInfo.needPublishTime}">
                                     <input type="checkbox" name="needPublishTime" id="needPublishTime"
@@ -603,7 +603,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="checkbox ">
+                        <div class="checkbox">
                             <label>
                                 <c:if test="${spiderInfo.saveCapture}">
                                     <input type="checkbox" name="saveCapture" id="saveCapture" checked="checked">
@@ -615,7 +615,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="checkbox ">
+                        <div class="checkbox">
                             <label>
                                 <c:if test="${spiderInfo.ajaxSite}">
                                     <input type="checkbox" name="ajaxSite" id="ajaxSite" checked="checked">
