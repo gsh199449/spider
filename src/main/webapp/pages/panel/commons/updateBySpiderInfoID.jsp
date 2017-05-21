@@ -12,6 +12,7 @@
 <head>
     <title>数据更新</title>
     <%@include file="../../commons/header.jsp" %>
+    <%@include file="../../commons/allScript.jsp" %>
     <script type="text/javascript">
         $(function () {
             var validate = $("#updateForm").validate({

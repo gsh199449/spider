@@ -68,12 +68,13 @@ public class ESClient {
             return null;
         }
         if (client != null) return client;
+        LOG.info("正在初始化ElasticSearch客户端," + staticValue.getEsHost());
+        
+        Settings settings = Settings.builder()
+        		.put("cluster.name", staticValue.getEsClusterName()).build();
         try {
-            LOG.info("正在初始化ElasticSearch客户端," + staticValue.getEsHost());
-            Settings settings = Settings.builder()
-                    .put("cluster.name", staticValue.getEsClusterName()).build();
-            client = new PreBuiltTransportClient(settings)
-                    .addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName(staticValue.getEsHost()), 9300));
+        	client = new PreBuiltTransportClient(settings)
+        			.addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName(staticValue.getEsHost()), staticValue.getEsPort()));
             final ClusterHealthResponse healthResponse = client.admin().cluster().prepareHealth()
                     .setTimeout(TimeValue.timeValueMinutes(1)).execute().actionGet();
             if (healthResponse.isTimedOut()) {
@@ -101,6 +102,7 @@ public class ESClient {
             }
             LOG.debug(type + " MappingFile:" + mappingFile.getPath());
             PutMappingResponse mapPuttingResponse = null;
+
             PutMappingRequest putMappingRequest = null;
             try {
                 putMappingRequest = Requests.putMappingRequest(index).type(type).source(FileUtils.readFileToString(mappingFile));
@@ -108,6 +110,7 @@ public class ESClient {
                 LOG.error("创建 jvmSample mapping 失败," + e.getLocalizedMessage());
             }
             mapPuttingResponse = client.admin().indices().putMapping(putMappingRequest).actionGet();
+
             if (mapPuttingResponse.isAcknowledged()) LOG.info("创建" + type + "type成功");
             else {
                 LOG.error("创建" + type + "type索引失败");

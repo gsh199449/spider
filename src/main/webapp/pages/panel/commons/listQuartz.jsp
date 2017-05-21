@@ -51,6 +51,8 @@
         </table>
     </div>
 </div>
+
+<%@include file="../../commons/minScript.jsp" %>
 <script>
     function deleteQuartzJob(spiderInfoId) {
         var cc = confirm("是否要删除定时任务");

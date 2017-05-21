@@ -11,6 +11,7 @@
 <head>
     <title>抓取任务列表</title>
     <%@include file="/pages/commons/header.jsp" %>
+    <%@include file="../../commons/allScript.jsp" %>
     <script>
         function showTable(taskId) {
             rpc('${pageContext.request.contextPath}/commons/spider/getTaskById', {
@@ -135,7 +136,7 @@
                     <c:if test="${task.state == 'RUNNING'}"><a class="btn btn-danger disabled">正在抓取</a></c:if>
                     <c:if test="${task.state == 'STOP'}">
                         <button onclick="rpcAndShowData('${pageContext.request.contextPath}/commons/spider/delete',{uuid:'${task.taskId}'})"
-                                class="btn btn-danger">删除
+                                class="btn btn-danger" >删除
                         </button>
                     </c:if>
                 </td>

@@ -240,4 +240,26 @@ public class CommonWebpageService {
     public void exportWebpageJSONByDomain(String domain, Boolean includeRaw, OutputStream outputStream) {
         commonWebpageDAO.exportWebpageJSONByDomain(domain, includeRaw, outputStream);
     }
+
+    /**
+     * 根据关键词和域名统计总记录数
+     * @param query
+     * @param domain
+     * @return
+     */
+	public long countByKeywordAndDomain(String query,String domain) {
+		return commonWebpageDAO.countByKeywordAndDomain(query,domain);
+	}
+
+	/**
+	 * 根据关键词和域名分页查找
+	 * @param query
+	 * @param domain
+	 * @param size
+	 * @param page
+	 * @return
+	 */
+	public ResultListBundle<Webpage> getWebPageByKeywordAndDomain(String query, String domain, int size, int page) {
+		return bundleBuilder.listBundle(query, () -> commonWebpageDAO.getWebpageByKeywordAndDomain(query, domain, size, page));
+	}
 }
