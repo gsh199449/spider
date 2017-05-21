@@ -1,5 +1,6 @@
 {
   "esHost": "localhost",
+  "esPort": 9300,
   "esClusterName": "elasticsearch",
   "commonsIndex": "commons",
   "maxHttpDownloadLength": 1048576,
