@@ -6,13 +6,13 @@
 
 欢迎加入 `Gather Platform交流` QQ群 : 206264662
 
-详细使用方法请参考 [在线文档](https://gsh199449.github.io/gather_platform_pages/)
+**详细使用方法请参考 [在线文档](https://gsh199449.github.io/gather_platform_pages/)**
  
 [![Build Status](https://travis-ci.org/gsh199449/spider.svg?branch=master)](https://travis-ci.org/gsh199449/spider)
 
 Gather Platform 数据抓取平台是一套基于[Webmagic](https://github.com/code4craft/webmagic)内核的,具有Web任务配置和任务管理界面的数据采集与搜索平台.具有以下功能
 
-> * 根据配置的模板进行数据采集
+> * 根据配置的模板进行数据采集，支持**Ajax网页采集**
 > * 在不配置采集模板的情况下自动检测网页正文,自动抽取文章发布时间
 > * 动态字段抽取与静态字段植入
 > * 已抓取数据的管理,包括:搜索,增删改查,按照新的数据模板重新抽取数据

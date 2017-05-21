@@ -102,13 +102,15 @@ public class ESClient {
             }
             LOG.debug(type + " MappingFile:" + mappingFile.getPath());
             PutMappingResponse mapPuttingResponse = null;
-                PutMappingRequest putMappingRequest = null;
-                try {
-                    putMappingRequest = Requests.putMappingRequest(index).type(type).source(FileUtils.readFileToString(mappingFile));
-                } catch (IOException e) {
-                    LOG.error("创建 jvmSample mapping 失败," + e.getLocalizedMessage());
-                }
-                mapPuttingResponse = client.admin().indices().putMapping(putMappingRequest).actionGet();
+
+            PutMappingRequest putMappingRequest = null;
+            try {
+                putMappingRequest = Requests.putMappingRequest(index).type(type).source(FileUtils.readFileToString(mappingFile));
+            } catch (IOException e) {
+                LOG.error("创建 jvmSample mapping 失败," + e.getLocalizedMessage());
+            }
+            mapPuttingResponse = client.admin().indices().putMapping(putMappingRequest).actionGet();
+
             if (mapPuttingResponse.isAcknowledged()) LOG.info("创建" + type + "type成功");
             else {
                 LOG.error("创建" + type + "type索引失败");
