@@ -172,11 +172,17 @@ public class SpiderInfoDAO extends IDAO<SpiderInfo> {
      * @throws ExecutionException
      * @throws InterruptedException
      */
-    public String update(SpiderInfo spiderInfo) throws ExecutionException, InterruptedException {
+    public String update(SpiderInfo spiderInfo) throws Exception {
         Preconditions.checkArgument(StringUtils.isNotBlank(spiderInfo.getId()), "待更新爬虫模板id不可为空");
         UpdateRequest updateRequest = new UpdateRequest(INDEX_NAME, TYPE_NAME, spiderInfo.getId());
         updateRequest.doc(gson.toJson(spiderInfo));
-        UpdateResponse updateResponse = client.update(updateRequest).get();
-        return updateResponse.getId();
+        UpdateResponse updateResponse = null;
+        try {
+            updateResponse = client.update(updateRequest).get();
+            return updateResponse.getId();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+            throw new Exception("没有此ID的模板，请删除ID字段的值或者使用正确的id值");
+        }
     }
 }

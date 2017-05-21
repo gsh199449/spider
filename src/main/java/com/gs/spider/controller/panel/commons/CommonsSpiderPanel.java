@@ -1,9 +1,17 @@
 package com.gs.spider.controller.panel.commons;
 
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-
+import com.google.gson.Gson;
+import com.gs.spider.controller.BaseController;
+import com.gs.spider.model.async.State;
+import com.gs.spider.model.async.Task;
+import com.gs.spider.model.commons.SpiderInfo;
+import com.gs.spider.model.commons.Webpage;
+import com.gs.spider.model.utils.ResultBundle;
+import com.gs.spider.model.utils.ResultListBundle;
+import com.gs.spider.service.commons.spider.CommonsSpiderService;
+import com.gs.spider.service.commons.spiderinfo.SpiderInfoService;
+import com.gs.spider.service.commons.webpage.CommonWebpageService;
+import com.gs.spider.utils.TablePage;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;
@@ -19,18 +27,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.google.gson.Gson;
-import com.gs.spider.controller.BaseController;
-import com.gs.spider.model.async.State;
-import com.gs.spider.model.async.Task;
-import com.gs.spider.model.commons.SpiderInfo;
-import com.gs.spider.model.commons.Webpage;
-import com.gs.spider.model.utils.ResultBundle;
-import com.gs.spider.model.utils.ResultListBundle;
-import com.gs.spider.service.commons.spider.CommonsSpiderService;
-import com.gs.spider.service.commons.spiderinfo.SpiderInfoService;
-import com.gs.spider.service.commons.webpage.CommonWebpageService;
-import com.gs.spider.utils.TablePage;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * CommonsSpiderPanel
@@ -60,41 +59,27 @@ public class CommonsSpiderPanel extends BaseController {
      */
     @RequestMapping(value = {"list", ""}, method = RequestMethod.GET)
     public ModelAndView list(@RequestParam(required = false) String query, @RequestParam(required = false) String domain, @RequestParam(defaultValue = "1", required = false) int page) {
-    	
-    	ModelAndView modelAndView = new ModelAndView("panel/commons/list");
-    	StringBuffer sbf = new StringBuffer();
-    	String[] tempArr = new String[2];
-    	sbf.append("&query=");
-    	if (StringUtils.isNotBlank(query)) {
-    		query = query.trim();
-    		tempArr[0] = query;
-    		sbf.append(query);
-	}else{
-		tempArr[0] = "*";
-	}
-    	sbf.append("&domain=");
-    	if (StringUtils.isNotBlank(domain)) {
-    		domain = domain.trim();
-    		tempArr[1] = domain+"*";
-    		sbf.append(domain);
-	}else{
-		tempArr[1] = "*";
-	}
-    	page = page < 1 ? 1 : page;
-    	long totalRow = commonWebpageService.countByKeywordAndDomain(tempArr[0],tempArr[1]);
-    	
-	TablePage tp = null;
-	ResultListBundle<Webpage> resultBundle = null;
-	if (totalRow > 0) {
-		tp = new TablePage(totalRow, page, 10);
-		tp.checkAgain();
-		if (page > tp.getPageCount()) {
-			page = tp.getPageCount();
-		}
-		tp.setOtherParam(sbf.toString());
-		resultBundle = commonWebpageService.getWebPageByKeywordAndDomain(tempArr[0],tempArr[1],10,page);
-	}
-	modelAndView.addObject("tablePage", tp).addObject("resultBundle", resultBundle);
+        ModelAndView modelAndView = new ModelAndView("panel/commons/list");
+        StringBuilder sbf = new StringBuilder();
+        sbf.append("&query=");
+        if (StringUtils.isNotBlank(query)) {
+            query = query.trim();
+            sbf.append(query);
+        }
+        sbf.append("&domain=");
+        if (StringUtils.isNotBlank(domain)) {
+            domain = domain.trim();
+            sbf.append(domain);
+        }
+        page = page < 1 ? 1 : page;
+        TablePage tp = null;
+        ResultBundle<Pair<List<Webpage>, Long>> resultBundle = commonWebpageService.getWebPageByKeywordAndDomain(query, domain, 10, page);
+        if (resultBundle.getResult().getRight() > 0) {
+            tp = new TablePage(resultBundle.getResult().getRight(), page, 10);
+            tp.checkAgain();
+            tp.setOtherParam(sbf.toString());
+        }
+        modelAndView.addObject("tablePage", tp).addObject("resultBundle", resultBundle.getResult().getKey());
         return modelAndView;
     }
 
@@ -127,12 +112,12 @@ public class CommonsSpiderPanel extends BaseController {
         }
         ResultBundle<Long> runningTaskCount = commonsSpiderService.countByState(State.RUNNING);
         modelAndView.addObject("resultBundle", listBundle)
-        	.addObject("runningTaskCount", runningTaskCount.getResult())
-        	.addObject("spiderInfoList", listBundle.getResultList().stream()
-        			.map(task -> StringEscapeUtils.escapeHtml4(
-                        gson.toJson(task.getExtraInfoByKey("spiderInfo")
-                        ))
-                ).collect(Collectors.toList()));
+                .addObject("runningTaskCount", runningTaskCount.getResult())
+                .addObject("spiderInfoList", listBundle.getResultList().stream()
+                        .map(task -> StringEscapeUtils.escapeHtml4(
+                                gson.toJson(task.getExtraInfoByKey("spiderInfo")
+                                ))
+                        ).collect(Collectors.toList()));
         return modelAndView;
     }
 
@@ -149,19 +134,19 @@ public class CommonsSpiderPanel extends BaseController {
             SpiderInfo spiderInfo = gson.fromJson(jsonSpiderInfo, SpiderInfo.class);
             //对可能含有html的字段进行转义
             spiderInfo.setPublishTimeReg(StringEscapeUtils.escapeHtml4(spiderInfo.getPublishTimeReg()))
-		            .setCategoryReg(StringEscapeUtils.escapeHtml4(spiderInfo.getCategoryReg()))
-		            .setContentReg(StringEscapeUtils.escapeHtml4(spiderInfo.getContentReg()))
-		            .setTitleReg(StringEscapeUtils.escapeHtml4(spiderInfo.getTitleReg()))
-		            .setPublishTimeXPath(StringEscapeUtils.escapeHtml4(spiderInfo.getPublishTimeXPath()))
-		            .setCategoryXPath(StringEscapeUtils.escapeHtml4(spiderInfo.getCategoryXPath()))
-		            .setContentXPath(StringEscapeUtils.escapeHtml4(spiderInfo.getContentXPath()))
-		            .setTitleXPath(StringEscapeUtils.escapeHtml4(spiderInfo.getTitleXPath()));
+                    .setCategoryReg(StringEscapeUtils.escapeHtml4(spiderInfo.getCategoryReg()))
+                    .setContentReg(StringEscapeUtils.escapeHtml4(spiderInfo.getContentReg()))
+                    .setTitleReg(StringEscapeUtils.escapeHtml4(spiderInfo.getTitleReg()))
+                    .setPublishTimeXPath(StringEscapeUtils.escapeHtml4(spiderInfo.getPublishTimeXPath()))
+                    .setCategoryXPath(StringEscapeUtils.escapeHtml4(spiderInfo.getCategoryXPath()))
+                    .setContentXPath(StringEscapeUtils.escapeHtml4(spiderInfo.getContentXPath()))
+                    .setTitleXPath(StringEscapeUtils.escapeHtml4(spiderInfo.getTitleXPath()));
             for (SpiderInfo.FieldConfig config : spiderInfo.getDynamicFields()) {
                 config.setRegex(StringEscapeUtils.escapeHtml4(config.getRegex()))
-                	.setXpath(StringEscapeUtils.escapeHtml4(config.getXpath()));
+                        .setXpath(StringEscapeUtils.escapeHtml4(config.getXpath()));
             }
             modelAndView.addObject("spiderInfo", spiderInfo)
-            			.addObject("jsonSpiderInfo", jsonSpiderInfo);
+                    .addObject("jsonSpiderInfo", jsonSpiderInfo);
         } else {
             modelAndView.addObject("spiderInfo", new SpiderInfo());
         }
@@ -180,20 +165,20 @@ public class CommonsSpiderPanel extends BaseController {
         SpiderInfo spiderInfo = spiderInfoService.getById(spiderInfoId).getResult();
         //对可能含有html的字段进行转义
         spiderInfo.setPublishTimeReg(StringEscapeUtils.escapeHtml4(spiderInfo.getPublishTimeReg()))
-		        .setCategoryReg(StringEscapeUtils.escapeHtml4(spiderInfo.getCategoryReg()))
-		        .setContentReg(StringEscapeUtils.escapeHtml4(spiderInfo.getContentReg()))
-		        .setTitleReg(StringEscapeUtils.escapeHtml4(spiderInfo.getTitleReg()))
-		        .setPublishTimeXPath(StringEscapeUtils.escapeHtml4(spiderInfo.getPublishTimeXPath()))
-		        .setCategoryXPath(StringEscapeUtils.escapeHtml4(spiderInfo.getCategoryXPath()))
-		        .setContentXPath(StringEscapeUtils.escapeHtml4(spiderInfo.getContentXPath()))
-		        .setTitleXPath(StringEscapeUtils.escapeHtml4(spiderInfo.getTitleXPath()));
-        
+                .setCategoryReg(StringEscapeUtils.escapeHtml4(spiderInfo.getCategoryReg()))
+                .setContentReg(StringEscapeUtils.escapeHtml4(spiderInfo.getContentReg()))
+                .setTitleReg(StringEscapeUtils.escapeHtml4(spiderInfo.getTitleReg()))
+                .setPublishTimeXPath(StringEscapeUtils.escapeHtml4(spiderInfo.getPublishTimeXPath()))
+                .setCategoryXPath(StringEscapeUtils.escapeHtml4(spiderInfo.getCategoryXPath()))
+                .setContentXPath(StringEscapeUtils.escapeHtml4(spiderInfo.getContentXPath()))
+                .setTitleXPath(StringEscapeUtils.escapeHtml4(spiderInfo.getTitleXPath()));
+
         for (SpiderInfo.FieldConfig config : spiderInfo.getDynamicFields()) {
-        	config.setRegex(StringEscapeUtils.escapeHtml4(config.getRegex()))
-        	.setXpath(StringEscapeUtils.escapeHtml4(config.getXpath()));
+            config.setRegex(StringEscapeUtils.escapeHtml4(config.getRegex()))
+                    .setXpath(StringEscapeUtils.escapeHtml4(config.getXpath()));
         }
         modelAndView.addObject("spiderInfo", spiderInfo)
-        			.addObject("jsonSpiderInfo", gson.toJson(spiderInfo));
+                .addObject("jsonSpiderInfo", gson.toJson(spiderInfo));
         return modelAndView;
     }
 
@@ -206,7 +191,7 @@ public class CommonsSpiderPanel extends BaseController {
             modelAndView.addObject("spiderInfoList", spiderInfoService.getByDomain(domain, 10, page).getResultList());
         }
         modelAndView.addObject("page", page)
-        			.addObject("domain", domain);
+                .addObject("domain", domain);
         return modelAndView;
     }
 
@@ -214,7 +199,7 @@ public class CommonsSpiderPanel extends BaseController {
     public ModelAndView updateBySpiderInfoID(@RequestParam(required = false, defaultValue = "") String spiderInfoIdUpdateBy, @RequestParam(required = false, defaultValue = "") String spiderInfoJson) {
         ModelAndView modelAndView = new ModelAndView("panel/commons/updateBySpiderInfoID");
         modelAndView.addObject("spiderInfoJson", spiderInfoJson)
-        			.addObject("spiderInfoIdUpdateBy", spiderInfoIdUpdateBy);
+                .addObject("spiderInfoIdUpdateBy", spiderInfoIdUpdateBy);
         return modelAndView;
     }
 
@@ -228,7 +213,7 @@ public class CommonsSpiderPanel extends BaseController {
     public ModelAndView showWebpageById(String id) {
         ModelAndView modelAndView = new ModelAndView("panel/commons/showWebpageById");
         modelAndView.addObject("webpage", commonWebpageService.getWebpageById(id).getResult())
-        			.addObject("relatedWebpageList", commonWebpageService.moreLikeThis(id, 15, 1).getResultList());
+                .addObject("relatedWebpageList", commonWebpageService.moreLikeThis(id, 15, 1).getResultList());
         return modelAndView;
     }
 
@@ -263,11 +248,11 @@ public class CommonsSpiderPanel extends BaseController {
         }
         title += queryWord + "的相关信息";
         modelAndView.addObject("relatedPeople", result.getKey().get("relatedPeople"))
-			        .addObject("title", title)
-			        .addObject("relatedLocation", result.getKey().get("relatedLocation"))
-			        .addObject("relatedInstitution", result.getKey().get("relatedInstitution"))
-			        .addObject("relatedKeywords", result.getKey().get("relatedKeywords"))
-			        .addObject("relatedWebpageList", result.getValue());
+                .addObject("title", title)
+                .addObject("relatedLocation", result.getKey().get("relatedLocation"))
+                .addObject("relatedInstitution", result.getKey().get("relatedInstitution"))
+                .addObject("relatedKeywords", result.getKey().get("relatedKeywords"))
+                .addObject("relatedWebpageList", result.getValue());
         return modelAndView;
     }
 

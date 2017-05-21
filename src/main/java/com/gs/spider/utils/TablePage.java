@@ -52,8 +52,6 @@ public final class TablePage {
 	/**
 	 * 根据总页数和当前页，显示最多5项，尽量以当前页为中心
 	 * @return 返回起始和结束位置
-	 * 1 2 3 4 5 6 7 
-	 * all:7
 	 */
 	public int[] getPageRange(){
 		int begin = 1,end = pageCount;

@@ -201,7 +201,7 @@
                                 engContentCount++;
                             }
                             if(item.content.length > 50){
-                            	tempContent = item.content.substring(0,51);
+                                tempContent = item.content.substring(0, 51) + "····[省略" + (item.content.length - 50) + "字]";
                             }
                             dynamicFieldList[i] = item.dynamicFields;
                             $('<tr style="word-break:break-all; word-wrap:break-word;">' +

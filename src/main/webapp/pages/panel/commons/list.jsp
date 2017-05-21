@@ -69,12 +69,20 @@
 			$("#domain").val(null);
 		}
     </script>
+    <style type="text/css">
+        .divide {
+            height: 5px;
+            width: 100%;
+        }
+    </style>
+
 </head>
 <body>
 <%@include file="../../commons/head.jsp" %>
 
 <div class="col-md-10 col-md-offset-1">
-	<div class="container" style="margin: 5px 0 5px 0;">
+    <div class="divide"></div>
+    <div class="container">
 	    <form class="form-inline" id="webpageForm" action="${pageContext.request.contextPath}/panel/commons/list">
 	    	<div class="col-md-5">
 		        <div class="form-group">
@@ -95,6 +103,7 @@
 	    	</div>
 	    </form>
 	</div>
+    <div class="divide"></div>
 	<div class="container">
 	    <div class="row">
 	        <table class="table table-border table-hover">
@@ -111,7 +120,7 @@
 	            </thead>
 	            <tbody>
 	            	<c:if test="${resultBundle ne null}">
-	            		 <c:forEach items="${resultBundle.resultList }" var="webpage" varStatus="wpIndex">
+                        <c:forEach items="${resultBundle}" var="webpage" varStatus="wpIndex">
 	            			<tr>
 			                    <th scope="row">${wpIndex.count}</th>
 			                    <td>${webpage.title}</td>
