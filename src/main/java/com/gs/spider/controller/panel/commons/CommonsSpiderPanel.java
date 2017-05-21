@@ -67,35 +67,34 @@ public class CommonsSpiderPanel extends BaseController {
     	sbf.append("&query=");
     	if (StringUtils.isNotBlank(query)) {
     		query = query.trim();
-    		tempArr[0] = query+"*";
+    		tempArr[0] = query;
     		sbf.append(query);
-		}else{
-			tempArr[0] = "*";
-		}
+	}else{
+		tempArr[0] = "*";
+	}
     	sbf.append("&domain=");
     	if (StringUtils.isNotBlank(domain)) {
     		domain = domain.trim();
     		tempArr[1] = domain+"*";
     		sbf.append(domain);
-		}else{
-			tempArr[1] = "*";
-		}
+	}else{
+		tempArr[1] = "*";
+	}
     	page = page < 1 ? 1 : page;
     	long totalRow = commonWebpageService.countByKeywordAndDomain(tempArr[0],tempArr[1]);
     	
-		TablePage tp = null;
-		ResultListBundle<Webpage> resultBundle = null;
-		if (totalRow > 0) {
-			tp = new TablePage(totalRow, page, 10);
-			tp.checkAgain();
-			if (page > tp.getPageCount()) {
-				page = tp.getPageCount();
-			}
-			tp.setOtherParam(sbf.toString());
-			resultBundle = commonWebpageService.getWebPageByKeywordAndDomain(tempArr[0],tempArr[1],10,page);
+	TablePage tp = null;
+	ResultListBundle<Webpage> resultBundle = null;
+	if (totalRow > 0) {
+		tp = new TablePage(totalRow, page, 10);
+		tp.checkAgain();
+		if (page > tp.getPageCount()) {
+			page = tp.getPageCount();
 		}
-		modelAndView.addObject("tablePage", tp)
-					.addObject("resultBundle", resultBundle);
+		tp.setOtherParam(sbf.toString());
+		resultBundle = commonWebpageService.getWebPageByKeywordAndDomain(tempArr[0],tempArr[1],10,page);
+	}
+	modelAndView.addObject("tablePage", tp).addObject("resultBundle", resultBundle);
         return modelAndView;
     }
 
@@ -190,9 +189,8 @@ public class CommonsSpiderPanel extends BaseController {
 		        .setTitleXPath(StringEscapeUtils.escapeHtml4(spiderInfo.getTitleXPath()));
         
         for (SpiderInfo.FieldConfig config : spiderInfo.getDynamicFields()) {
-        	
         	config.setRegex(StringEscapeUtils.escapeHtml4(config.getRegex()))
-        		.setXpath(StringEscapeUtils.escapeHtml4(config.getXpath()));
+        	.setXpath(StringEscapeUtils.escapeHtml4(config.getXpath()));
         }
         modelAndView.addObject("spiderInfo", spiderInfo)
         			.addObject("jsonSpiderInfo", gson.toJson(spiderInfo));
