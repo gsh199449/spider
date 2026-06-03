@@ -40,3 +40,9 @@ Gather Platform 数据抓取平台是一套基于[Webmagic](https://github.com/c
 ## 联系我
 
 邮箱: 63388@qq.com
+
+## 广告位
+
+<img src="https://github.com/gsh199449/spider/blob/master/doc/imgs/ad.jpg?raw=true" alt="show"/>
+
+RapidProxy – 专为爬虫开发者和数据采集团队打造的全球住宅代理平台，拥有来自 200+ 国家和地区的 9000万+ 真实住宅 IP。支持动态轮换、精准定位和高并发采集，帮助提升成功率并降低封禁风险。立即免费测试！
